@@ -1,0 +1,42 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2> {{'editQuizCategory' | translate}}</h2>
+        </div>
+        <div class=" col-sm-4 text-right">
+            <button [routerLink]="['/layout/manageMosque/listQuizCategory']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i _ngcontent-c4="" class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="editQuizCategoryForm" (ngSubmit)="editQuizCategory()">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="title" class="form-control" />
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'title' | translate}}</div>
+                                    </div>
+                                </div>
+                                <!-- <div *ngIf="editQuizCategoryForm.controls['title'].dirty && editQuizCategoryForm.controls['title'].invalid">
+                                    <p class="form_error" *ngIf="editQuizCategoryForm.controls['title'].dirty && editQuizCategoryForm.controls['title'].hasError('required')">{{'boardTitle' | translate}}</p>
+                                    <p class="form_error" *ngIf="editQuizCategoryForm.controls['title'].dirty && editQuizCategoryForm.controls['title'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage">
+                            <button class="btn btn-primary" type="submit">{{'create' | translate}}</button>
+                            <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listQuizCategory']">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

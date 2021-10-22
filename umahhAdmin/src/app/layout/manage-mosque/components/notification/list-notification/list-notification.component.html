@@ -1,0 +1,281 @@
+<div [@routerTransition]>
+    <div>
+        <div class="row">
+            <div class="col col-sm-7">
+                <h2>{{'listofNotification' | translate}} </h2>
+            </div>
+            <div class="col-sm-5">
+                <!-- div class=" searchDiv mt-2">
+                        <form [formGroup]="searchUserForm">
+
+                                <input type="text" class="searchInput" maxlength="64" placeholder="Search" formControlName="searchText">
+                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="searchUser()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body tableData">
+                    <div class="row searchDiv">
+                        <!-- <div class=" col-sm-6">
+                            <form [formGroup]="searchUserForm"> -->
+                        <!--class  searchInput -->
+                        <!-- <input type="text" class="searchInput" maxlength="64" placeholder="Search" formControlName="searchText">
+                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="searchUser()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div> -->
+                        <div class=" col-sm-12 text-right">
+                            <button *ngIf="sharedService.checkPermission('patient','create')" class="btn btn-sm btn-success addUserBtn" [routerLink]="['/layout/manageMosque/addNotification']" type="button">
+                                <i class="fa fa-plus"></i>
+                                {{'notificationAdd' | translate}}
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive" *ngIf="sharedService.checkPermission('patient','view')">
+                        <p-table [value]="mosqueNotificationList" class="table table-sm table-striped tableList" id="tableList">
+                            <ng-template pTemplate="header" class="thead-dark">
+                                <tr>
+                                    <th scope="col">{{'descriptionMessage' | translate}}</th>
+                                    <!--  <th scope="col">Title</th> -->
+                                    <!-- <th scope="col">Clinic Name</th> -->
+                                    <th scope="col" width="150">{{'created' | translate}}</th>
+                                    <!--  <th scope="col" width="100" *ngIf="loggedInUserDetails.userType!='admin' && displayActions">Active</th> -->
+                                    <th scope="col" width="150">{{'action' | translate}}</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-notification>
+                                <tr>
+                                    <td>
+                                        <div class="text-wrap" [innerHTML]="(notification.description.length>0)? (notification.description | slice:0:1000)+'..':(notification.description)">
+
+                                        </div>
+                                    </td>
+
+                                    <!--                                     <td>
+                                        {{board.title}}
+                                    </td> -->
+
+                                    <!-- <td>
+                                        {{!patient.associated_clinic_detail[0] ? 'NA' : patient.associated_clinic_detail[0].clinicName}}
+                                    </td> -->
+
+                                    <td>
+                                        {{notification.createdAt | date }}
+                                    </td>
+
+                                    <!-- <td *ngIf="loggedInUserDetails.userType!='admin' && displayActions">
+                                        <div class="checkbox checbox-switch switch-primary">
+                                            <label>
+
+                                                <input type="checkbox" name="" [checked]="patient.status==='1' ? true : false" (change)="onStatusChange($event,patient._id)"
+                                                />
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </td> -->
+                                    <td>
+                                        <!--      <span>
+                                            <a pTooltip="Edit" tooltipPosition="top" class="" [routerLink]="['/layout/manageMosque/editBoard',board._id]">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
+                                        </span> -->
+                                        <a pTooltip="Delete" tooltipPosition="top" *ngIf="sharedService.checkPermission('notification','delete')" class="ml-3" (click)="showDeleteDialog(notification._id,notification)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <!-- <a pTooltip="Assign survey" *ngIf="loggedInUserDetails.userType=='clinic' || loggedInUserDetails.userType=='staff'" tooltipPosition="top" class="ml-3" [routerLink]="['/layout/patientDetails/assignSurveyToPatient',patient._id]">
+                                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                        </a>
+                                        <a pTooltip="Assign Provider" *ngIf="loggedInUserDetails.userType=='clinic'" tooltipPosition="top" class="ml-3" (click)="assignProviderDialog(patient);">
+                                            <i class="fa fa-user-md" aria-hidden="true"></i>
+                                        </a> -->
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="6">
+                                        {{'dataNotFound' | translate}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <!-- *ngIf="topics.length != 0" -->
+                        <div>
+                            <div *ngIf="totalCount > count">
+                                <p-paginator alwaysShow='false' pageLinkSize="{{pageCountLink}}" rows="{{count}}" totalRecords="{{totalCount}}" (onPageChange)="paginate($event, 'patient')"></p-paginator>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- </div> -->
+
+    <!-- User add edit dialogue -->
+    <!-- <p-dialog header="{{setHeadMode}}" [(visible)]="display" closeOnEscape="true" (onHide)="closeDialog()" [modal]="true" [responsive]="true"
+    [width]="500" [minWidth]="300" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <form class="addUser-form" [formGroup]="addPatientForm">
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Email
+                </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" formControlName="email" type="email" class="form-control input-md">
+                    <div *ngIf="addPatientForm.controls['email'].dirty && addPatientForm.controls['email'].invalid">
+                        <p class="form_error" *ngIf="addPatientForm.controls['email'].hasError('required')">Please enter
+                            Email.
+                        </p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['email'].dirty && addPatientForm.controls['email'].hasError('pattern')">Please
+                            enter the correct email.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">First Name </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" type="text" formControlName="firstName" class="form-control input-md">
+                    <div *ngIf="addPatientForm.controls['firstName'].dirty && addPatientForm.controls['firstName'].invalid">
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].dirty && addPatientForm.controls['firstName'].hasError('required')">Please
+                            enter first name.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].hasError('maxlength')">You can
+                            add only 30 charater.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].hasError('minlength')">Minimum
+                            2 charater required.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].dirty&& !addPatientForm.controls['firstName'].hasError('required')&&!addPatientForm.controls['firstName'].hasError('maxlength') && !addPatientForm.controls['firstName'].hasError('minlength') && addPatientForm.controls['firstName'].hasError('pattern')">Please
+                            enter the correct name.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Last Name
+                </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" type="text" formControlName="lastName" class="form-control input-md">
+                    <div *ngIf="addPatientForm.controls['lastName'].dirty && addPatientForm.controls['lastName'].invalid">
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].dirty && addPatientForm.controls['lastName'].hasError('required')">Please
+                            enter Last name.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].hasError('maxlength')">You can add
+                            only 30 charater.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].hasError('minlength')">Minimum 2
+                            charater required.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].dirty&&!addPatientForm.controls['lastName'].hasError('required')&&!addPatientForm.controls['lastName'].hasError('maxlength') && !addPatientForm.controls['lastName'].hasError('minlength') && addPatientForm.controls['lastName'].hasError('pattern')">Please
+                            enter the correct name.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" [disabled]="!addPatientForm.valid" (click)="btnMode=='Create' ? addPatient() : editPatient()" class="btn btn-primary">{{btnMode}}</button>
+        <button type="button" (click)="closeDialog()" class="btn btn-default">Close</button>
+    </p-footer>
+</p-dialog> -->
+
+    <!-- User delete conformation dialogue -->
+    <p-dialog header="Delete Confirmation " [(visible)]="displayDelete" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+        <span>
+        <span class="fa fa-info-circle fa-lg mr-2"></span> {{'removeRecord' | translate}}
+        <br>
+        </span>
+        <br>
+        <p-footer>
+            <button type="button" class="btn btn-primary" (click)="deleteNotification()">
+            {{'yes' | translate}}</button>
+            <button type="button" class="btn btn-default " (click)="displayDelete = false;">
+            {{'no' | translate}}</button>
+        </p-footer>
+    </p-dialog>
+
+
+    <!-- Assign survey dialogue -->
+    <!-- <p-dialog header="Assign Survey"  [(visible)]="showSurveyStatus" [modal]="true" [responsive]="true" [width]="900"
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="mb-3">
+                <div class="tableData">
+                    <div [ngClass]="{'spinner' : loader}">
+                    </div>
+
+                    <div class="table-responsive datePopup">
+                        <p-table [value]="finalArr" class="table table-sm table-striped tableList" id="tableList">
+                            <ng-template pTemplate="header" class="thead-dark">
+                                <tr>
+                                    <th scope="col" width="150">Survey Name </th>
+                                    <th scope="col" width="120">Created</th>
+                                    <th scope="col" width="60">Action</th>
+                                    <th scope="col" width="60">Assign</th>
+                                    <th scope="col" width="250">Appointment Date</th>
+                                    <th scope="col" width="250">Assign To Survey</th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-survey>
+                                <tr>
+                                    <td>{{survey.surveyData.surveyName}}</td>
+                                    <td>{{survey.surveyData.createdAt | date }}</td>
+                                    <td>
+                                        <span>
+                                            <a class="ml-3" (click)="showSurvey(survey.surveyData._id);">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <p-checkbox value="survey.isAssignSurveyChecked" binary="isAssignSurveyChecked" [(ngModel)]="survey.isAssignSurveyChecked"></p-checkbox>
+                                    </td>
+                                    <td>
+                                        <p-calendar [(ngModel)]="survey.appointmentDate"  [monthNavigator]="true" [yearNavigator]="true" (onSelect)="hideCalender=true" [hideOnDateTimeSelect]="hideCalender" [showTime]="true" [showSeconds]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+                                    </td>
+                                    <td>
+                                        <p-multiSelect [options]="survey.optionlistArr" [(ngModel)]="survey.assign_to_id" placeholder="Select staff to assign" optionLabel="userName"
+                                            (onChange)="setStaffId($event,survey._id)" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="5">
+                                        No survey are present
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div *ngIf="surveyTotalCount > surveyCount">
+                            <p-paginator alwaysShow='false' pageLinkSize="{{surveyPageCountLink}}" rows="{{surveyCount}}" totalRecords="{{surveyTotalCount}}"
+                                (onPageChange)="paginate($event,'survey')"></p-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-primary" (click)="assignSurvey()">
+            Assign</button>
+        <button type="button" class="btn btn-default " (click)="closeShowSurveyStatus()">
+            Cancel</button>
+    </p-footer>
+</p-dialog> -->
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

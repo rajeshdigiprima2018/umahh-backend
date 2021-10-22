@@ -1,0 +1,87 @@
+<div class="row">
+    <div class=" col-sm-8 ">
+        <h2>Create Donation Category</h2>
+    </div>
+    <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+    <div class=" col-sm-4  text-right">
+        <button [routerLink]="['/layout/manageMosque/listDonationCategory']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> Back</button>
+    </div>
+    <div class="col col-sm-12">
+        <div class="card mb-3">
+            <div class="card-body ">
+                <!-- Title input-->
+                <form class="topic" [formGroup]="addDonationCategoryForm" (ngSubmit)="addDonationCategory()">
+                    <!-- Title -->
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 control-label labelTextR" for="name">Title :</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" formControlName="title" class="form-control" />
+                            </div>
+                            <div *ngIf="addDonationCategoryForm.controls['title'].dirty && addDonationCategoryForm.controls['title'].invalid">
+                                <p class="form_error" *ngIf="addDonationCategoryForm.controls['title'].dirty && addDonationCategoryForm.controls['title'].hasError('required')">Please enter title.</p>
+                                <p class="form_error" *ngIf="addDonationCategoryForm.controls['title'].dirty && addDonationCategoryForm.controls['title'].hasError('pattern')">Please enter the correct title.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start Date -->
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 control-label labelTextR" for="name">Start Date :</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="startDate" class="form-control" />
+                            </div>
+                            <div *ngIf="addDonationCategoryForm.controls['startDate'].dirty && addDonationCategoryForm.controls['startDate'].invalid">
+                                <p class="form_error" *ngIf="addDonationCategoryForm.controls['startDate'].dirty && addDonationCategoryForm.controls['startDate'].hasError('required')">Please enter startDate.</p>
+                                <p class="form_error" *ngIf="addDonationCategoryForm.controls['startDate'].dirty && addDonationCategoryForm.controls['startDate'].hasError('pattern')">Please enter the correct startDate.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-3 control-label labelTextR" for="name">End Date :</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="endDate" class="form-control" />
+                            </div>
+                            <div *ngIf="addDonationCategoryForm.controls['endDate'].dirty && addDonationCategoryForm.controls['endDate'].invalid">
+                                <p class="form_error" *ngIf="addDonationCategoryForm.controls['endDate'].dirty && addDonationCategoryForm.controls['endDate'].hasError('required')">Please enter endDate.</p>
+                                <p class="form_error" *ngIf="addDonationCategoryForm.controls['image'].dirty && addDonationCategoryForm.controls['endDate'].hasError('pattern')">Please enter the correct endDate.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end date -->
+                    <!--  <div>
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3 control-label labelTextR" for="name">Select file :</label>
+                <div class="col-md-5 ">
+                <div class="selectFile">
+                    <input type="file" formControlName="image" name="image" id="videoPath" (change)="onFileChange($event)" accept="video/mp4,video/x-m4v" #fileInput
+                    />
+                  </div>
+                  <div *ngIf="addDonationCategoryForm.controls['image'].dirty && addDonationCategoryForm.controls['image'].invalid">
+                    <p class="form_error" *ngIf="addDonationCategoryForm.controls['image'].dirty && addDonationCategoryForm.controls['image'].hasError('required')">Please enter select file.</p>
+                    <p class="form_error" *ngIf="addDonationCategoryForm.controls['image'].dirty && addDonationCategoryForm.controls['image'].hasError('pattern')">Please enter the correct select file.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+                    <div class="bottomBtnPage">
+                        <button class="btn btn-primary" type="submit" [disabled]='!addDonationCategoryForm.valid'>Create</button>
+                        <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listDonationCategory']">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div [ngClass]="{'spinner' : isLoading}">
+</div> -->

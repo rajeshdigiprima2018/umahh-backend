@@ -1,0 +1,83 @@
+.clearFix{ clear: both;}
+.commentInfo {
+    font-size: 14px;
+    color: #666;
+    line-height: 18px;
+    text-align: justify;
+}
+.commentInfo  img{     width: 34px;
+    height: 34px;
+    float: left;}
+.commentShow{}
+.commentIcon ul
+{
+    padding-left: 0;
+    margin-left: 0;
+    list-style: none;
+    margin-top: 10px;
+    text-align: right;
+}
+.commentTitle{
+    color: #008ed6;
+}
+.commentIcon ul li  {
+    display: inline-block;
+    padding-right: 14px;
+    padding-left: 0;
+}
+.commentReplyInfo { margin-left: 40px;}
+.commentReplyInfo  img{     width: 34px;
+    height: 34px;
+    float: left;}
+
+    .commentsMain{
+        background: #f6f6f6;
+        padding: 10px;
+        margin-bottom: 4px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .addLogo{margin-right: 5px;
+    margin-top: 11px;
+}
+
+    .commentNameClass{color: #3e5569!important;}
+    .commentReplyAll{
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #fff;
+    }
+    .commentsMain a{ color: #666;}
+    .commentsMain a:hover{ color: #008ed6;}
+
+    .videoshare  a{ color: #666;}
+    .videoshare a:hover{ color: #008ed6;}
+    .videoshare a.shareAct{ color: #008ed6;}
+    .likecolor {color: #008ed6;}
+    .shareCommentIcon  button{ border:0 solid #333!important}
+    .shareCommentIcon i {
+        margin-right: 0;
+    }
+
+  
+ 
+    #video_box{
+        float:right;
+    }
+    #video_overlays {
+    position:absolute;
+        width:90px;
+        z-index:1;
+        position: absolute;
+        font-size: 14px;
+    bottom: 40px;
+    right: 10px;
+    background: rgba(255,255,255,0.5);
+    border: 0;
+    }
+
+    #video_overlays:hover{
+        background: rgba(255,255,255,1);
+    }

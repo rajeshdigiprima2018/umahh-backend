@@ -1,0 +1,232 @@
+<!-- <div class="row ">
+  <div class=" col-sm-8 col-xl-8">
+    <h2> Create health topic</h2>
+  </div>
+  <div class=" col-sm-4 col-xl-4 text-right">
+    <button [routerLink]="['/layout/manageContent/listTopics']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+</div>
+<div class="row ">
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <div class="list-group listManagement">
+          <div class="row">
+            <form class="topic" [formGroup]="addTopicForm" (ngSubmit)="addTopic()">
+              <div class="row">
+                <div class="col-md-5">
+                  <label class="profile-name">Title</label>
+                  <input type="text" formControlName="title" class="form-control">
+                  <div *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].invalid">
+                    <p class="form_error" *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].hasError('required')">Please enter title.</p>
+                    <p class="form_error" *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 60 characters.</p>
+                    <p class="form_error" *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].hasError('pattern')">Please enter the correct title</p>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <label class="profile-name">Status</label>
+                  <br/>
+                  <input type="radio" value="public" formControlName="status"> Public
+
+                  <input type="radio" value="private" formControlName="status"> Private
+                  <br>
+                  <div *ngIf="addTopicForm.controls['status'].dirty && addTopicForm.controls['status'].invalid">
+                    <p class="form_error" *ngIf="addTopicForm.controls['status'].dirty && addTopicForm.controls['status'].hasError('required')">Please select status.</p>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <label class="control-label labelTextR" for="name">Select :</label>
+                  <div class="col-md-5 ">
+                    <div class="checkRadioBtn">
+                      <input type="radio" value="write"  (change)="optionSelectDescription($event)"> Description to write
+                      <input type="radio" value="pdf"  (change)="optionSelectPdf($event)"> Upload pdf -->
+                      <!-- <div *ngIf="addTopicForm.controls['selectFilestatus'].dirty && addTopicForm.controls['selectFilestatus'].invalid">
+                        <p class="form_error" *ngIf="addTopicForm.controls['selectFilestatus'].dirty && addTopicForm.controls['selectFilestatus'].hasError('required')">Please select status.</p>
+                      </div> -->
+                    <!-- </div>
+                  </div>
+                </div> -->
+                <!-- <div *ngIf="selectType=='select'"> -->
+                  <!-- <div class="form-group"> -->
+                      <!-- <div class="col-md-5" *ngIf="selectType=='pdf'">
+                        <label class="col-md-3 control-label labelTextR mt-20" for="name">Select file :</label>
+                        <div class="col-md-5 "> -->
+                          <!-- <p-fileUpload name="myfile[]" url="./upload.php"></p-fileUpload> -->
+                          <!-- <img  [src]= "videourl ? videourl : 'assets/images/doctor.png'" class="userImgPro" /> -->
+                         <!-- <div class="selectFile">
+                          <input type="file" name="videoPath" id="videoPath" (change)="onFileChange($event)" #fileInput />
+                         </div>
+                        </div>
+                      </div> -->
+                    <!-- </div> -->
+              <!-- </div> -->
+                <!-- <div class="col-md-10" *ngIf="selectType=='write'">
+                  <label class="profile-name">Description</label>
+                  <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                  <div *ngIf="addTopicForm.controls['description'].dirty && addTopicForm.controls['description'].invalid">
+                    <p class="form_error" *ngIf="addTopicForm.controls['description'].dirty && addTopicForm.controls['description'].hasError('required')">Please enter description.</p>
+                    <p class="form_error" *ngIf="addTopicForm.controls['description'].dirty && addTopicForm.controls['description'].hasError('pattern')">Please enter the correct description.</p>
+                  </div>
+                </div>
+                <div class="col-md-12 text-right">
+                  <button type="submit" [disabled]='!addTopicForm.valid' class="btn btn-primary ">Save</button>
+                  <button type="button" [routerLink]="['/layout/manageContent/listTopics']" class="btn btn-default ">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="row">
+  <div class=" col-sm-8 ">
+    <h2>Create Suggestion</h2>
+  </div>
+<!-- 
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+  <div class=" col-sm-4  text-right">
+    <button [routerLink]="['/layout/manageMosque/listSuggestion']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <!-- Title input-->
+        <form class="topic" [formGroup]="addTopicForm" (ngSubmit)="addTopic()" autocomplete="off">
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Title :</label>
+              <div class="col-md-5">
+                <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                <input type="text" id="Title" name="Title" formControlName="title" placeholder="Title" class="form-control">
+                <div *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].invalid">
+                  <p class="form_error" *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].hasError('required')">Please enter title.</p>
+                  <p class="form_error" *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 200 characters.</p>
+                  <p class="form_error" *ngIf="addTopicForm.controls['title'].dirty && addTopicForm.controls['title'].hasError('pattern')">Please enter the correct title.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status input-->
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Status :</label>
+              <div class="col-md-5 ">
+                <div class="checkRadioBtn">
+                  <input type="radio" value="public" formControlName="status"> Public
+                  <input type="radio" value="private" formControlName="status"> Private
+                  <div *ngIf="addTopicForm.controls['status'].dirty && addTopicForm.controls['status'].invalid">
+                    <p class="form_error" *ngIf="addTopicForm.controls['status'].dirty && addTopicForm.controls['status'].hasError('required')">Please select status.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!--Select Category  -->
+            <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label labelTextR" for="name">Select Category :</label>
+                  <div class="col-md-5 ">
+                    <div>
+                      <div>
+                        <p-dropdown [options]="categoryType" class="input-md selectCategory"  formControlName="category" [style]="{'width':'390px'}"></p-dropdown>
+                      </div>
+                      <div *ngIf="addTopicForm.controls['category'].dirty && addTopicForm.controls['category'].invalid">
+                        <p class="form_error" *ngIf="addTopicForm.controls['category'].dirty && addTopicForm.controls['category'].hasError('required')">Please select category.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- Status input for Select Files-->
+            <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label labelTextR" for="name">Select :</label>
+                  <div class="col-md-5 ">
+                    <div class="checkRadioBtn">
+                      <input type="radio" value="write" formControlName="selectStatusType"  (change)="optionSelectDescription($event)"> Add description using editor <br/>
+                     <input type="radio" value="pdf" formControlName="selectStatusType"  (change)="optionSelectPdf($event)"> Add description using pdf
+                      <!-- <div *ngIf="addTopicForm.controls['selectFilestatus'].dirty && addTopicForm.controls['selectFilestatus'].invalid">
+                        <p class="form_error" *ngIf="addTopicForm.controls['selectFilestatus'].dirty && addTopicForm.controls['selectFilestatus'].hasError('required')">Please select status.</p>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          <!-- Drag & Drop files -->
+          <!-- <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Drag & Drop files :</label>
+              <div class="col-md-5 ">
+                <div class="dragDropFiles">
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- Select file  -->
+          <div *ngIf="selectType=='pdf'">
+              <div class="form-group">
+                  <div class="row">
+                    <label class="col-md-3 control-label labelTextR" for="name">Select file :</label>
+                    <div class="col-md-5 ">
+                      <!-- <p-fileUpload name="myfile[]" url="./upload.php"></p-fileUpload> -->
+                      <!-- <img  [src]= "videourl ? videourl : 'assets/images/doctor.png'" class="userImgPro" /> -->
+                     <div class="selectFile">
+                      <input type="file" name="videoPath" id="videoPath" (change)="onFileChange($event)" accept="application/pdf" #fileInput />
+                     </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+         
+
+          <!-- <div class="form-group">
+              <div class="row">
+                <label class="col-md-5 control-label labelTextR" for="name"></label>
+                <div class="col-md-5">
+                  <p>OR</p>
+                </div>
+              </div>
+            </div> -->
+
+          <!-- Description -->
+          <div class="form-group" *ngIf="selectType=='write'">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Description :</label>
+              <div class="col-md-8 ">
+                <!-- Add text editor -->
+                <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                <div *ngIf="addTopicForm.controls['description'].dirty && addTopicForm.controls['description'].invalid">
+                  <p class="form_error" *ngIf="addTopicForm.controls['description'].dirty && addTopicForm.controls['description'].hasError('required')">Please enter description.</p>
+                  <p class="form_error" *ngIf="addTopicForm.controls['description'].dirty && addTopicForm.controls['description'].hasError('pattern')">Please enter the correct description.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottomBtnPage topicBtn">
+            <button type="submit" [disabled]='!addTopicForm.valid' class="btn btn-primary ">Save</button>
+            <button type="button" [routerLink]="['/layout/manageContent/listTopics']" class="btn btn-default ">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>
+
+

@@ -1,0 +1,97 @@
+<div [@routerTransition]>
+<div class="row">
+  <div class=" col-sm-8 ">
+    <h2>Edit Board</h2>
+  </div>
+  <!-- 
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+  <div class=" col-sm-4  text-right">
+    <button [routerLink]="['/layout/manageMosque/listBoard']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <form [formGroup]="form">
+            <div class="row  profileInfo">
+                <div class="col-sm-12 col-md-12 text-center">
+                    <div class="profileImgEdit">
+                        <!-- src="assets/images/doctor.png" -->
+                        <div *ngIf="imageChange==false">
+                            <img [src]="imgurl ? baseimageurl+imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                        </div>
+                        <div *ngIf="imageChange==true">
+                            <img [src]="imgurl ? imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                        </div>
+                        <span class="editIcon"><i class="fa fa-camera" aria-hidden="true">
+                        <input type="file" name="image" id="imagePath" (change)="onFileChange($event)">
+                    </i></span>
+                    </div>
+                </div>
+            </div> 
+           <!--  <div class="bottomBtnInfo col-sm-12 text-center"><button class="btn btn-primary" type="submit">Submit</button>
+                            <button _ngcontent-c6="" class="btn btn-default" type="button" [routerLink]="['/layout/profile']">Cancel</button>
+                        </div>    -->
+        </form> 
+        <!-- Title input-->
+        <form class="topic" [formGroup]="editBoardForm" (ngSubmit)="editBoard()">
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Name :</label>
+              <div class="col-md-5">
+                <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                <input type="text" id="Name" name="Name" formControlName="name" placeholder="Name" class="form-control">
+                <div *ngIf="editBoardForm.controls['name'].dirty && editBoardForm.controls['name'].invalid">
+                  <p class="form_error" *ngIf="editBoardForm.controls['name'].dirty && editBoardForm.controls['name'].hasError('required')">Please enter name.</p>
+                  <p class="form_error" *ngIf="editBoardForm.controls['name'].dirty && editBoardForm.controls['name'].hasError('maxlength')">Please enter the correct name with maximum length 200 characters.</p>
+                  <p class="form_error" *ngIf="editBoardForm.controls['name'].dirty && editBoardForm.controls['name'].hasError('pattern')">Please enter the correct name.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Title :</label>
+              <div class="col-md-5">
+                <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                <input type="text" id="Title" name="Title" formControlName="title" placeholder="Title" class="form-control">
+                <div *ngIf="editBoardForm.controls['title'].dirty && editBoardForm.controls['title'].invalid">
+                  <p class="form_error" *ngIf="editBoardForm.controls['title'].dirty && editBoardForm.controls['title'].hasError('required')">Please enter title.</p>
+                  <p class="form_error" *ngIf="editBoardForm.controls['title'].dirty && editBoardForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 200 characters.</p>
+                  <p class="form_error" *ngIf="editBoardForm.controls['title'].dirty && editBoardForm.controls['title'].hasError('pattern')">Please enter the correct title.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Description -->
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Description :</label>
+              <div class="col-md-8 ">
+                <!-- Add text editor -->
+                <p-editor formControlName="textarea" [style]="{'height':'320px'}"></p-editor>
+                <div *ngIf="editBoardForm.controls['textarea'].dirty && editBoardForm.controls['textarea'].invalid">
+                  <p class="form_error" *ngIf="editBoardForm.controls['textarea'].dirty && editBoardForm.controls['textarea'].hasError('required')">Please enter description.</p>
+                  <p class="form_error" *ngIf="editBoardForm.controls['textarea'].dirty && editBoardForm.controls['textarea'].hasError('pattern')">Please enter the correct description.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottomBtnPage">
+            <button class="btn btn-primary" type="submit" [disabled]='!editBoardForm.valid'>Update</button>
+            <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listBoard']">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>
+</div>

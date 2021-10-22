@@ -1,0 +1,35 @@
+<div class="login-page" >
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+            <h1>Admin</h1>
+            <div class="input-group mb-3 inputTI">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-hospital-o"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Clinic name" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+            <form role="form" [formGroup]="loginForm"  method="post">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="email" formControlName="email" class="form-control input-underline input-lg" id="" placeholder="Email">
+                        <div *ngIf="loginForm.controls['email'].dirty && loginForm.controls['email'].invalid">
+                            <p class="form_error" *ngIf="loginForm.controls['email'].hasError('required')">Please enter email address or username.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg" id=""  formControlName="password" placeholder="Password">
+                        <div *ngIf="loginForm.controls['password'].dirty && loginForm.controls['password'].invalid">
+                            <p class="form_error" *ngIf="loginForm.controls['password'].hasError('required')">Please enter Password.</p>
+                        </div>
+                    </div>
+                </div>
+                 <a class="btn btn-primary"  (click)="login()"> Log in </a> 
+                &nbsp;
+                <a class="btn btn-default" [routerLink]="['/signup']">Register</a>
+            </form>
+        </div>
+    </div>
+</div>

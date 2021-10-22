@@ -1,0 +1,304 @@
+<p-toast></p-toast>
+<div [@routerTransition]>
+        <div class="row">
+                <div class="col col-sm-7">
+                        <h2>List of Roles </h2>
+                </div>
+                <div class=" col-sm-5">
+                        <div class=" searchDiv mt-2">
+                                <form [formGroup]="searchRoleForm" (ngSubmit)="getRoleListing()">
+                                        <input type="text" class="searchInput" placeholder="Search" formControlName="searchText">
+                                        <button type="submit" class="searchBtnInput btn btn-primary btn-sm">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </form>
+                        </div>
+                    </div>
+                <div class="popUpInfo" *ngIf='displayModal'>
+                        <p-dialog header={{setHeadMode}} [(visible)]="displayModal" [modal]="true" [responsive]="true" [width]="500" [minWidth]="300"
+                                [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+                                <form [formGroup]="roleForm">
+                                        <div class="form-group labelFild">
+                                                <div class="row">
+                                                        <label class="col-md-4 control-label" for="Name (Full name)">Role
+                                                                Name
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                                <input id="Name (Full name)" name="Name (Full name)" type="text" class="form-control input-md" formControlName='roleName'>
+                                                                <p class="form_error" *ngIf="roleForm.controls['roleName'].dirty && roleForm.controls['roleName'].hasError('required')">Please
+                                                                        enter role name.</p>
+                                                                <p class="form_error" *ngIf="roleForm.controls['roleName'].hasError('maxlength')">You
+                                                                        can add only 30 charater.</p>
+                                                                <p class="form_error" *ngIf="roleForm.controls['roleName'].hasError('minlength')&& !roleForm.controls['roleName'].hasError('required')">Minimum
+                                                                        2 charater required.</p>
+                                                                <p class="form_error" *ngIf="roleForm.controls['roleName'].dirty && roleForm.controls['roleName'].hasError('pattern') && !roleForm.controls['roleName'].hasError('required')&& !roleForm.controls['roleName'].hasError('minlength')">Please
+                                                                        enter the correct name.</p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        <div class="resourceList">Permissions </div>
+                                        <div class="pull-left full-width prmsn_cont">
+                                                <ul class="list-group">
+                                                        <!-- <li class="list-group-item active">Resource <span></span></li> -->
+                                                        <!---->
+                                                        <li class="list-group-item role-checkbox" formGroupName='topics'>
+                                                                <span>TOPICS</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionTOPICS" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionTOPICS" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionTOPICS" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionTOPICS" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                        <li class="list-group-item role-checkbox" formGroupName='role'>
+                                                                <span>ROLE</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionROLE" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionROLE" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionROLE" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionROLE" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                        <li class="list-group-item role-checkbox" formGroupName='group'>
+                                                                <span>GROUP</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionGROUP" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionGROUP" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionGROUP" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionGROUP" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                        <li class="list-group-item role-checkbox" formGroupName='video'>
+                                                                <span>VIDEO</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+
+
+
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionVIDEO" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionVIDEO" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionVIDEO" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionVIDEO" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                       
+                                                        <li class="list-group-item role-checkbox" formGroupName='setting'>
+                                                                <span>SETTINGS</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+
+
+
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSETTINGS" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSETTINGS" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSETTINGS" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSETTINGS" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                        <!-- <li class="list-group-item role-checkbox" formGroupName='content'>
+                                                                <span>CONTENT</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+
+
+
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionCONTENT" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionCONTENT" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionCONTENT" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionCONTENT" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li> -->
+                                                        <li class="list-group-item role-checkbox" formGroupName='clinicStaff'>
+                                                                <span>CLINIC STAFF</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionClinicStaff" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionClinicStaff" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionClinicStaff" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionClinicStaff" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                        <li class="list-group-item role-checkbox" formGroupName='survey'>
+                                                                <span>SURVEY</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+
+
+
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSURVEY" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSURVEY" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSURVEY" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionSURVEY" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                        <li class="list-group-item role-checkbox" formGroupName='patient'>
+                                                                <span>PATIENT</span>
+                                                                <div class="mt-2 full-width prmsn_list">
+
+
+
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionPatient" class="ng-untouched ng-pristine ng-valid" formControlName='view'>                                                                                View
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionPatient" class="ng-untouched ng-pristine ng-valid" formControlName='create'>                                                                                Create
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionPatient" class="ng-untouched ng-pristine ng-valid" formControlName='edit'>                                                                                Edit
+                                                                        </label>
+                                                                        <label class="form-check-label">
+                                                                                <input type="checkbox" id="permissionPatient" class="ng-untouched ng-pristine ng-valid" formControlName='delete'>                                                                                Delete
+                                                                        </label>
+                                                                </div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+
+                                        <p-footer>
+                                                <button type="button" (click)="createRole(roleId);displayModal=false" [disabled]="!roleForm.valid" class="btn btn-primary">{{btnMode}}</button>
+                                                <button type="button" (click)="displayModal=false" class="btn btn-default">Close</button>
+                                        </p-footer>
+                                </form>
+                        </p-dialog>
+
+                        <!-- <button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show">oifsdhkshkjsdh;kj</button> -->
+                </div>
+        </div>
+</div>
+<div *ngIf="sharedService.checkPermission('role','view')" class="row">
+        <div class="col col-sm-12">
+                <div class="card mb-3">
+                        <div class="card-body tableData">
+                                <div class="row searchDiv">
+                                        <!-- <div class=" col-sm-6">
+                                                <form [formGroup]="searchRoleForm" (ngSubmit)="getRoleListing()">
+                                                <input type="text" class="searchInput" placeholder="Search" formControlName="searchText">
+                                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </form>
+                                        </div> -->
+                                        <!-- <div class=" col-sm-6 text-right">
+                                                <button *ngIf="sharedService.checkPermission('content','create')" class="btn btn-sm btn-success addUserBtn" [routerLink]="['/layout/manageContent/addVideo']"
+                                                        type="button">
+                                                        <i class="fa fa-plus"></i>
+                                                        Add Role
+                                                </button>*ngIf="loggedInUserDetails.userType == 'admin'"
+                                        </div> -->
+                                        <div class="col col-sm-12 text-right" *ngIf="loggedInUserDetails.userType != 'user' "> 
+                                                <button  class="btn btn-sm btn-success addUserBtn" (click)="setMode('add','');resetForm(roleForm);displayModal=true;roleId = ''"
+                                                        type="button">
+                                                        <i class="fa fa-user-plus"></i>
+                                                        Add Role</button>
+                                        </div>
+                                </div>
+                                <div class="table-responsive">
+                                        <p-table [value]="roleList" class="table table-sm table-striped tableList listRole" id="tableList">
+                                                <ng-template pTemplate="header">
+                                                        <tr>
+                                                                <th>Name</th>
+                                                                <th>Action</th>
+                                                        </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-role>
+                                                        <tr *ngIf="role ">
+                                                                <td>{{role.roleName }}</td>
+                                                                <td>
+                                                                        <div *ngIf="!role.isEditable">
+                                                                                <a pTooltip="Edit" tooltipPosition="top" (click)="setMode('Edit',role._id);resetForm(roleForm);displayModal=true">
+                                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                                </a>
+                                                                                &nbsp;
+                                                                                <a pTooltip="Delete" tooltipPosition="top" (click)="delete(role._id)">
+                                                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                                </a>
+                                                                        </div>
+                                                                        <div *ngIf="role.isEditable">
+                                                                                <span>(Default)</span>
+                                                                                        <!-- <a pTooltip="Edit" tooltipPosition="top" [ngClass]="{'disabled': role.isEditable}" (click)="setMode('Edit',role._id);resetForm(roleForm);displayModal=true">
+                                                                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                                                        </a>
+                                                                                        &nbsp;
+                                                                                        <a pTooltip="Delete" tooltipPosition="top" [ngClass]="{'disabled': role.isEditable}" (click)="delete(role._id)">
+                                                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                                        </a> -->
+                                                                                </div>
+                                                                </td>
+                                                        </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="emptymessage">
+                                                        <tr >
+                                                                <td [attr.colspan]="2">
+                                                                        No records found
+                                                                </td>
+                                                        </tr>
+                                                </ng-template>
+                                        </p-table>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>

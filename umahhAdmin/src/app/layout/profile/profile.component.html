@@ -1,0 +1,79 @@
+<div [@routerTransition]>
+    <div class="row">
+
+        <div class="col col-sm-8">
+            <h2>{{'myProfile' | translate}}</h2>
+        </div>
+        <div class="col col-sm-4 text-right">
+            <button class="btn btn-sm btn-success addUserBtn" type="button" (click)="editProfile()">
+      <i class="fa fa-pencil"></i>
+      {{'editProfile' | translate}}
+    </button>
+        </div>
+
+        <div class="col col-sm-12">
+
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <div class="row  profileInfo myProfileInfo">
+                        <div class="col-sm-3 col-md-3 text-center">
+                            <div class="profileImgEdit" *ngIf="userData">
+                                <!-- <img src="assets/images/doctor.png" class="userImgPro" /> -->
+                                <!-- <img src="{{userData.image ? userData.image : 'assets/images/doctor.png'}}" class="userImgPro" /> -->
+                                <img *ngIf="userData.avtar" src="{{ imageurl + userData.avtar }}" class="userImgPro" />
+                                <img *ngIf="!userData.avtar" src="{{ baseurl + 'assets/images/doctor.png' }}" class="userImgPro" />
+
+                            </div>
+                        </div>
+                        <div class="col-sm-8 col-md-8 " *ngIf="userData">
+                            <div class="row   ">
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-user"></i> {{'name' | translate}} : {{userData.username ? userData.username:'NA'}}
+                                </div>
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-hospital-o"></i> {{'nameContactPerson' | translate}} : {{ userData.nameContactPerson ? userData.nameContactPerson: 'NA'}}
+                                </div>
+                                <!-- <div class="clientInfo col-sm-6" *ngIf="!display">
+                <i class="fa fa-plus-square" aria-hidden="true"></i> REG : {{userData.regnumber ? userData.regnumber : 'NA'}}
+              </div> -->
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{'city' | translate}} : {{userData.city ? userData.city : 'NA' }}
+                                </div>
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{'state' | translate}} : {{userData.state ? userData.state : 'NA'}}
+                                </div>
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-globe" aria-hidden="true"></i> {{'country' | translate}} : {{userData.country ? userData.country : 'NA'}}
+                                </div>
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i> {{'zipcode' | translate}} : {{userData.zipCode ? userData.zipCode : 'NA'}}
+                                </div>
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-phone" aria-hidden="true"></i> {{'phone' | translate}} : {{userData.mobile ? userData.mobile : 'NA'}}
+                                </div>
+
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>{{'email' | translate}} : {{userData.email ? userData.email : 'NA'}}
+                                </div>
+                                <div class="clientInfo col-sm-6">
+                                    <i class="fa fa-home" aria-hidden="true"></i> {{'address' | translate}} : {{userData.street_address ? userData.street_address : 'NA'}}
+                                </div>
+                                <!-- <div class="clientInfo col-sm-6" *ngIf="loggedInUserDetails.userType == 'clinic'">
+                  <i class="fa fa-question" aria-hidden="true"></i> Allow admin to edit:
+                <p-checkbox [(ngModel)]="userData.isEditedByAdmin" binary="true" disabled="true" ></p-checkbox>
+              </div> -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

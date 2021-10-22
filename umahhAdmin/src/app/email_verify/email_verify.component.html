@@ -1,0 +1,21 @@
+<div class="login-page">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <div class="logInBox">
+                <img class="user-avatar" src="assets/images/mdout_logo.png" width="150px" />
+                <h1>Thank you.</h1>
+                <p>Hello 
+                   
+                    <span class="userNameStyle" *ngIf="userData.clinicName != ''">{{userData.clinicName}}</span>
+                    your account has been successfully verified.</p>
+                <br>
+                <p>Take me to </p>
+                <div class="footerBtn">
+                    <a class="btn btn-default" [routerLink]="['/login']"> Log in </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div [ngClass]="{'spinner' : isEmailVerifyLoading}">
+</div>

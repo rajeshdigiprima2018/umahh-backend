@@ -1,0 +1,27 @@
+#imagePath {
+    position: absolute;
+    width: 30px;
+    left: 0;
+    right: 0;
+    top: -4px;
+    margin: 0 auto;
+    opacity: 0;
+}
+
+.profileInfo i {
+    width: 30px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.background {
+    background: #999;
+}
+
+.invalid-test-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}

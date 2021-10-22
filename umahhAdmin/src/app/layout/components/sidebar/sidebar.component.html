@@ -1,0 +1,445 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="list-group ">
+
+        <div class="nested-menu userSidebar">
+            <a class="list-group-item" (click)="addExpandClass('profile')">
+                <i class="fa">
+                    <img *ngIf="sharedService.globalImage" src="{{ imageUrl + '/uploads/profileImages/' + sharedService.globalImage }}" />
+                    <img *ngIf="!sharedService.globalImage" src="{{ baseurl + 'assets/images/doctor.png' }}" />
+                </i>
+                <span>{{sharedService.headerUserName || username}}</span>
+                <b class="caret"></b>
+                <!-- <span>
+                <i class="fa fa-user"></i>&nbsp; John Smith</span> -->
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'profile'">
+                <ul class="submenu">
+                    <li [routerLink]="['/layout/profile']">
+                        <a>
+                            <span>
+                                <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                        </a>
+                    </li>
+                    <li [routerLink]="['/layout/changePassword']">
+                        <a>
+                            <span>
+                                <i class="fa fa-fw fa-lock"></i> {{ 'changePassword' | translate }}</span>
+                        </a>
+                    </li>
+                    <li [routerLink]="['/']" (click)="onLoggedout()">
+                        <a [routerLink]="['/layout/profile']">
+                            <span>
+                                <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                    <a href="javascript:void(0)">
+                        <span>
+                            <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
+                    </a>
+                </li> -->
+                    <!-- <li>
+                    <a href="javascript:void(0)">
+                        <span>
+                            <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                    </a>
+                </li> -->
+                    <!-- <li>
+                    <a [routerLink]="['/login']" (click)="onLoggedout()">
+                        <span>
+                            <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                    </a>
+                </li> -->
+                </ul>
+            </li>
+        </div>
+
+        <a [routerLink]="['/layout/dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        <a [routerLink]="['/layout/user-admin']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'">
+            <i class="fa fa-user-circle"></i>&nbsp;
+            <span>{{ 'adminAccount' | translate }}</span>
+        </a>
+        <a [routerLink]="['/layout/user']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin' || loggedInUserDetails.role =='mosque'">
+            <i class="fa fa-user-circle"></i>&nbsp;
+            <span>{{ 'userAccount' | translate }}</span>
+        </a>
+        <a [routerLink]="['/layout/mosque']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'">
+            <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'mosqueAccount' | translate }}</span>
+        </a>
+        <!--         <a [routerLink]="['/layout/business']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'">
+            <i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'Business accounts' | translate }}</span>
+        </a> -->
+        <a [routerLink]="['/layout/manageMosque/listPrayerName']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'">
+            <i class="fa fa-stethoscope"></i>&nbsp;
+            <span>{{ 'prayerName' | translate }}</span>
+        </a>
+
+        <!-- <a [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role !='admin'" [routerLink]="['/layout/manageMosque/listPrayer']">
+            <i class="fa fa-play-circle-o"></i>&nbsp;
+            <span>{{ 'prayertime' | translate }}</span>
+        </a> -->
+
+
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'" [routerLink]="['/layout/manageMosque/listBoard']">
+            <i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'Board' | translate }}</span>
+        </a>
+
+
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'" [routerLink]="['/layout/manageMosque/listCalendar']">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'Calendar' | translate }}</span>
+        </a>
+
+
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'" [routerLink]="['/layout/manageMosque/listEducation']">
+            <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'Education' | translate }}</span>
+        </a>
+
+
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'" [routerLink]="['/layout/manageMosque/listSuggestion']">
+            <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'suggestion' | translate }}</span>
+        </a>
+
+
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'" [routerLink]="['/layout/manageMosque/listActivity']">
+            <i class="fa fa-file-text-o"></i>&nbsp;
+            <span>{{ 'Activity' | translate }}</span>
+        </a>
+
+        <div class="nested-menu" *ngIf="userData">
+            <a class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'" (click)="addExpandClass('quizpages')">
+                <i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp;
+                <span>{{ 'quiz' | translate }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'quizpages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listQuizCategory']" *ngIf="loggedInUserDetails.role =='admin'" class="list-group-item">
+                            <i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'quizCategory' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listQuizRule']" class="list-group-item">
+                            <i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'quizRule' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listQuiz']" *ngIf="loggedInUserDetails.role =='admin'" class="list-group-item">
+                            <i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'quiz' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listHajjandumrah']" class="list-group-item" *ngIf="loggedInUserDetails.role =='admin'">
+            <i class="fa fa-file-text-o"></i>&nbsp;
+            <span>{{ 'hajjAndUmrah' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listNews']">
+            <i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'News' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listKhutba']">
+            <i class="fa fa-file-text-o"></i>&nbsp;
+            <span>{{ 'khutba' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listDonationCategory']">
+            <i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'donationCategory' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listPayment']">
+            <i class="fa fa-file-text-o"></i>&nbsp;
+            <span>{{ 'donationHistory' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/profile']">
+            <i class="fa fa-fw fa-user"></i>
+            <span>{{ 'Profile' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" class="list-group-item" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listSupplication']">
+            <i class="fa fa-file-text-o"></i>&nbsp;
+            <span>{{ 'supplication' | translate }}</span>
+        </a>
+        <a *ngIf="loggedInUserDetails.role =='admin'" class="list-group-item" href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listNotification']">
+            <i class="fa fa-fw fa-bell"></i>
+            <span>{{ 'notification' | translate }}</span>
+        </a>
+        <a href="javascript:void(0)" *ngIf="loggedInUserDetails.role =='admin'" class="list-group-item" [routerLink]="['/layout/manageMosque/listMessage']">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span>{{ 'message' | translate }}</span>
+        </a>
+        <a href="javascript:void(0)" *ngIf="loggedInUserDetails.role =='admin'" class="list-group-item" [routerLink]="['/layout/manageMosque/listTermcondition']">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span>{{ 'term&Condition' | translate }}</span>
+        </a>
+
+        <div *ngIf="sharedService.checkPermission('clinicStaff','view')">
+            <a *ngIf="loggedInUserDetails.userType =='clinic' || loggedInUserDetails.userType =='admin' || (loggedInUserDetails.userType =='staff' && loggedInUserDetails.created_by_id==adminId)" [routerLink]="['/layout/userDetails']" [routerLinkActive]="['router-link-active']"
+                class="list-group-item">
+                <i class="fa fa-fw fa fa-user-md"></i>&nbsp;
+                <span>{{ 'Clinic Staff ' | translate }}</span>
+            </a>
+        </div>
+
+        <div *ngIf="sharedService.checkPermission('patient','view')">
+            <a [routerLink]="['/layout/patientDetails']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.userType =='clinic' || loggedInUserDetails.userType =='admin' || loggedInUserDetails.userType =='staff'">
+                <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+                <span>{{ 'Patients' | translate }}</span>
+            </a>
+        </div>
+
+        <div *ngIf="sharedService.checkPermission('role','view')">
+            <a [routerLink]="['/layout/manageRole']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.userType =='clinic' || loggedInUserDetails.userType =='admin'">
+                <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;
+                <span>{{ 'Manage Roles' | translate }}</span>
+            </a>
+        </div>
+        <div *ngIf="sharedService.checkPermission('role','view')">
+            <a [routerLink]="['/layout/manageAssignCategory']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.userType =='clinic' || loggedInUserDetails.userType =='admin'">
+                <i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;
+                <span>{{ 'Survey Category' | translate }}</span>
+            </a>
+        </div>
+
+        <div class="nested-menu" *ngIf="userData">
+            <a class="list-group-item" *ngIf="loggedInUserDetails.role =='mosque' && userData.isUpdated == 1" (click)="addExpandClass('pages')">
+                <i class="fa fa-files-o"></i>&nbsp;
+                <span>{{ 'Manage Mosque' | translate }}</span>
+            </a>
+
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('video','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listPrayer']">
+                            <i class="fa fa-play-circle-o"></i>&nbsp;
+                            <span>{{ 'prayertime' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('video','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listBoard']">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'Board' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('topics','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listCalendar']">
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'Calendar' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('topics','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listEducation']">
+                            <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'Education' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('topics','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listSuggestion']">
+                            <i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'suggestion' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('topics','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listActivity']">
+                            <i class="fa fa-file-text-o"></i>&nbsp;
+                            <span>{{ 'Activity' | translate }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a *ngIf="sharedService.checkPermission('topics','view')" href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listAssociation']">
+                            <i class="fa fa-file-text-o"></i>&nbsp;
+                            <span>{{ 'Association' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listDonation']">
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;
+                            <span>{{ 'Donation' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/profile']">
+                            <i class="fa fa-fw fa-user"></i>
+                            <span>{{ 'Profile' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listNotification']">
+                            <i class="fa fa-fw fa-bell"></i>
+                            <span>{{ 'notification' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="list-group-item" [routerLink]="['/layout/manageMosque/listMessage']">
+                            <i class="fa fa-fw fa-envelope"></i>
+                            <span>{{ 'message' | translate }}</span>
+                        </a>
+                    </li>
+                    <!--                     <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listQuizCategory']">
+                            <i class="fa fa-file-text-o"></i>&nbsp;
+                            <span>{{ 'Quiz Category' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listQuiz']">
+                            <i class="fa fa-file-text-o"></i>&nbsp;
+                            <span>{{ 'Quiz' | translate }}</span>
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="javascript:void(0)" [routerLink]="['/layout/manageMosque/listPayment']">
+                            <i class="fa fa-file-text-o"></i>&nbsp;
+                            <span>{{ 'donationHistory' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <!--         <a [routerLink]="['/layout/healthvideo']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-play-circle" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'Health Videos' | translate }}</span>
+        </a>
+
+        <a [routerLink]="['/layout/healthtopic']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;
+            <span>{{ 'Health Topics' | translate }}</span>
+        </a>
+
+        <a [routerLink]="['/layout/fillQuestioner']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.userType =='user'">
+            <i class="fa fa-stethoscope"></i>&nbsp;
+            <span>{{ ' Assigned Surveys ' | translate }}</span>
+        </a> -->
+
+        <!-- <a [routerLink]="['/surveyQuestioner']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Surevy Questioner' | translate }}</span>
+        </a> -->
+
+        <!-- *ngIf="sharedService.checkPermission('content','view')" -->
+
+
+        <div *ngIf="sharedService.checkPermission('role','view')">
+            <a [routerLink]="['/layout/listAd']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="loggedInUserDetails.userType =='admin'">
+                <i class="fa fa-television" aria-hidden="true"></i>&nbsp;
+                <span>{{ 'Manage Ads' | translate }}</span>
+            </a>
+        </div>
+
+
+        <!-- *ngIf="sharedService.checkPermission('template','view')" -->
+        <a *ngIf="loggedInUserDetails.userType =='admin'" [routerLink]="['/layout/emailTemplate']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-envelope"></i>&nbsp;
+            <span>{{ 'Manage template' | translate }}</span>
+        </a>
+
+        <!-- <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Menu' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu One' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu Two' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu Three' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div> -->
+        <!-- <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;
+            <span>{{ 'Blank Page' | translate }}</span>
+        </a> -->
+        <!-- <a href="http://www.strapui.com/" class="list-group-item">
+            <i class="fa fa-caret-down"></i>&nbsp;
+            <span>{{ 'More Themes' | translate }}</span>
+        </a> -->
+
+        <div class="header-fields">
+            <!-- <a (click)="rltAndLtr()" class="list-group-item">
+                <span>
+                    <i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+            </a>
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('languages')">
+                    <span>
+                        <i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }}
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'languages'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('en')">
+                                {{ 'English' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fr')">
+                                {{ 'French' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('ur')">
+                                {{ 'Urdu' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('es')">
+                                {{ 'Spanish' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('it')">
+                                {{ 'Italian' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fa')">
+                                {{ 'Farsi' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('de')">
+                                {{ 'German' | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div> -->
+
+        </div>
+    </div>
+    <!-- <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div> -->
+</nav>

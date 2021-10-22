@@ -1,0 +1,878 @@
+<div class="login-page" *ngIf="!showWelcome" [@routerTransition]>
+    <div class="row justify-content-md-center1">
+        <div class="col-md-8 col-sm-6 col-lg-4 offset-sm-3 offset-md-2 offset-lg-4 ">
+        <!-- <div class="col-md-8 col-sm-4 col-lg-4"> -->
+            <div class="logInBox">
+                <div class="closeBtnLogin" [routerLink]="['/']"> X </div>
+
+                <img class="user-avatar" src="assets/images/mdout_logo.png" width="150px" />
+                <!-- <div class=" form-group cc-selector">
+                    <input id="clinic" type="radio" formControlName="userType" value="clinic" (change)="onUserTypeChange()" />
+                    <label class="drinkcard-cc clinic" for="clinic"></label>
+                    <input id="user" type="radio" formControlName="userType" value="user" (change)="onUserTypeChange()" />
+                    <label class="drinkcard-cc user" for="user"></label>
+                </div>
+                <h1>Create an Account</h1> -->
+
+                <form role="form" [formGroup]="signUpForm" method="post">
+                    <div class=" form-group cc-selector">
+                        <input id="user" type="radio" formControlName="userType" value="user" (change)="onUserTypeChange()" />
+                        <label class="drinkcard-cc user" [ngClass]="{'activeLogin': !showClinic}" for="user"></label>
+                        <!-- <div > -->
+                        <input id="clinic" *ngIf="!hideLogin" type="radio" formControlName="userType" value="clinic" (change)="onUserTypeChange()"
+                        />
+                        <label class="drinkcard-cc clinic" [ngClass]="{'activeLogin': showClinic}" for="clinic"></label>
+                        <!-- </div> -->
+                    </div>
+
+                    <h1>Create New Account</h1>
+                    <div class="form-content">
+                        <!-- *ngIf="showClinic" -->
+                        <div class="form-group">
+                            <input type="text" formControlName="firstName" class="form-control input-underline input-lg" placeholder="First Name">
+                            <div *ngIf="signUpForm.controls['firstName'].dirty && signUpForm.controls['firstName'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['firstName'].hasError('required')">Please enter first name </p>
+                                <p class="form_error" *ngIf="signUpForm.controls['firstName'].dirty && signUpForm.controls['firstName'].hasError('maxlength')">First name must contain only 30 characters</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['firstName'].dirty && signUpForm.controls['firstName'].hasError('minlength')">First name must contain atleast 2 characters</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['firstName'].dirty && !signUpForm.controls['firstName'].hasError('minlength')&& !signUpForm.controls['firstName'].hasError('maxlength')&&signUpForm.controls['firstName'].hasError('pattern')">Please enter the correct first name.</p>
+                            </div>
+                        </div>
+                        <!-- *ngIf="showClinic" -->
+                        <div class="form-group">
+                            <input type="text" formControlName="lastName" class="form-control input-underline input-lg" placeholder="Last Name">
+                            <div *ngIf="signUpForm.controls['lastName'].dirty && signUpForm.controls['lastName'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['lastName'].hasError('required')">Please enter last name</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['lastName'].dirty && signUpForm.controls['lastName'].hasError('maxlength')">Last name must contain only 30 characters</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['lastName'].dirty && signUpForm.controls['lastName'].hasError('minlength')">Last name must contain atleast 2 characters</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['lastName'].dirty && signUpForm.controls['lastName'].hasError('maxlength') && signUpForm.controls['lastName'].hasError('minlength') && signUpForm.controls['lastName'].hasError('pattern')">Please enter the correct last name.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" formControlName="email" class="form-control input-underline input-lg" placeholder="Email" (keyup)="orValidation('email')">
+                            <div *ngIf="signUpForm.controls['email'].dirty && signUpForm.controls['email'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['email'].hasError('required')">Please enter email address</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['email'].dirty && signUpForm.controls['email'].hasError('pattern')">Please enter the correct email address.</p>
+                                <!-- <p class="form_error" *ngIf="signUpForm.controls['email'].dirty && !(signUpForm.controls['email'].hasError('required')) && signUpForm.controls['email'].hasError('emailDomain') && !showClinic">Email
+                                    or Mobile Number is required.</p> -->
+                            </div>
+                        </div>
+
+                        <div class="form-group" *ngIf="showClinic">
+                            <input type="text" formControlName="address" class="form-control input-underline input-lg" placeholder="Address">
+                            <div *ngIf="signUpForm.controls['address'].dirty && signUpForm.controls['address'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['address'].hasError('required')">Please enter address </p>
+                                <p class="form_error" *ngIf="signUpForm.controls['address'].dirty && signUpForm.controls['address'].hasError('pattern')">Please enter the correct address.</p>
+                                <!-- <p class="form_error" *ngIf="signUpForm.controls['email'].dirty && !(signUpForm.controls['email'].hasError('required')) && signUpForm.controls['email'].hasError('emailDomain') && !showClinic">Email
+                                    or Mobile Number is required.</p> -->
+                            </div>
+                        </div>
+
+                        <!-- *ngIf="showClinic" -->
+                        <div class="form-group phoneInput">
+                            <div class="selctOption">
+                                <p-dropdown [options]="countries" formControlName="countryCode" optionLabel="name" name='code' [filter]="true" [resetFilterOnHide]="true" (onChange)="onSelectCode($event)"></p-dropdown>
+                            </div>
+                            <div *ngIf="showClinic" style="padding-bottom: 17px;"> 
+                             <select class="form-control input-underline input-lg" formControlName="category">
+                                    <option value="">Select Category</option>
+                                    <option *ngFor="let clinic of clinicCategoryList" value="{{clinic._id}}">{{clinic.name}}</option>
+                               </select> 
+                              <!--  <p-dropdown [options]="clinicCategoryList" class="input-md selectCategory"  formControlName="category" [style]="{'width':'390px'}"></p-dropdown> -->
+                            </div>
+                              
+                            <!-- <ngx-intl-tel-input [(value)]="phone_number" (keyup)="orValidation('mobile')" [preferredCountries]="['us','ca','in']"></ngx-intl-tel-input> -->
+                            <div class="isdPhoneInfo">
+                                <input type="text" formControlName="mobileNumberCode" disabled placeholder="+1" class="form-control input-underline input-lg isdCodeInput">
+                                <input type="text" formControlName="mobileNumber" placeholder="Mobile number" class="form-control input-underline input-lg isdPhoneInput">
+                            </div>
+                             <!-- <int-phone-prefix placeholder="Enter phone number" [locale]="'es'" formControlName="mobileNumber" (keyup)="orValidation('mobile')"></int-phone-prefix> -->
+                            <!-- <input type="text" formControlName="mobileNumber" class="form-control input-underline input-lg" placeholder="Mobile Number"> -->
+                            <div *ngIf="signUpForm.controls['mobileNumber'].dirty && signUpForm.controls['mobileNumber'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['mobileNumber'].dirty && signUpForm.controls['mobileNumber'].hasError('required')">Please enter mobile number</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['mobileNumber'].hasError('pattern') && !signUpForm.controls['mobileNumber'].hasError('required') && !signUpForm.controls['mobileNumber'].hasError('required')">Please enter valid mobile number with country code from above list.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" *ngIf="showClinic">
+                            <input type="text" placeholder="Clinic Name" formControlName="clinicName" class="form-control input-underline input-lg">
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].dirty && signUpForm.controls['clinicName'].hasError('required')">Please enter clinic name</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].hasError('maxlength') && !signUpForm.controls['clinicName'].hasError('pattern')">Clinic name must contain only 30 characters</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].hasError('minlength') && !signUpForm.controls['clinicName'].hasError('pattern')">Clinic name must contain atleast 2 characters</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].dirty && signUpForm.controls['clinicName'].hasError('pattern')">Please enter the correct clinic name</p>
+                        </div>
+
+                        <div class="form-group" *ngIf="showClinic">
+                            <input type="text" placeholder="Legal Corporate Name" formControlName="legalCorporateName" class="form-control input-underline input-lg">
+                            <p class="form_error" *ngIf="signUpForm.controls['legalCorporateName'].dirty && signUpForm.controls['legalCorporateName'].hasError('required')">Please enter legalCorporateName name</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['legalCorporateName'].hasError('maxlength') && !signUpForm.controls['legalCorporateName'].hasError('pattern')">LegalCorporateName name must contain only 30 characters</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['legalCorporateName'].hasError('minlength') && !signUpForm.controls['legalCorporateName'].hasError('pattern')">LegalCorporateName name must contain atleast 2 characters</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['legalCorporateName'].dirty && signUpForm.controls['legalCorporateName'].hasError('pattern')">Please enter the correct legalCorporateName name</p>
+                        </div>
+
+                        <span *ngIf='!showClinic'>{{errMsg}}</span>
+                        <!-- <div class="form-group loginDrop" *ngIf="!showClinic">
+                            <div class="pdropdown">
+                                <p-dropdown [options]="clinics" class="input-md" formControlName="associated_clinic_id" filter="true" [readonly]="isReadOnly"></p-dropdown>
+                                <div *ngIf="signUpForm.controls['associated_clinic_id'].dirty && signUpForm.controls['associated_clinic_id'].invalid">
+                                    <p class="form_error" *ngIf="signUpForm.controls['associated_clinic_id'].dirty && signUpForm.controls['associated_clinic_id'].hasError('required')">Please
+                                        enter clinic.</p>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="form-group" *ngIf="!showClinic">
+                            <p-autoComplete *ngIf="!isReadOnly" class="clinicInput" formControlName="associated_clinic_id" [suggestions]="clinics" (completeMethod)="generalClinicListing($event)"
+                                field="label" placeholder={{placeHolderString}} (onSelect)="getClinicStaffList($event)"></p-autoComplete>
+                            <p-autoComplete *ngIf="isReadOnly" class="clinicInput" formControlName="associated_clinic_id" [suggestions]="clinics" (completeMethod)="generalClinicListing($event)"
+                                field="label" placeholder={{placeHolderString}} readonly="true"></p-autoComplete>
+                            <p class="form_error" *ngIf="signUpForm.controls['associated_clinic_id'].dirty && signUpForm.controls['associated_clinic_id'].hasError('required')">Please enter clinic name.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['associated_clinic_id'].hasError('maxlength') && !signUpForm.controls['associated_clinic_id'].hasError('pattern')">Clinic name must contain only 30 charaters.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['associated_clinic_id'].hasError('minlength') && !signUpForm.controls['associated_clinic_id'].hasError('pattern')">Clinic name must contain atleast 2 charaters</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['associated_clinic_id'].dirty && signUpForm.controls['associated_clinic_id'].hasError('pattern')">Please enter the correct clinic name.</p>
+                        </div>
+                        <!-- Added by divya 3 Jan 2019 for Provider -->
+                        <div class="form-group" *ngIf="getClinicStaffListStatus">
+                            <div class="selctOption">
+                                <p-dropdown [options]="clinic_staff" formControlName="associated_staff_id" (onChange)="selectProvider($event)"></p-dropdown>
+                            </div>
+                            <div *ngIf="signUpForm.controls['associated_staff_id'].dirty && signUpForm.controls['associated_staff_id'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['associated_staff_id'].dirty && signUpForm.controls['associated_staff_id'].hasError('required')">Please select provider.</p>
+                            </div>
+                        </div>
+                        <!-- Added by divya 3 Jan 2019 for Provider -->
+
+                        <!-- <form [formGroup]="searchUserForm" *ngIf="!showClinic">
+                            <input type="text" class="searchInput" placeholder="Search.." formControlName="searchText" (input)="a();">
+    
+                            <button type="button" class="searchBtnInput btn btn-primary btn-sm">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            </form> -->
+                        <div class="form-group" *ngIf="showInputBox && !showClinic">
+                            <input type="text" placeholder="Clinic Name" formControlName="associatedClinicName" class="form-control input-underline input-lg">
+                            <p class="form_error" *ngIf="signUpForm.controls['associatedClinicName'].dirty && signUpForm.controls['associatedClinicName'].hasError('required')">Please enter clinic name.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['associatedClinicName'].hasError('maxlength') && !signUpForm.controls['associatedClinicName'].hasError('pattern')">Clinic name must contain only 30 characters.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['associatedClinicName'].hasError('minlength') && !signUpForm.controls['associatedClinicName'].hasError('pattern')">Clinic name must contain atleast 2 characters.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['associatedClinicName'].dirty && signUpForm.controls['associatedClinicName'].hasError('pattern')">Please enter the correct clinic name.</p>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <input  type="text" formControlName='mobilenumber' class="form-control input-underline input-lg"  placeholder="Mobile phone">
+                           <div *ngIf="mobilenumber.invalid && (mobilenumber.dirty || mobilenumber.touched)" class="msgErrorLeft">
+                               <div *ngIf="mobilenumber.errors?.pattern">Please give valid phone number.</div>
+                               <div *ngIf="mobilenumber.errors?.required">Please provide phone number.</div>
+                           </div>
+                        </div> -->
+                        <div class="form-group">
+                            <input type="password" formControlName="password" class="form-control input-underline input-lg" placeholder="Password">
+                            <div *ngIf="signUpForm.controls['password'].dirty && signUpForm.controls['password'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['password'].dirty && signUpForm.controls['password'].hasError('required')">Please enter password.</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['password'].dirty &&signUpForm.controls['password'].hasError('maxlength')">
+                                    Please provide valid password with maximum 20 characters</p>
+                                <p class="form_error" *ngIf="signUpForm.controls['password'].dirty &&signUpForm.controls['password'].hasError('minlength')">
+                                    Please provide valid password with minimum 6 characters</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" formControlName="repassword" class="form-control input-underline input-lg" placeholder="Confirm password">
+                            <div *ngIf="signUpForm.controls['repassword'].dirty && signUpForm.controls['repassword'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['repassword'].dirty && signUpForm.controls['repassword'].hasError('required')">Please enter password.</p>
+                                <p class="form_error" *ngIf="(signUpForm.controls['repassword'].dirty && signUpForm.controls['repassword'].hasError('equalTo') && !signUpForm.controls['repassword'].hasError('required'))">Please enter the same password.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- <input type="password" formControlName="repassword" class="form-control input-underline input-lg" placeholder="Confirm password"> -->
+                            <p-checkbox [formControl]="signUpForm.controls['termsAndCondition']" (onChange)="onChange($event)"></p-checkbox>
+                            <span><a (click)="showTermsDialogue()"> I agree to the terms and conditions</a></span>
+
+                            <!-- [(ngModel)]="userData.isEditedByAdmin" -->
+
+                            <div *ngIf="signUpForm.controls['termsAndCondition'].dirty && signUpForm.controls['termsAndCondition'].invalid">
+                                <p class="form_error" *ngIf="signUpForm.controls['termsAndCondition'].dirty && signUpForm.controls['termsAndCondition'].hasError('required')">Please agree to the terms and condition.</p>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group" *ngIf="showClinic">
+                            <input type="text" placeholder="Clinic Name" formControlName="clinicName" class="form-control input-underline input-lg">
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].dirty && signUpForm.controls['clinicName'].hasError('required')">Please
+                                enter clinic name.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].hasError('maxlength') && !signUpForm.controls['clinicName'].hasError('pattern')">You
+                                can add only 30 charater.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].hasError('minlength') && !signUpForm.controls['clinicName'].hasError('pattern')">Minimum
+                                3 charater required.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['clinicName'].dirty && signUpForm.controls['clinicName'].hasError('pattern')">Please
+                                enter the correct name.</p>
+                        </div> -->
+
+                        <!-- <div class="form-group" *ngIf="showClinic">
+                            <input type="text" placeholder="Registration Number" formControlName="regnumber" class="form-control input-underline input-lg">
+                            <p class="form_error" *ngIf="signUpForm.controls['regnumber'].dirty && signUpForm.controls['regnumber'].hasError('required')">Please
+                                enter registration number.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['regnumber'].hasError('maxlength')">You can
+                                add only 10 charater.</p>
+                            <p class="form_error" *ngIf="signUpForm.controls['regnumber'].hasError('minlength')">Minimum  
+                                6 charater required.</p> [disabled]="!signUpForm.valid" 
+                        </div> -->
+                    </div>
+                    <div class="footerBtn">
+                        <button class="btn btn-primary" [disabled]="!signUpForm.valid" (click)="register()"> Register </button>&nbsp;
+                        <!-- <a *ngIf="!hideLogin" class="btn btn-default" [routerLink]="['/login']"> Log in </a> -->
+                        <a *ngIf="hideLogin" class="btn btn-default" (click)='redirect()'> Log in </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="login-page" *ngIf="showWelcome && !isUrl" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+
+            <div class="logInBox">
+                <img class="user-avatar" src="assets/images/mdout_logo.png" width="150px" />
+                <h1>Thank you.</h1>
+                <p>We sent a verification email to you at:
+                    <b>{{successEmail}}</b>. Click on the
+                    <i> Verify your email link</i> in the message to verify your address. If this isn't your email, please
+                    update it.
+                </p>
+                <h4 class="bold">Where's my email?</h4>
+                <p>If you did not receive an email from MDout, be sure to check your spam folder. Certain email providers can
+                    take longer than 20 minutes to process the message. If you still haven't received it, you can always
+                    request another email.
+                </p>
+
+                <p>Take me to </p>
+                <div class="footerBtn">
+                    <a *ngIf="!hideLogin" class="btn btn-default" [routerLink]="['/login']"> Log in </a>
+                    <a *ngIf="hideLogin" class="btn btn-default" (click)='redirect()'> Log in </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms and condition pop for clinic -->
+<p-dialog header="Terms and conditions for clinic" [(visible)]="displayTermsClinic" [modal]="true" [responsive]="true" [width]="400"
+    [minWidth]="700" [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <div>
+         <strong>Terms and conditions for clinic</strong>
+          <p>
+            <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                <!-- The following terms and conditions (the “Terms and Conditions”) govern your use of this web site or application, and any content made available from or through this web site, including any subdomains thereof, or application (the “Web Site”). The Web Site is made available by Time Inc. (“Time Inc.” or “we” or “us”). We may change the Terms and Conditions from time to time, at any time without notice to you, by posting such changes on the Web Site. BY USING THE WEB SITE, YOU ACCEPT AND AGREE TO THESE TERMS AND CONDITIONS AS APPLIED TO YOUR USE OF THE WEB SITE. If you do not agree to these Terms and Conditions, you may not access or otherwise use the Web Site. -->
+                These Legal Terms and Conditions apply to the entire mdout.com website and all portions of the site contained therein (excluding
+                links to other websites as provided below), including, but not limited to, the MDout, Inc. Corporate, and
+                MDout, Inc. Worldwide portions of the company website. These Legal Terms and Conditions shall apply to any
+                future portions of the MDout, Inc. (excluding links to other websites as provided below) unless otherwise
+                stated. This website, https://www.mdout.com is hosted by MDout, Inc. We welcome all users to the website.
+                For users who are less than 18 years are of age, please read our privacy policy available on our Website.
+                Our privacy policy explains our practices regarding the collection, use, and disclosure of personal information
+                from Minors who register on the website and describes a parent's or guardian's (each, a "Parent") ability
+                to limit the collection and use of data collected from the Minor. Individuals may use many aspects of the
+                Website without providing any personal information.
+        <p>
+            By using the website, you agree to be bound by all the terms and conditions contained in these Terms of Use. Please read
+            these Terms of Use carefully. When you use any current or future version of the Website or any other MDout, Inc.
+            website, you also will be subject to these Terms of Use. Please print a copy of these Terms of Use for your records.
+            We may, from time to time, modify the Terms of Use. When we make changes, we will post those in a new Terms of
+            Use. Your use of the website following any such modification constitutes your agreement to the modified Terms
+            of Use. You should visit this page periodically to learn of any changes to these Terms of Use.
+        </p>
+        <p>
+            <strong> Comments</strong><br/> We welcome your comments about the website. However, any comments, feedback,
+            notes, messages, ideas, suggestions or other communications (collectively, "Comments") sent to us, whether through
+            the website, e-mail, facsimile, U.S. mail or other means, shall be and remain the exclusive property of ‎MDout,
+            Inc.‎. Your submission of any Comments shall constitute an irrevocable assignment to ‎MDout, Inc.‎ of any and
+            all worldwide rights, titles and interests in all copyrights and other intellectual property rights in the Comments.
+            ‎MDout, Inc.‎ and any of its affiliates will be entitled to use, reproduce, disclose, publish, and distribute
+            any material you submit for any purpose whatsoever, without restriction and without compensating you in any way.
+            For this reason, we ask that you not send us any Comments which you do not intend to assign to us, including
+            any confidential information or any original creative materials such as stories, product ideas, computer code,
+            or original artwork.
+        </p>
+        <p>
+            <strong>Trademarks</strong><br/> ‎dtsisurvey.com is a registered trademark. ‎MDout, Inc.‎ Products and other
+            marks indicated on our website are trademarks or registered trademarks of ‎MDout, Inc.‎ All rights in such names
+            are reserved.
+        </p>
+        <p>
+            All rights in the product names, company names, trade names, graphics, logos, page headers, button icons, scripts, product
+            packaging, trade dress, and designs of all ‎MDout, Inc.‎ or third-party products or services, whether or not
+            appearing in large print or with the trademark symbol, belong exclusively to ‎MDout, Inc.‎ or their respective
+            owners and are protected from reproduction, imitation, dilution, or confusing or misleading uses under national
+            and international trademark and copyright laws. The use or misuse of these trademarks or any materials, except
+            as permitted herein, is expressly prohibited, and nothing stated or implied on the website confers on you any
+            license or right under any trademark of ‎MDout, Inc.‎ or any third party.
+        </p>
+        <p>
+            <strong>Copyright</strong><br/> All copyright rights in the text, images, photographs, graphics, user interface,
+            music and other content provided on the website, and the selection, coordination, and arrangement of such content,
+            are owned by ‎MDout, Inc.‎ or its third-party licensors to the full extent provided under the United States Copyright
+            Act and all international copyright laws. Under applicable copyright laws, you are prohibited from copying, reproducing,
+            modifying, distributing, displaying, performing, or transmitting any of the contents of the website for any purposes.
+            Nothing stated or implied on the website confers on you any license or right under any copyright of ‎MDout, Inc.‎
+            or any third party.
+        </p>
+        <p>
+            The website and the information contained on it are for your personal, non-commercial use only. Except as otherwise specifically
+            permitted in these Terms of Use, you will not broadcast, duplicate, copy, reproduce, edit, manipulate, modify,
+            publish, rent, sell, publicly display, perform, distribute, transmit, or circulate to anyone the contents of
+            the website, or use the contents of the website in litigation, or for any commercial or promotional purposes,
+            without the express written consent of ‎MDout, Inc.‎ or its lawful successors and assigns.
+        </p>
+        <p>
+            <strong>Notice of Copyright or Trademark Infringement</strong><br/> ‎MDout, Inc.‎ respects and honors the intellectual
+            property of others. If you believe that your work has been copied and is accessible on the website in a way that
+            constitutes infringement, please provide ‎MDout, Inc.‎ with the following information: (1) identification of
+            the copyrighted work claimed to have been infringed; (2) identification of the allegedly infringing material
+            on the website that is requested to be removed; (3) your name, address, and daytime telephone number, and an
+            email address if available, so that ‎MDout, Inc.‎ may contact you if necessary; (4) a statement that you have
+            a good faith belief that the use of the copyrighted work is not authorized by the copyright owner, its agent,
+            or the law; (5) a statement that the information in the notification is accurate and, under penalty of perjury,
+            that the signatory is authorized to act on behalf of the owner of an exclusive copyright right that is allegedly
+            infringed; and (6) an electronic or physical signature of the copyright owner or someone authorized on the owner's
+            behalf to assert infringement of copyright and to submit the statement.
+        </p>
+        <p>
+            ‎MDout, Inc.‎ agent for notice of claims of copyright or trademark infringement on the Website is: CEO, ‎MDout, Inc.‎
+        </p>
+        <p>
+            Email: info@mdout.com
+        </p>
+        <p>
+
+            <strong>Forums</strong><br/> As used in these Terms of Use, "Forum" means an area, site, or feature (such as
+            chat rooms, bulletin boards, and e-mail or instant messaging features) offered as part of the website that enables
+            visitors to submit, display and/or view content and/or to communicate, share, or exchange content with other
+            website visitors and members of the general public. Any submission may be routed through our servers, third party
+            servers on our behalf, and the Internet (where it may be viewed by the general public), so you have no expectation
+            of privacy for any submitted content. Since we cannot guarantee security of information on a Forum, your use
+            is at your own risk.
+        </p>
+        <p>
+            We are not responsible for the accuracy of any user content contained in any Forum or otherwise on our website.
+        </p>
+        <p>
+            <strong>Submitted Content</strong><br/> There are two general situations where you might submit content to us
+            via the Internet or other means. The first is in connection to promotional activity. The second is in connection
+            with a Forum. In the event you submit any content such as ideas, photographs, or works of authorship in connection
+            with any promotion, in consideration of your entry you will, by your submission, be deemed to have assigned to
+            us all right, title, and interest in the intellectual property or other property interest in the content you
+            may have and you agree to execute any further documentation to effect or memorialize the transfer.
+        </p>
+        <p>
+            In connection with submissions to any Forum, we claim no ownership rights in any content (i.e., text, images, photos, video,
+            sounds, or any other materials) that you post, except as provided in these Terms of Use. However, if you do post
+            content on any Forum, you grant us a limited, non-exclusive, royalty-free, worldwide license to use, modify,
+            publicly perform, publicly display, reproduce, sublicense, and distribute the content in connection with our
+            website. Further, you agree to waive any "moral rights" associated with the content. If terms other than those
+            provided in these Terms of Use apply to your submission, we will post those terms on the website at the location
+            of the feature or activity.
+        </p>
+        <p>
+            You represent and warrant that: (1) you own any content posted by you on the website, Forum or otherwise submitted to us,
+            and have the right to grant a license as stated in these Terms of Use, and (2) posting and publishing any content
+            on or in connection with the website, Forum, or any offering does not violate any third-party intellectual property,
+            publicity, privacy, or contract rights. You agree to not submit any content which is libelous, defamatory, obscene,
+            pornographic, threatening, invasive of privacy or publicity rights, abusive, illegal, or otherwise objectionable
+            that would constitute or encourage a criminal offense, violate the rights of any party, or that would otherwise
+            give rise to liability, or violates any law or obligation of confidentiality. You can only use the Forums in
+            a noncommercial manner.
+        </p>
+        <p>
+            We may edit or delete any content provided by you at any time at our sole discretion. Further, we may screen or monitor submitted
+            content for legal or other purposes, though we have no obligation to do so.
+        </p>
+        <p>
+            <strong>License and Website Access></strong><br/> ‎MDout, Inc.‎ grants you a limited, revocable and nonexclusive
+            license to access and make personal use of the website but not to download (other than page caching) or modify
+            it, or any portion of it, except with express written consent of ‎MDout, Inc.‎. This license does not include
+            any resale or commercial use of the Website or its contents; any collection and use of any product listings,
+            descriptions, or prices; any derivative use of the website or its contents; any downloading or copying of account
+            information for the benefit of another merchant; or any use of data mining, robots, spiders, or similar data
+            gathering and extraction tools.
+        </p>
+        <p>
+            Neither the website nor any portion of the website may be reproduced, duplicated, copied, sold, resold, visited, or otherwise
+            exploited for any commercial purpose without express written consent of ‎MDout, Inc.‎. You may not frame or use
+            framing techniques to enclose any trademark, logo, or other proprietary information (including images, text,
+            page layout, or form) of ‎MDout, Inc.‎ and its affiliates without express written consent of ‎MDout, Inc.‎. You
+            may not use Meta tags or any other hidden text using MDout, Inc.‎ name or trademarks without the express written
+            consent of MDout, Inc.‎. Any unauthorized website use will immediately terminate the permission or license granted
+            by ‎MDout, Inc.‎.
+        </p>
+        <p>
+            You are granted a limited, revocable, and nonexclusive right to create a hyperlink to the home page of ‎MDout, Inc.‎, so
+            long as the link does not portray ‎MDout, Inc.‎ or its products or services in a false, misleading, derogatory,
+            or otherwise offensive manner as determined by ‎MDout, Inc.,‎ in its sole discretion. You may not use any MDout,
+            Inc.‎’s logo or other proprietary graphic or trademark as part of the link without express written permission
+            of ‎MDout, Inc.‎. You may not make any other part of the website, other than the home page of the website, available
+            as part of another service by "deep linking," or otherwise, without prior written permission from ‎MDout, Inc.‎.
+        </p>
+        <p>
+            <strong>Third Party and Co-Branded Websites</strong><br/> The website may contain hyperlinks "Links" to websites
+            operated by persons or entities other than ‎MDout, Inc.‎ "Third-party Websites" or to co-branded websites operated
+            by a third party, including affiliates "Co-branded Websites". We provide these Links for your reference and convenience
+            only. A Link from ‎MDout, Inc.,‎ to a Third-party website does not imply or mean that we endorse the content
+            on that Third-party or Co-branded website or the operator or operations of that website. You are solely responsible
+            for determining the extent to which you use any content at any Third party or Co-branded websites to which you
+            might link from our website.
+        </p>
+        <p>
+            ‎MDout, Inc.‎ is not responsible or liable for any loss or damage incurred as a result of any dealings with any Third-party
+            website or Co-branded website, any merchant or operator of a Third-party website or Co-branded website, or any
+            other person with whom you may engage in any transaction.
+        </p>
+        <p>
+            <strong>Your Responsibilities</strong><br/> You agree to comply with all applicable laws in connection with your
+            use of the website, and any further limitations as may be set forth in any written or on-screen notice from ‎MDout,
+            Inc.‎. As a condition of your use of the website, you warrant that you will not use the website for any purpose
+            that is unlawful or prohibited by these Terms of Use. All information that you provide in connection with a purchase
+            or transaction or other interaction with the website or any Co-branded website will be accurate, complete, and
+            current. You will pay all charges incurred by users of your credit card, debit card, or other payment method
+            used in connection with a purchase or transaction or other interaction with ‎MDout, Inc.‎ or any Co-branded website
+            at the prices in effect when such charges are incurred. You will pay any applicable taxes, if any, relating to
+            any such purchases, transactions or other interactions.
+        </p>
+        <p>
+            By using the website, you agree not to violate or attempt to violate the security of the Website, including, by way of illustration
+            but not limitation, actions like accessing data not intended for you or logging into a server or account that
+            you are not authorized to access; attempting to probe, scan, or test the vulnerability of a system or network
+            or to breach security or authentication measures without proper authorization; attempting to interfere with service
+            to any user, host, or network, including, without limitation, by way of submitting a virus to or overloading,
+            "flooding," "spamming," "mail bombing," or "crashing" the website; sending unsolicited email, including promotions
+            and/or advertising of products or services; and forging any TCP/IP packet header or any part of the header information
+            in any email or posting.
+        </p>
+        <p>
+            <strong>Risk of Loss</strong><br/> All products purchased from the website are transported and delivered to you
+            by an independent carrier not affiliated with, or controlled by, ‎MDout, Inc.‎. Title to products purchased on
+            the website, as well as the risk of loss for such products, pass to you when ‎MDout, Inc.‎ delivers these items
+            to the carrier.
+        </p>
+        <p>
+            <strong>Product Information</strong><br/> ‎MDout, Inc.‎ attempts to be accurate in describing its products. We
+            do not warrant that product descriptions or other content of the website are complete, reliable, current, or
+            error-free. In some cases, merchandise displayed for sale at the website may not be available in retail stores.
+            Unless otherwise stated, the prices displayed at the website are quoted in U.S. currency.
+        </p>
+        <p>
+            <strong>Colors</strong><br/> We made every effort to display as accurately as possible the colors of our products
+            that appear at the website. As the actual colors you see depend on your computer monitor, however, we cannot
+            guarantee that your monitor's display of any color will be accurate.
+        </p>
+        <p>
+            <strong>Disclaimer of Warranties and Limitations on Liability</strong> ‎MDout, Inc.‎ provides this website on
+            an "as-is" and "as available" basis. To the maximum extent permitted by law, ‎MDout, Inc.,‎ disclaims all warranties,
+            express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular
+            purpose, as to the operation of the website. This disclaimer also applies to the information, content, third-party
+            content, materials, products, services, or linked services provided on or through the Website, including, without
+            limitation:
+        </p>
+        <ul>
+            <li>
+                that the information provided through the Website will be free from error, omission, interruption, defect or delay in operation,
+                or from technical inaccuracies or typographical errors;
+            </li>
+            <li>
+                that the website will be available at any particular time or location; </li>
+            <li>
+                that the defects or errors in service will be corrected; or </li>
+            <li>
+                that the content on the website is free from viruses or other harmful components. </li>
+        </ul>
+        <p>
+            Any information on this website is subject to change without notice and we disclaim all responsibility for these changes.
+            You expressly agree that your use of this website is at your sole risk.
+        </p>
+        <p>
+            In no event will ‎MDout, Inc.‎, or any party involved in creating, producing, or delivering the Website, be liable for any
+            damages of any kind arising from the use of the website, including, but not limited to direct, indirect, incidental,
+            exemplary, punitive, special and consequential damages or any damages of any type or nature arising out of your
+            access, use, misuse, or inability to use the website or any linked sites or services; in the event a third party
+            intercepts or decrypts any transmission of information that you provide to ‎MDout, Inc.‎ through the website;
+            or in connection with any failure of performance, error, omission, interruption, defect, delay in operation or
+            transmission computer virus, or line or system failure, whether in an action under contract, negligence, tort,
+            strict liability, or any other theory, even if we have been previously advised of the possibility of such damages.
+            Certain states or jurisdictions do not allow limitations on implied warranties or the exclusion or limitation
+            of certain damages. If these laws apply to you, some or all of the above disclaimers, exclusions or limitations
+            may not apply and you may have additional rights.
+        </p>
+        <p>
+            <strong>Indemnification</strong><br/> You agree to defend, indemnify, and hold harmless ‎MDout, Inc.,‎ and its
+            affiliates, successors and assigns, and its and their respective directors, officers, employees, agents, attorneys,
+            co-branders or other partners from and against any and all allegations, claims, demands, actions, causes of action,
+            proceedings (whether threatened or pending), orders, damages, losses, liabilities, costs and expenses, including
+            reasonable attorney's fees and other legal expenses, and judgments of any kind of nature, incurred by ‎MDout,
+            Inc.‎ arising out of or relating to your use of the website, your violation of these Terms of Use, or your violation
+            of any rights of another.
+        </p>
+        <p>
+            <strong>Miscellaneous Provisions</strong><br/> ‎MDout, Inc.‎ may discontinue the website at any time and for
+            any reason, without notice. We may change the contents, operation, or any and all other features of the Website
+            at any time for any reason, without notice. We may discontinue or restrict your use of the Website at any time
+            for any reason, without notice.
+        </p>
+        <p>
+            You agree that no joint venture, partnership, employment, or agency relationship exists between you and ‎MDout, Inc.‎ as
+            a result of these Terms of Use or your use of the Website. Nothing contained in these Terms of Use will take
+            away from ‎MDout, Inc.‎’s right to comply with governmental, court, and law enforcement requests or requirements
+            relating to your use of the website or information provided to or gathered by ‎MDout, Inc.‎ with respect to such
+            use. A printed version of these Terms of Use and of any notice given in electronic form shall be admissible in
+            judicial or administrative proceedings based upon or relating to these Terms of Use to the same extent and subject
+            to the same conditions as other business documents and records originally generated and maintained in printed
+            form.
+        </p>
+        <p>
+            The failure of ‎MDout, Inc.‎ to enforce any provisions of these Terms of Use or respond to a breach by you or other parties
+            will not in any way waive its right to enforce subsequently any terms or conditions of these Terms of Use or
+            to act with respect to similar breaches.
+        </p>
+        <p>
+            If any provisions in these Terms of Use are invalid or unenforceable under applicable law, the remaining provisions will
+            continue in full force and effect, and the invalid unenforceable provision will be deemed superseded by a valid,
+            enforceable provision that most closely matches the intent of the original provision.
+        </p>
+        <p>
+            These Terms of Use represent the entire and final agreement regarding our Website and any Forum content, and supersedes any
+            prior or contemporaneous communications between ‎MDout, Inc.‎ and you regarding our Website and its contents.
+            All rights not expressly granted to you in these Terms of Use are reserved to ‎MDout, Inc.‎
+        </p>
+        <p>
+
+            <strong>CHOICE OF LAW AND FORUM</strong><br/> These website Legal Terms and Conditions shall be governed by and
+            construed in accordance with the laws of the State of California, without regard to such state's rules regarding
+            conflicts of laws. By accessing this website, you agree that courts located in the Northern Districts of California
+            or in the counties within those federal judicial districts shall have exclusive jurisdiction over all claims
+            and actions arising out of or relating to these Legal Terms and Conditions and/or your use of this site, and
+            you further agree and submit to the exercise of personal jurisdiction of such courts and consent to extra-territorial
+            service of process for the purpose of litigating any such claim or action.
+
+            <!-- These Terms of Use were last updated on 1/10/2019 -->
+            </p-scrollPanel>
+        </p>
+    </div>
+    <br>
+    <p-footer>
+        <button type="button" class="btn btn-default " (click)="closeTermsDialogue()">
+            Close</button>
+    </p-footer>
+</p-dialog>
+
+<!-- Terms and condition pop for user -->
+<p-dialog header="Terms and conditions for user" [(visible)]="displayTermsUser" [modal]="true" [responsive]="true" [width]="400"
+    [minWidth]="700" [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <div>
+        <strong>Terms and conditions for user</strong>
+        <p>
+            <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+                <!-- The following terms and conditions (the “Terms and Conditions”) govern your use of this web site or application, and any content made available from or through this web site, including any subdomains thereof, or application (the “Web Site”). The Web Site is made available by Time Inc. (“Time Inc.” or “we” or “us”). We may change the Terms and Conditions from time to time, at any time without notice to you, by posting such changes on the Web Site. BY USING THE WEB SITE, YOU ACCEPT AND AGREE TO THESE TERMS AND CONDITIONS AS APPLIED TO YOUR USE OF THE WEB SITE. If you do not agree to these Terms and Conditions, you may not access or otherwise use the Web Site. -->
+                These Legal Terms and Conditions apply to the entire mdout.com website and all portions of the site contained therein (excluding
+                links to other websites as provided below), including, but not limited to, the MDout, Inc. Corporate, and
+                MDout, Inc. Worldwide portions of the company website. These Legal Terms and Conditions shall apply to any
+                future portions of the MDout, Inc. (excluding links to other websites as provided below) unless otherwise
+                stated. This website, https://www.mdout.com is hosted by MDout, Inc. We welcome all users to the website.
+                For users who are less than 18 years are of age, please read our privacy policy available on our Website.
+                Our privacy policy explains our practices regarding the collection, use, and disclosure of personal information
+                from Minors who register on the website and describes a parent's or guardian's (each, a "Parent") ability
+                to limit the collection and use of data collected from the Minor. Individuals may use many aspects of the
+                Website without providing any personal information.
+        <p>
+            By using the website, you agree to be bound by all the terms and conditions contained in these Terms of Use. Please read
+            these Terms of Use carefully. When you use any current or future version of the Website or any other MDout, Inc.
+            website, you also will be subject to these Terms of Use. Please print a copy of these Terms of Use for your records.
+            We may, from time to time, modify the Terms of Use. When we make changes, we will post those in a new Terms of
+            Use. Your use of the website following any such modification constitutes your agreement to the modified Terms
+            of Use. You should visit this page periodically to learn of any changes to these Terms of Use.
+        </p>
+        <p>
+            <strong> Comments</strong><br/> We welcome your comments about the website. However, any comments, feedback,
+            notes, messages, ideas, suggestions or other communications (collectively, "Comments") sent to us, whether through
+            the website, e-mail, facsimile, U.S. mail or other means, shall be and remain the exclusive property of ‎MDout,
+            Inc.‎. Your submission of any Comments shall constitute an irrevocable assignment to ‎MDout, Inc.‎ of any and
+            all worldwide rights, titles and interests in all copyrights and other intellectual property rights in the Comments.
+            ‎MDout, Inc.‎ and any of its affiliates will be entitled to use, reproduce, disclose, publish, and distribute
+            any material you submit for any purpose whatsoever, without restriction and without compensating you in any way.
+            For this reason, we ask that you not send us any Comments which you do not intend to assign to us, including
+            any confidential information or any original creative materials such as stories, product ideas, computer code,
+            or original artwork.
+        </p>
+        <p>
+            <strong>Trademarks</strong><br/> ‎dtsisurvey.com is a registered trademark. ‎MDout, Inc.‎ Products and other
+            marks indicated on our website are trademarks or registered trademarks of ‎MDout, Inc.‎ All rights in such names
+            are reserved.
+        </p>
+        <p>
+            All rights in the product names, company names, trade names, graphics, logos, page headers, button icons, scripts, product
+            packaging, trade dress, and designs of all ‎MDout, Inc.‎ or third-party products or services, whether or not
+            appearing in large print or with the trademark symbol, belong exclusively to ‎MDout, Inc.‎ or their respective
+            owners and are protected from reproduction, imitation, dilution, or confusing or misleading uses under national
+            and international trademark and copyright laws. The use or misuse of these trademarks or any materials, except
+            as permitted herein, is expressly prohibited, and nothing stated or implied on the website confers on you any
+            license or right under any trademark of ‎MDout, Inc.‎ or any third party.
+        </p>
+        <p>
+            <strong>Copyright</strong><br/> All copyright rights in the text, images, photographs, graphics, user interface,
+            music and other content provided on the website, and the selection, coordination, and arrangement of such content,
+            are owned by ‎MDout, Inc.‎ or its third-party licensors to the full extent provided under the United States Copyright
+            Act and all international copyright laws. Under applicable copyright laws, you are prohibited from copying, reproducing,
+            modifying, distributing, displaying, performing, or transmitting any of the contents of the website for any purposes.
+            Nothing stated or implied on the website confers on you any license or right under any copyright of ‎MDout, Inc.‎
+            or any third party.
+        </p>
+        <p>
+            The website and the information contained on it are for your personal, non-commercial use only. Except as otherwise specifically
+            permitted in these Terms of Use, you will not broadcast, duplicate, copy, reproduce, edit, manipulate, modify,
+            publish, rent, sell, publicly display, perform, distribute, transmit, or circulate to anyone the contents of
+            the website, or use the contents of the website in litigation, or for any commercial or promotional purposes,
+            without the express written consent of ‎MDout, Inc.‎ or its lawful successors and assigns.
+        </p>
+        <p>
+            <strong>Notice of Copyright or Trademark Infringement</strong><br/> ‎MDout, Inc.‎ respects and honors the intellectual
+            property of others. If you believe that your work has been copied and is accessible on the website in a way that
+            constitutes infringement, please provide ‎MDout, Inc.‎ with the following information: (1) identification of
+            the copyrighted work claimed to have been infringed; (2) identification of the allegedly infringing material
+            on the website that is requested to be removed; (3) your name, address, and daytime telephone number, and an
+            email address if available, so that ‎MDout, Inc.‎ may contact you if necessary; (4) a statement that you have
+            a good faith belief that the use of the copyrighted work is not authorized by the copyright owner, its agent,
+            or the law; (5) a statement that the information in the notification is accurate and, under penalty of perjury,
+            that the signatory is authorized to act on behalf of the owner of an exclusive copyright right that is allegedly
+            infringed; and (6) an electronic or physical signature of the copyright owner or someone authorized on the owner's
+            behalf to assert infringement of copyright and to submit the statement.
+        </p>
+        <p>
+            ‎MDout, Inc.‎ agent for notice of claims of copyright or trademark infringement on the Website is: CEO, ‎MDout, Inc.‎
+        </p>
+        <p>
+            Email: info@mdout.com
+        </p>
+        <p>
+
+            <strong>Forums</strong><br/> As used in these Terms of Use, "Forum" means an area, site, or feature (such as
+            chat rooms, bulletin boards, and e-mail or instant messaging features) offered as part of the website that enables
+            visitors to submit, display and/or view content and/or to communicate, share, or exchange content with other
+            website visitors and members of the general public. Any submission may be routed through our servers, third party
+            servers on our behalf, and the Internet (where it may be viewed by the general public), so you have no expectation
+            of privacy for any submitted content. Since we cannot guarantee security of information on a Forum, your use
+            is at your own risk.
+        </p>
+        <p>
+            We are not responsible for the accuracy of any user content contained in any Forum or otherwise on our website.
+        </p>
+        <p>
+            <strong>Submitted Content</strong><br/> There are two general situations where you might submit content to us
+            via the Internet or other means. The first is in connection to promotional activity. The second is in connection
+            with a Forum. In the event you submit any content such as ideas, photographs, or works of authorship in connection
+            with any promotion, in consideration of your entry you will, by your submission, be deemed to have assigned to
+            us all right, title, and interest in the intellectual property or other property interest in the content you
+            may have and you agree to execute any further documentation to effect or memorialize the transfer.
+        </p>
+        <p>
+            In connection with submissions to any Forum, we claim no ownership rights in any content (i.e., text, images, photos, video,
+            sounds, or any other materials) that you post, except as provided in these Terms of Use. However, if you do post
+            content on any Forum, you grant us a limited, non-exclusive, royalty-free, worldwide license to use, modify,
+            publicly perform, publicly display, reproduce, sublicense, and distribute the content in connection with our
+            website. Further, you agree to waive any "moral rights" associated with the content. If terms other than those
+            provided in these Terms of Use apply to your submission, we will post those terms on the website at the location
+            of the feature or activity.
+        </p>
+        <p>
+            You represent and warrant that: (1) you own any content posted by you on the website, Forum or otherwise submitted to us,
+            and have the right to grant a license as stated in these Terms of Use, and (2) posting and publishing any content
+            on or in connection with the website, Forum, or any offering does not violate any third-party intellectual property,
+            publicity, privacy, or contract rights. You agree to not submit any content which is libelous, defamatory, obscene,
+            pornographic, threatening, invasive of privacy or publicity rights, abusive, illegal, or otherwise objectionable
+            that would constitute or encourage a criminal offense, violate the rights of any party, or that would otherwise
+            give rise to liability, or violates any law or obligation of confidentiality. You can only use the Forums in
+            a noncommercial manner.
+        </p>
+        <p>
+            We may edit or delete any content provided by you at any time at our sole discretion. Further, we may screen or monitor submitted
+            content for legal or other purposes, though we have no obligation to do so.
+        </p>
+        <p>
+            <strong>License and Website Access></strong><br/> ‎MDout, Inc.‎ grants you a limited, revocable and nonexclusive
+            license to access and make personal use of the website but not to download (other than page caching) or modify
+            it, or any portion of it, except with express written consent of ‎MDout, Inc.‎. This license does not include
+            any resale or commercial use of the Website or its contents; any collection and use of any product listings,
+            descriptions, or prices; any derivative use of the website or its contents; any downloading or copying of account
+            information for the benefit of another merchant; or any use of data mining, robots, spiders, or similar data
+            gathering and extraction tools.
+        </p>
+        <p>
+            Neither the website nor any portion of the website may be reproduced, duplicated, copied, sold, resold, visited, or otherwise
+            exploited for any commercial purpose without express written consent of ‎MDout, Inc.‎. You may not frame or use
+            framing techniques to enclose any trademark, logo, or other proprietary information (including images, text,
+            page layout, or form) of ‎MDout, Inc.‎ and its affiliates without express written consent of ‎MDout, Inc.‎. You
+            may not use Meta tags or any other hidden text using MDout, Inc.‎ name or trademarks without the express written
+            consent of MDout, Inc.‎. Any unauthorized website use will immediately terminate the permission or license granted
+            by ‎MDout, Inc.‎.
+        </p>
+        <p>
+            You are granted a limited, revocable, and nonexclusive right to create a hyperlink to the home page of ‎MDout, Inc.‎, so
+            long as the link does not portray ‎MDout, Inc.‎ or its products or services in a false, misleading, derogatory,
+            or otherwise offensive manner as determined by ‎MDout, Inc.,‎ in its sole discretion. You may not use any MDout,
+            Inc.‎’s logo or other proprietary graphic or trademark as part of the link without express written permission
+            of ‎MDout, Inc.‎. You may not make any other part of the website, other than the home page of the website, available
+            as part of another service by "deep linking," or otherwise, without prior written permission from ‎MDout, Inc.‎.
+        </p>
+        <p>
+            <strong>Third Party and Co-Branded Websites</strong><br/> The website may contain hyperlinks "Links" to websites
+            operated by persons or entities other than ‎MDout, Inc.‎ "Third-party Websites" or to co-branded websites operated
+            by a third party, including affiliates "Co-branded Websites". We provide these Links for your reference and convenience
+            only. A Link from ‎MDout, Inc.,‎ to a Third-party website does not imply or mean that we endorse the content
+            on that Third-party or Co-branded website or the operator or operations of that website. You are solely responsible
+            for determining the extent to which you use any content at any Third party or Co-branded websites to which you
+            might link from our website.
+        </p>
+        <p>
+            ‎MDout, Inc.‎ is not responsible or liable for any loss or damage incurred as a result of any dealings with any Third-party
+            website or Co-branded website, any merchant or operator of a Third-party website or Co-branded website, or any
+            other person with whom you may engage in any transaction.
+        </p>
+        <p>
+            <strong>Your Responsibilities</strong><br/> You agree to comply with all applicable laws in connection with your
+            use of the website, and any further limitations as may be set forth in any written or on-screen notice from ‎MDout,
+            Inc.‎. As a condition of your use of the website, you warrant that you will not use the website for any purpose
+            that is unlawful or prohibited by these Terms of Use. All information that you provide in connection with a purchase
+            or transaction or other interaction with the website or any Co-branded website will be accurate, complete, and
+            current. You will pay all charges incurred by users of your credit card, debit card, or other payment method
+            used in connection with a purchase or transaction or other interaction with ‎MDout, Inc.‎ or any Co-branded website
+            at the prices in effect when such charges are incurred. You will pay any applicable taxes, if any, relating to
+            any such purchases, transactions or other interactions.
+        </p>
+        <p>
+            By using the website, you agree not to violate or attempt to violate the security of the Website, including, by way of illustration
+            but not limitation, actions like accessing data not intended for you or logging into a server or account that
+            you are not authorized to access; attempting to probe, scan, or test the vulnerability of a system or network
+            or to breach security or authentication measures without proper authorization; attempting to interfere with service
+            to any user, host, or network, including, without limitation, by way of submitting a virus to or overloading,
+            "flooding," "spamming," "mail bombing," or "crashing" the website; sending unsolicited email, including promotions
+            and/or advertising of products or services; and forging any TCP/IP packet header or any part of the header information
+            in any email or posting.
+        </p>
+        <p>
+            <strong>Risk of Loss</strong><br/> All products purchased from the website are transported and delivered to you
+            by an independent carrier not affiliated with, or controlled by, ‎MDout, Inc.‎. Title to products purchased on
+            the website, as well as the risk of loss for such products, pass to you when ‎MDout, Inc.‎ delivers these items
+            to the carrier.
+        </p>
+        <p>
+            <strong>Product Information</strong><br/> ‎MDout, Inc.‎ attempts to be accurate in describing its products. We
+            do not warrant that product descriptions or other content of the website are complete, reliable, current, or
+            error-free. In some cases, merchandise displayed for sale at the website may not be available in retail stores.
+            Unless otherwise stated, the prices displayed at the website are quoted in U.S. currency.
+        </p>
+        <p>
+            <strong>Colors</strong><br/> We made every effort to display as accurately as possible the colors of our products
+            that appear at the website. As the actual colors you see depend on your computer monitor, however, we cannot
+            guarantee that your monitor's display of any color will be accurate.
+        </p>
+        <p>
+            <strong>Disclaimer of Warranties and Limitations on Liability</strong> ‎MDout, Inc.‎ provides this website on
+            an "as-is" and "as available" basis. To the maximum extent permitted by law, ‎MDout, Inc.,‎ disclaims all warranties,
+            express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular
+            purpose, as to the operation of the website. This disclaimer also applies to the information, content, third-party
+            content, materials, products, services, or linked services provided on or through the Website, including, without
+            limitation:
+        </p>
+        <ul>
+            <li>
+                that the information provided through the Website will be free from error, omission, interruption, defect or delay in operation,
+                or from technical inaccuracies or typographical errors;
+            </li>
+            <li>
+                that the website will be available at any particular time or location; </li>
+            <li>
+                that the defects or errors in service will be corrected; or </li>
+            <li>
+                that the content on the website is free from viruses or other harmful components. </li>
+        </ul>
+        <p>
+            Any information on this website is subject to change without notice and we disclaim all responsibility for these changes.
+            You expressly agree that your use of this website is at your sole risk.
+        </p>
+        <p>
+            In no event will ‎MDout, Inc.‎, or any party involved in creating, producing, or delivering the Website, be liable for any
+            damages of any kind arising from the use of the website, including, but not limited to direct, indirect, incidental,
+            exemplary, punitive, special and consequential damages or any damages of any type or nature arising out of your
+            access, use, misuse, or inability to use the website or any linked sites or services; in the event a third party
+            intercepts or decrypts any transmission of information that you provide to ‎MDout, Inc.‎ through the website;
+            or in connection with any failure of performance, error, omission, interruption, defect, delay in operation or
+            transmission computer virus, or line or system failure, whether in an action under contract, negligence, tort,
+            strict liability, or any other theory, even if we have been previously advised of the possibility of such damages.
+            Certain states or jurisdictions do not allow limitations on implied warranties or the exclusion or limitation
+            of certain damages. If these laws apply to you, some or all of the above disclaimers, exclusions or limitations
+            may not apply and you may have additional rights.
+        </p>
+        <p>
+            <strong>Indemnification</strong><br/> You agree to defend, indemnify, and hold harmless ‎MDout, Inc.,‎ and its
+            affiliates, successors and assigns, and its and their respective directors, officers, employees, agents, attorneys,
+            co-branders or other partners from and against any and all allegations, claims, demands, actions, causes of action,
+            proceedings (whether threatened or pending), orders, damages, losses, liabilities, costs and expenses, including
+            reasonable attorney's fees and other legal expenses, and judgments of any kind of nature, incurred by ‎MDout,
+            Inc.‎ arising out of or relating to your use of the website, your violation of these Terms of Use, or your violation
+            of any rights of another.
+        </p>
+        <p>
+            <strong>Miscellaneous Provisions</strong><br/> ‎MDout, Inc.‎ may discontinue the website at any time and for
+            any reason, without notice. We may change the contents, operation, or any and all other features of the Website
+            at any time for any reason, without notice. We may discontinue or restrict your use of the Website at any time
+            for any reason, without notice.
+        </p>
+        <p>
+            You agree that no joint venture, partnership, employment, or agency relationship exists between you and ‎MDout, Inc.‎ as
+            a result of these Terms of Use or your use of the Website. Nothing contained in these Terms of Use will take
+            away from ‎MDout, Inc.‎’s right to comply with governmental, court, and law enforcement requests or requirements
+            relating to your use of the website or information provided to or gathered by ‎MDout, Inc.‎ with respect to such
+            use. A printed version of these Terms of Use and of any notice given in electronic form shall be admissible in
+            judicial or administrative proceedings based upon or relating to these Terms of Use to the same extent and subject
+            to the same conditions as other business documents and records originally generated and maintained in printed
+            form.
+        </p>
+        <p>
+            The failure of ‎MDout, Inc.‎ to enforce any provisions of these Terms of Use or respond to a breach by you or other parties
+            will not in any way waive its right to enforce subsequently any terms or conditions of these Terms of Use or
+            to act with respect to similar breaches.
+        </p>
+        <p>
+            If any provisions in these Terms of Use are invalid or unenforceable under applicable law, the remaining provisions will
+            continue in full force and effect, and the invalid unenforceable provision will be deemed superseded by a valid,
+            enforceable provision that most closely matches the intent of the original provision.
+        </p>
+        <p>
+            These Terms of Use represent the entire and final agreement regarding our Website and any Forum content, and supersedes any
+            prior or contemporaneous communications between ‎MDout, Inc.‎ and you regarding our Website and its contents.
+            All rights not expressly granted to you in these Terms of Use are reserved to ‎MDout, Inc.‎
+        </p>
+        <p>
+
+            <strong>CHOICE OF LAW AND FORUM</strong><br/> These website Legal Terms and Conditions shall be governed by and
+            construed in accordance with the laws of the State of California, without regard to such state's rules regarding
+            conflicts of laws. By accessing this website, you agree that courts located in the Northern Districts of California
+            or in the counties within those federal judicial districts shall have exclusive jurisdiction over all claims
+            and actions arising out of or relating to these Legal Terms and Conditions and/or your use of this site, and
+            you further agree and submit to the exercise of personal jurisdiction of such courts and consent to extra-territorial
+            service of process for the purpose of litigating any such claim or action.
+
+            <!-- These Terms of Use were last updated on 1/10/2019 -->
+            </p-scrollPanel>
+        </p>
+    </div>
+    <br>
+    <p-footer>
+        <button type="button" class="btn btn-default " (click)="closeTermsDialogue()">
+            Close</button>
+    </p-footer>
+</p-dialog>
+
+
+<div [ngClass]="{'spinner' : isLoading}">
+</div>
+<p-toast></p-toast>
+
+<!-- 
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input);
+</script> -->

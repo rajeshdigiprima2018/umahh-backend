@@ -1,0 +1,335 @@
+<div [@routerTransition]>
+<div>
+    <div class="row">
+        <div class="col col-sm-7">
+            <h2>{{'sendMessage' | translate}}</h2>
+        </div>
+            <div class="col-sm-5">
+                <!-- div class=" searchDiv mt-2">
+                        <form [formGroup]="searchUserForm">
+                                
+                                <input type="text" class="searchInput" maxlength="64" placeholder="Search" formControlName="searchText">
+                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="searchUser()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="row card">
+        <div class="col col-sm-12">
+<div class="container">
+<h3 class=" text-center">{{'messaging' | translate}}</h3>
+<div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>{{'recent' | translate}}</h4>
+            </div>
+            <div class="srch_bar">
+<!--               <div class="stylish-input-group">
+                <input type="text" class="search-bar"  placeholder="Search" >
+                <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> </div> -->
+            </div>
+          </div>
+          <div class="inbox_chat" *ngIf="mosque">
+            <div [class.active_chat]="mosqueObj._id==recive_id" class="chat_list " *ngFor="let mosqueObj
+             of mosque" (click)="toggle(mosqueObj._id)">
+              <div class="chat_people" style="cursor: pointer;">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" *ngIf="mosqueObj.avtar==null"> 
+                  <img style="max-width:100%;border-radius: 50%;" src="http://139.59.83.155:4002{{mosqueObj.avtar}}" alt="sunil" *ngIf="mosqueObj.avtar!==null">
+                </div>
+                <div class="chat_ib">
+                  <h5>{{mosqueObj.username}}<span class="chat_date">{{ mosqueObj.createdAt | date: 'MMM d' }}</span></h5>
+                  <p>{{mosqueObj.role}}</p>
+                </div>
+              </div>
+            </div>
+<!--             <div class="chat_list active_chat">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="mesgs" *ngIf="sideMessage">
+          <div class="msg_history" *ngIf="mosqueMessageList"> 
+            <div *ngFor="let mosqueMessageObj
+             of mosqueMessageList"> 
+            <div class="incoming_msg" *ngIf="loggedInId==mosqueMessageObj.send_id"> 
+              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>{{mosqueMessageObj.description}}</p>
+                  <span class="time_date"> {{ mosqueMessageObj.createdAt | date: 'HH:mm aa' }}    |   {{ mosqueMessageObj.createdAt | date: 'd MMM' }}</span></div>
+              </div>
+            </div>
+            <div class="outgoing_msg" *ngIf="loggedInId==mosqueMessageObj.recive_id">
+              <div class="sent_msg">
+                <p>{{mosqueMessageObj.description}}</p>
+                <span class="time_date"> {{ mosqueMessageObj.createdAt | date: 'HH:mm aa' }}    |   {{ mosqueMessageObj.createdAt | date: 'd MMM' }}</span> </div>
+            </div>
+        </div>
+<!--             <div class="incoming_msg">
+              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>Test, which is a new approach to have</p>
+                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
+              </div>
+            </div> -->
+<!--             <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>Apollo University, Delhi, India Test</p>
+                <span class="time_date"> 11:01 AM    |    Today</span> </div>
+            </div>
+            <div class="incoming_msg">
+              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>We work directly with our designers and suppliers,
+                    and sell direct to you, which means quality, exclusive
+                    products, at a price anyone can afford.</p>
+                  <span class="time_date"> 11:01 AM    |    Today</span></div>
+              </div>
+            </div> -->
+          </div>
+          <div class="type_msg">
+            <form class="topic" [formGroup]="addMessageForm" (ngSubmit)="addMessage()" autocomplete="off">
+            <div class="input_msg_write">
+              <input type="text" formControlName="description" class="write_msg" placeholder="Type a message" />
+                <div *ngIf="addMessageForm.controls['description'].dirty && addMessageForm.controls['description'].invalid">
+                  <p class="form_error" *ngIf="addMessageForm.controls['description'].dirty && addMessageForm.controls['description'].hasError('required')">Please enter description.</p>
+                  <p class="form_error" *ngIf="addMessageForm.controls['description'].dirty && addMessageForm.controls['description'].hasError('pattern')">Please enter the correct description.</p>
+                </div>
+              <button class="msg_send_btn" type="submit" [disabled]='!addMessageForm.valid'><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      
+ <!--      <p class="text-center top_spac"> Design by <a target="_blank" href="#">Sunil Rajput</a></p> -->
+      
+    </div></div>
+
+        </div>
+    </div>
+
+<!-- </div> -->
+
+<!-- User add edit dialogue -->
+<!-- <p-dialog header="{{setHeadMode}}" [(visible)]="display" closeOnEscape="true" (onHide)="closeDialog()" [modal]="true" [responsive]="true"
+    [width]="500" [minWidth]="300" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <form class="addUser-form" [formGroup]="addPatientForm">
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Email
+                </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" formControlName="email" type="email" class="form-control input-md">
+                    <div *ngIf="addPatientForm.controls['email'].dirty && addPatientForm.controls['email'].invalid">
+                        <p class="form_error" *ngIf="addPatientForm.controls['email'].hasError('required')">Please enter
+                            Email.
+                        </p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['email'].dirty && addPatientForm.controls['email'].hasError('pattern')">Please
+                            enter the correct email.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">First Name </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" type="text" formControlName="firstName" class="form-control input-md">
+                    <div *ngIf="addPatientForm.controls['firstName'].dirty && addPatientForm.controls['firstName'].invalid">
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].dirty && addPatientForm.controls['firstName'].hasError('required')">Please
+                            enter first name.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].hasError('maxlength')">You can
+                            add only 30 charater.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].hasError('minlength')">Minimum
+                            2 charater required.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['firstName'].dirty&& !addPatientForm.controls['firstName'].hasError('required')&&!addPatientForm.controls['firstName'].hasError('maxlength') && !addPatientForm.controls['firstName'].hasError('minlength') && addPatientForm.controls['firstName'].hasError('pattern')">Please
+                            enter the correct name.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Last Name
+                </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" type="text" formControlName="lastName" class="form-control input-md">
+                    <div *ngIf="addPatientForm.controls['lastName'].dirty && addPatientForm.controls['lastName'].invalid">
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].dirty && addPatientForm.controls['lastName'].hasError('required')">Please
+                            enter Last name.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].hasError('maxlength')">You can add
+                            only 30 charater.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].hasError('minlength')">Minimum 2
+                            charater required.</p>
+                        <p class="form_error" *ngIf="addPatientForm.controls['lastName'].dirty&&!addPatientForm.controls['lastName'].hasError('required')&&!addPatientForm.controls['lastName'].hasError('maxlength') && !addPatientForm.controls['lastName'].hasError('minlength') && addPatientForm.controls['lastName'].hasError('pattern')">Please
+                            enter the correct name.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" [disabled]="!addPatientForm.valid" (click)="btnMode=='Create' ? addPatient() : editPatient()" class="btn btn-primary">{{btnMode}}</button>
+        <button type="button" (click)="closeDialog()" class="btn btn-default">Close</button>
+    </p-footer>
+</p-dialog> -->
+
+<!-- User delete conformation dialogue -->
+<p-dialog header="Delete Confirmation " [(visible)]="displayDelete" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200"
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <span>
+        <span class="fa fa-info-circle fa-lg mr-2"></span> You are deleting. Are you sure?
+        <br>
+    </span>
+    <br>
+    <p-footer>
+        <button type="button" class="btn btn-primary" (click)="deleteMessage()">
+            Yes</button>
+        <button type="button" class="btn btn-default " (click)="displayDelete = false;">
+            No</button>
+    </p-footer>
+</p-dialog>
+
+
+<!-- Assign survey dialogue -->
+<!-- <p-dialog header="Assign Survey"  [(visible)]="showSurveyStatus" [modal]="true" [responsive]="true" [width]="900" 
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="mb-3">
+                <div class="tableData">
+                    <div [ngClass]="{'spinner' : loader}">
+                    </div>
+            
+                    <div class="table-responsive datePopup">
+                        <p-table [value]="finalArr" class="table table-sm table-striped tableList" id="tableList">
+                            <ng-template pTemplate="header" class="thead-dark">
+                                <tr>
+                                    <th scope="col" width="150">Survey Name </th>
+                                    <th scope="col" width="120">Created</th>
+                                    <th scope="col" width="60">Action</th>
+                                    <th scope="col" width="60">Assign</th>
+                                    <th scope="col" width="250">Appointment Date</th>
+                                    <th scope="col" width="250">Assign To Survey</th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-survey>
+                                <tr>
+                                    <td>{{survey.surveyData.surveyName}}</td>
+                                    <td>{{survey.surveyData.createdAt | date }}</td>
+                                    <td>
+                                        <span>
+                                            <a class="ml-3" (click)="showSurvey(survey.surveyData._id);">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <p-checkbox value="survey.isAssignSurveyChecked" binary="isAssignSurveyChecked" [(ngModel)]="survey.isAssignSurveyChecked"></p-checkbox>
+                                    </td>
+                                    <td>
+                                        <p-calendar [(ngModel)]="survey.appointmentDate"  [monthNavigator]="true" [yearNavigator]="true" (onSelect)="hideCalender=true" [hideOnDateTimeSelect]="hideCalender" [showTime]="true" [showSeconds]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+                                    </td>
+                                    <td>
+                                        <p-multiSelect [options]="survey.optionlistArr" [(ngModel)]="survey.assign_to_id" placeholder="Select staff to assign" optionLabel="userName"
+                                            (onChange)="setStaffId($event,survey._id)" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="5">
+                                        No survey are present
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div *ngIf="surveyTotalCount > surveyCount">
+                            <p-paginator alwaysShow='false' pageLinkSize="{{surveyPageCountLink}}" rows="{{surveyCount}}" totalRecords="{{surveyTotalCount}}"
+                                (onPageChange)="paginate($event,'survey')"></p-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-primary" (click)="assignSurvey()">
+            Assign</button>
+        <button type="button" class="btn btn-default " (click)="closeShowSurveyStatus()">
+            Cancel</button>
+    </p-footer>
+</p-dialog> -->
+<div [ngClass]="{'spinner' : isLoading}">
+</div>
+</div>

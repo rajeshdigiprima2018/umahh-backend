@@ -1,0 +1,92 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'createDonation' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listDonation']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="time"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="addDonationForm" (ngSubmit)="addDonation()" autocomplete="off">
+                        <!--Select Category  -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'selectCategory' | translate}} * :</label>
+                                <div class="col-md-4 ">
+                                    <div>
+                                        <div>
+                                            <p-dropdown [options]="AllCategoryDonation" class="input-md selectCategory" formControlName="dona_category_id" [style]="{'width':'390px'}"></p-dropdown>
+                                        </div>
+                                        <!-- <div *ngIf="addDonationForm.controls['dona_category_id'].dirty && addDonationForm.controls['dona_category_id'].invalid">
+                                            <p class="form_error" *ngIf="addDonationForm.controls['dona_category_id'].dirty && addDonationForm.controls['dona_category_id'].hasError('required')">{{'selectCategory' | translate}}</p>
+                                        </div> -->
+                                        <div *ngIf="submitted && f.dona_category_id.errors" class="invalid-test-feedback">
+                                            <div *ngIf="f.dona_category_id.errors.required">{{'selectCategory' | translate}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                                    <input type="text" id="Title" name="Title" formControlName="title" placeholder="Title" class="form-control">
+                                    <!-- <div *ngIf="addDonationForm.controls['title'].dirty && addDonationForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="addDonationForm.controls['title'].dirty && addDonationForm.controls['title'].hasError('required')">{{'boardTitle' | translate}}</p>
+                                        <p class="form_error" *ngIf="addDonationForm.controls['title'].dirty && addDonationForm.controls['title'].hasError('maxlength')">{{'boardTitle' | translate}}</p>
+                                        <p class="form_error" *ngIf="addDonationForm.controls['title'].dirty && addDonationForm.controls['title'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                                    </div> -->
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'title' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- amount -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'amount' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                                    <input type="text" id="Title" name="Title" formControlName="amount" placeholder="10.00" class="form-control" appTwoDigitDecimaNumber>
+                                    <!-- <div *ngIf="addDonationForm.controls['amount'].dirty && addDonationForm.controls['amount'].invalid">
+                                        <p class="form_error" *ngIf="addDonationForm.controls['amount'].dirty && addDonationForm.controls['amount'].hasError('required')">{{'amount' | translate}}</p>
+                                        <p class="form_error" *ngIf="addDonationForm.controls['amount'].dirty && addDonationForm.controls['amount'].hasError('maxlength')">{{'amount' | translate}}</p>
+                                        <p class="form_error" *ngIf="addDonationForm.controls['amount'].dirty && addDonationForm.controls['amount'].hasError('pattern')">{{'amount' | translate}}</p>
+                                    </div> -->
+                                    <div *ngIf="submitted && f.amount.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.amount.errors.required">{{'amount' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage topicBtn">
+                            <!-- <button type="submit" [disabled]='!addDonationForm.valid' class="btn btn-primary ">{{'save' | translate}}</button> -->
+                            <button type="submit" class="btn btn-primary ">{{'save' | translate}}</button>
+                            <button type="button" [routerLink]="['/layout/manageMosque/listDonation']" class="btn btn-default ">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="row">
+  <div class=" col-sm-8 ">
+    <h2> Edit health topic</h2>
+  </div>
+  <div class=" col-sm-4 text-right">
+    <button [routerLink]="['/layout/manageContent/listTopics']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i _ngcontent-c4="" class="fa fa-arrow-left"></i> Back</button>
+  </div>
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <div class="list-group listManagement">
+          <div class="row">
+            <form class="topic" [formGroup]="editTopicForm" (ngSubmit)="editTopic()">
+              <div class="row">
+                <div class="col-md-5">
+                  <label class="profile-name">Title</label>
+                  <input type="text" formControlName="title" class="form-control">
+                  <div *ngIf="editTopicForm.controls['title'].dirty && editTopicForm.controls['title'].invalid">
+                      <p class="form_error" *ngIf="editTopicForm.controls['title'].dirty && editTopicForm.controls['title'].hasError('required')">Please enter title.</p>
+                      <p class="form_error" *ngIf="editTopicForm.controls['title'].dirty && editTopicForm.controls['title'].hasError('pattern')">Please enter the correct title.</p>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                  <label class="profile-name">Status</label>
+                  <br/>
+                  <input type="radio" value="public" formControlName="status"> Public
+                  
+                  <input type="radio" value="private" formControlName="status"> Private
+                  <br>
+                  <div *ngIf="editTopicForm.controls['status'].dirty && editTopicForm.controls['status'].invalid">
+                      <p class="form_error" *ngIf="editTopicForm.controls['status'].dirty && editTopicForm.controls['status'].hasError('required')">Please select status.</p>
+                    </div>
+                </div>
+
+                 <!--Select Category  -->
+                <div class="col-md-5">
+                    <label class="profile-name">Select Category :</label>
+                    <p-dropdown [options]="categoryType" class="input-md" [(ngModel)]="selectedCategory" formControlName="category" [style]="{'width':'385px'}"></p-dropdown>
+                    <div *ngIf="editTopicForm.controls['category'].dirty && editTopicForm.controls['category'].invalid">
+                        <p class="form_error" *ngIf="editTopicForm.controls['category'].dirty && editTopicForm.controls['category'].hasError('required')">Please select category.</p>
+                      </div>
+                  </div>
+                  
+                <div class="col-md-10 desMargin" *ngIf="pdfUrl==null">
+                  <label class="profile-name">Description</label>
+                  <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                  <div *ngIf="editTopicForm.controls['description'].dirty && editTopicForm.controls['description'].invalid">
+                      <p class="form_error" *ngIf="editTopicForm.controls['description'].dirty && editTopicForm.controls['description'].hasError('required')">Please enter description.</p>
+                      <!-- <p class="form_error" *ngIf="editTopicForm.controls['description'].dirty && editTopicForm.controls['description'].hasError('pattern')">Please enter the correct description.</p> -->
+                    </div>
+                </div>
+                <div class="col-md-10 desMargin" *ngIf="pdfUrl !=null">
+                  <label class="profile-name">Selected file</label>
+                  <p readonly="true" >{{pdfUrl}}</p>
+                  <!-- <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor> -->
+                  <!-- <div *ngIf="editTopicForm.controls['description'].dirty && editTopicForm.controls['description'].invalid">
+                      <p class="form_error" *ngIf="editTopicForm.controls['description'].dirty && editTopicForm.controls['description'].hasError('required')">Please enter description.</p> -->
+                      <!-- <p class="form_error" *ngIf="editTopicForm.controls['description'].dirty && editTopicForm.controls['description'].hasError('pattern')">Please enter the correct description.</p> -->
+                    <!-- </div> -->
+                </div>
+                <div class="col-md-12 text-right topicBtn">
+                    <button type="submit"   class="btn btn-primary ">Update</button>
+                    <button type="button"  [routerLink]="['/layout/manageContent/listTopics']"  class="btn btn-default ">Close</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>

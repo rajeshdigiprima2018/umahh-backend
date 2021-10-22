@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col col-sm-8">
+        <h2> Chat </h2>
+    </div>
+    <div class="col col-sm-12">
+        <div class="card mb-3">
+            <div class="card-body ">
+                <!-- new chat html start -->
+                <div id="frame">
+                    <div id="sidepanel">
+                        <div id="profile">
+                            <div class="wrap">
+                                <ul class="chatTab">
+                                    <li><a [ngClass]="activeCls ? 'active' : ''" (click)="activeCls=false">User</a></li>
+                                    <li><a [ngClass]="activeCls ? '' : 'active'" (click)="activeCls=true;getGroup()">Group</a></li>
+                                </ul>
+
+                                <!-- <img class="online" *ngIf="userDetails.image" src="{{ imageurl + '/uploads/profileImages/' + userDetails.image }}" />
+                    <img class="online" *ngIf="!loggedInUserDetails.image && loggedInUserDetails.userType != 'clinic' " src="{{ baseurl + 'assets/images/user.png' }}"
+                    />
+                    <img class="online" *ngIf="!loggedInUserDetails.image && loggedInUserDetails.userType == 'clinic' " src="{{ baseurl + 'assets/images/doctor.png' }}"
+                    /> -->
+                                <!-- <p *ngIf="loggedInUserDetails.userType == 'clinic' || loggedInUserDetails.userType == 'admin'">{{loggedInUserDetails.clinicName}}</p>
+                    <p *ngIf="loggedInUserDetails.userType == 'user' || loggedInUserDetails.userType == 'staff' ">{{loggedInUserDetails.userName}}</p> -->
+
+                                <div id="status-options">
+                                    <ul>
+                                        <li id="status-online" class="active"><span class="status-circle"></span>
+                                            <p>Online</p>
+                                        </li>
+                                        <li id="status-away"><span class="status-circle"></span>
+                                            <p>Away</p>
+                                        </li>
+                                        <li id="status-busy"><span class="status-circle"></span>
+                                            <p>Busy</p>
+                                        </li>
+                                        <li id="status-offline"><span class="status-circle"></span>
+                                            <p>Offline</p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="search">
+                            <form [formGroup]="searchUserForm">
+                                <input type="t baseurl + 'assets/images/user.png' ext" class="searchInput" maxlength="30" placeholder="search by name" formControlName="searchText">
+                                <button *ngIf="!activeCls" type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="getListOfUserAndStaff()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button *ngIf="activeCls" type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="getGroup()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div id="contacts">
+                            <ul *ngIf="activeCls">
+                                <li class="contact" *ngFor="let user of groupData">
+                                    <div class="wrap"> <span class="contact-status online"></span>
+                                        <img *ngIf="user.image" src="{{ imageurl + '/uploads/profileImages/' + userData.image }}" />
+                                        <img *ngIf="!user.image" src="{{ baseurl + 'assets/images/user.png' }}" />
+                                        <div class="meta" (click)="setupChannel(user.groupName ,user.channelSid,user.serviceSid);chatHeader(user.groupName,user.image,'group')">
+                                            <p class="name">{{user.groupName}}</p>
+                                            <p class="preview"></p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <span *ngIf="groupData && groupData.length == 0 && !isLoading">No group found</span>
+                            </ul>
+                            <ul *ngIf="!activeCls">
+                                <li class="contact" *ngFor="let user of userData">
+                                    <div class="wrap"> <span class="contact-status online"></span>
+                                        <img *ngIf="user.image" src="{{ imageurl + '/uploads/profileImages/' + userData.image }}" />
+                                        <img *ngIf="!user.image" src="{{ baseurl + 'assets/images/user.png' }}" />
+                                        <div class="meta">
+                                            <p class="name">{{user.userName || user.clinicName}}</p>
+                                            <p class="preview">{{user.userType}}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <span *ngIf="userData && userData.length == 0 && !isLoading">No user found</span>
+                            </ul>
+                        </div>
+                        <div id="bottom-bar">
+                            <button *ngIf="userDetails.userType != 'user'" id="addcontact" (click)="showAddParticipantsModal()"><i
+                                    class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+                                <span>Add group</span></button>
+                            <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="contact-profile">
+                            <img src="{{imgUrl}}" alt="" />
+                            <p>{{groupName}}</p>
+                            <span class="userSetting"> :</span>
+
+                        </div>
+                        <div class="messages">
+                            <ul>
+                                <li [ngClass]="[chatMsg.from != userID ? 'sent' : 'replies']" *ngFor="let chatMsg of channelMsgData">
+                                    <img *ngIf="chatMsg.attributes.image" src="{{ imageurl + '/uploads/profileImages/' + chatMsg.attributes.image }}" alt=""
+                                    />
+                                    <img *ngIf="!chatMsg.attributes.image" src="{{ baseurl + 'assets/images/user.png' }}" alt="" />
+                                    <p>{{chatMsg.body}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="message-input">
+                            <div class="wrap">
+                                <form [formGroup]="messgaeForm" (ngSubmit)="sendMessage(selectedChnSid,selectedServiceSid)">
+                                    <input type="text" class="searchInput" placeholder="Write your message..." formControlName="message">
+                                    <i class="fa fa-paperclip attachment" aria-hidden="true">
+                                        <input type="file" name="imagePath" id="imagePath" (change)="onFileChange($event)" #fileInput>
+                                    </i>
+                                    <button type="submit" class="searchBtnInput btn btn-primary btn-sm">
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                                <!-- <input type="text" placeholder="Write your message..." />
+                                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                                <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<p-dialog header="Add participants" [(visible)]="showAddParticipants" [modal]="true" [responsive]="true" [width]="700" [minWidth]="700"
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body tableData">
+                    <div class="row searchDiv">
+                        <div class=" col-sm-6">
+                            <form [formGroup]="searchUserForm">
+                                <input type="text" class="searchInput" maxlength="30" placeholder="Search user name" formControlName="searchText">
+                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="getListOfUserAndStaff()">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                            <h2>All</h2><input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();" />
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <p-table [value]="userData" class="table table-sm table-striped tableList" id="tableList">
+                            <ng-template pTemplate="header" class="thead-dark">
+                                <tr>
+                                    <th scope="col">User Name </th>
+                                    <th scope="col">Type Of User</th>
+                                    <th scope="col">Select</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-user>
+                                <tr>
+                                    <td>
+                                        {{ user.userName ? user.userName : clinicName || 'NA'}}
+                                    </td>
+                                    <td>
+                                        {{ user.userType }}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" [(ngModel)]="user.selected" (change)="checkIfAllSelected();">
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="4">
+                                        No participants found
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <!-- *ngIf="topics.length != 0" -->
+                        <div>
+                            <div *ngIf="userData && userData.length > 0">
+                                <p-paginator alwaysShow='false' pageLinkSize="{{pageCountLink}}" rows="{{count}}" totalRecords="{{totalCount}}" (onPageChange)="paginate($event)"></p-paginator>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-primary" (click)="showDialogGrpName = true">Next</button>
+        <!-- <button type="button" class="btn btn-default" (click)="showFilledSurveyAnswerStatus=false;">
+            Cancel</button> -->
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Add group name" [(visible)]="showDialogGrpName" [modal]="true" [responsive]="true" [width]="700" [minWidth]="700"
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <form [formGroup]="addGroupForm">
+                    <input type="text" class="searchInput" maxlength="30" placeholder="Add group name" formControlName="groupName">
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" class="btn btn-primary" [disabled]="!addGroupForm.valid" (click)="createGroup()">Save</button>
+        <button type="button" class="btn btn-default" (click)="showDialogGrpName=false;">
+            Cancel</button>
+    </p-footer>
+</p-dialog>

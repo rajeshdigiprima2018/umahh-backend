@@ -1,0 +1,31 @@
+<div class="row">
+  <div class=" col-sm-8">
+    <h2> View health topic 
+      </h2>
+  </div>
+  <div class=" col-sm-4 text-right">
+    <!-- [routerLink]="['/layout/manageContent/listTopics']" -->
+    <button class="btn btn-sm btn-success addUserBtn" type="button" (click)="navigate()">
+      <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <div class="list-group listManagement">
+          <div *ngFor="let topic of topicDetails">
+            <h2>{{topic.contentTitle}}</h2>
+            <div *ngIf="topic.contentDescription != 'null'">
+              <p innerHTML="{{topic.contentDescription}}"></p>
+            </div>
+            <div *ngIf="topic.contentUrl">
+              <pdf-viewer [src]="imageurl + '/uploads/healthTopicsPdf/' +topic.contentUrl" [render-text]="true" style="display: block;">
+              </pdf-viewer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

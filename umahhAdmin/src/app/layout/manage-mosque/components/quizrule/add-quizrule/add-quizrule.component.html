@@ -1,0 +1,90 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'createQuizRule' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listQuizRule']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="time"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="addQuizRuleForm" (ngSubmit)="addQuizRule()" autocomplete="off">
+                        <!--Select Category  -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'selectCategory' | translate}} * :</label>
+                                <div class="col-md-4 ">
+                                    <div>
+                                        <div>
+                                            <p-dropdown [options]="AllCategoryQuiz" class="input-md selectCategory" formControlName="quiz_category_id" [style]="{'width':'220px'}"></p-dropdown>
+                                        </div>
+                                        <div *ngIf="submitted && f.quiz_category_id.errors" class="invalid-test-feedback">
+                                            <div *ngIf="f.quiz_category_id.errors.required">{{'errorQuizCategory' | translate}}</div>
+                                        </div>
+                                        <!-- <div *ngIf="addQuizRuleForm.controls['quiz_category_id'].dirty && addQuizRuleForm.controls['quiz_category_id'].invalid">
+                        <p class="form_error" *ngIf="addQuizRuleForm.controls['quiz_category_id'].dirty && addQuizRuleForm.controls['quiz_category_id'].hasError('required')">{{'errorQuizCategory' | translate}}</p>
+                      </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                                    <input type="text" id="Title" name="Title" formControlName="title" placeholder="Please enter title" class="form-control">
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'title' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="addQuizRuleForm.controls['title'].dirty && addQuizRuleForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="addQuizRuleForm.controls['title'].dirty && addQuizRuleForm.controls['title'].hasError('required')">{{'boardTitle' | translate}}</p>
+                                        <p class="form_error" *ngIf="addQuizRuleForm.controls['title'].dirty && addQuizRuleForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 200 characters.</p>
+                                        <p class="form_error" *ngIf="addQuizRuleForm.controls['title'].dirty && addQuizRuleForm.controls['title'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Rules -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'rules' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="rules" [style]="{'height':'320px'}"></p-editor>
+                                    <div *ngIf="submitted && f.rules.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.rules.errors.required">{{'errorRules' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="addQuizRuleForm.controls['rules'].dirty && addQuizRuleForm.controls['rules'].invalid">
+                                        <p class="form_error" *ngIf="addQuizRuleForm.controls['rules'].dirty && addQuizRuleForm.controls['rules'].hasError('required')">{{'errorRules' | translate}}</p>
+                                        <p class="form_error" *ngIf="addQuizRuleForm.controls['rules'].dirty && addQuizRuleForm.controls['rules'].hasError('pattern')">{{'errorRules' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage topicBtn">
+                            <button type="submit" class="btn btn-primary">{{'save' | translate}}</button>
+                            <button type="button" [routerLink]="['/layout/manageMosque/listDonation']" class="btn btn-default ">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

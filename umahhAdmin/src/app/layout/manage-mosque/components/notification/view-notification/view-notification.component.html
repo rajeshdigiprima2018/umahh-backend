@@ -1,0 +1,340 @@
+
+ <!-- <div class="row">
+  <div class="col col-sm-12 text-right">
+      <button class="btn btn-sm btn-success addUserBtn" type="button" (click)="navigate()">
+          <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+
+</div> -->
+<!--/videoInfo Wrapper Info-->
+<!-- <div class="col col-sm-8">
+    <h2> Health Video </h2>
+</div> -->
+
+<div class="row">
+  <div class=" col-sm-8">
+    <h2>View Health Video</h2>
+  </div>
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button" (click)="navigate()">
+      <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col col-sm-12">
+            <!-- sectionInfo -->
+            <section class="videoInfo ">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8 ">
+                    <div class="videoView">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <!-- <div *ngIf="videourl">
+                          <video *ngIf="!embeded" class="embed-responsive-item" preload="auto" [src]='videourl' scrolling="no" frameborder="0" allowfullscreen controls controlsList="nodownload">
+                          </video>
+                          <iframe *ngIf="embeded" class="embed-responsive-item" [src]='videourl' scrolling="no" frameborder="0" allowfullscreen controls>
+                          </iframe>
+                        </div> -->
+                        <div *ngIf="adUrl && displayAd" id="video_box">
+                            <button id="video_overlays" (click)="onAdEnded()">Skip Ad</button>
+                              <video  autoplay="true" id="skipAd" (ended)="onAdEnded()" class="embed-responsive-item" preload="auto" [src]='adUrl' scrolling="no" frameborder="0" allowfullscreen  controlsList="nodownload">
+                              </video>
+                              <br>
+                          </div>
+                          <div *ngIf="videourl && !displayAd">
+                              <div [ngClass]="{'spinner' : videoAfterAd}">
+                                </div>
+                            <video *ngIf="!embeded" autoplay="true" (seeking)="seekingVideo()" (pause)="pauseVideo()" (play)="playVideo()" (loadedmetadata)="curVideo($event)" id="videoToPlay1" class="embed-responsive-item" preload="auto" [src]='videourl' scrolling="no" frameborder="0" allowfullscreen controls controlsList="nodownload">
+                                <p >Current Timing : <span id="demo"></span></p>
+                            </video>
+                            <iframe *ngIf="embeded" id="videoToPlay2" class="embed-responsive-item" (oncanplaythrough)="curVideo($event)" [src]='videourl' scrolling="no" frameborder="0" allowfullscreen controls>
+                            </iframe>
+                          </div>
+                      </div>
+                                           
+                      <!-- <vg-player>
+                          <vg-ima-ads
+                           [vgCompanion]="'companion-ad'"
+                           [vgCompanionSize]="[728, 90]"
+                           [vgNetwork]="'6062'"
+                           [vgUnitPath]="'iab_vast_samples'"
+                           [vgAdTagUrl]="'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
+                           'iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&'+
+                           'env=vp&output=vast&unviewed_position_start=1&cust_params=' +
+                           'deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator='"                           
+                           [vgSkipButton]="'.skip-button'">
+                       </vg-ima-ads>
+                           <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+                               <source src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4" type="video/mp4">
+                           </video>
+                       </vg-player>
+                       <div class='skip-button'>custom skip ad button</div>
+                   <div id="companion-ad"></div> -->
+
+
+
+                   <!-- <div id="companion-ad-300-250" width="300" height="250"></div>
+                   <script type="text/javascript">
+                   
+                     adsManager.addEventListener(
+                       google.ima.AdEvent.Type.STARTED,
+                       onAdEvent);
+                   
+                     function onAdEvent(adEvent) {
+                       switch (adEvent.type) {
+                         case google.ima.AdEvent.Type.STARTED:
+                           var ad = adEvent.getAd();
+                           var selectionCriteria = new google.ima.CompanionAdSelectionSettings();
+                           selectionCriteria.resourceType = google.ima.CompanionAdSelectionSettings.ResourceType.STATIC;
+                           selectionCriteria.creativeType = google.ima.CompanionAdSelectionSettings.CreativeType.IMAGE;
+                           selectionCriteria.sizeCriteria = google.ima.CompanionAdSelectionSettings.SizeCriteria.IGNORE;
+                           var companionAds = ad.getCompanionAds(300, 250, selectionCriteria);
+                           var companionAd = companionAds[0];
+                           var content = companionAd.getContent();
+                           var div = document.getElementById('companion-ad-300-250');
+                           div.innerHTML = content;
+                           break;
+                       }
+                     }
+                   </script> -->
+
+                      <div class="videoIcon">
+                        <div class="row">
+                          <div class="col-md-7">
+                            <h2>{{contentTitle}}</h2>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="videoshare">
+                              <ul class="videoshare">
+                                <li>
+                                  <!-- <img src="../assets/images/video_sm_icon.png"> {{views}} -->
+                                  <i class="fa fa-play" aria-hidden="true"></i> {{views}}
+                                </li>
+                                <li>
+                                  <a (click)="increaseLike(like);">
+                                    <!-- <img src="../assets/images/like_sm_icon.png"> -->
+                                    <i [ngClass]="{'likecolor':like}" class="fa fa-heart" aria-hidden="true"></i>
+                                  </a> {{likecount}}
+                                </li>
+
+                                <li class="shareCommentIcon">
+                                  <div class="shareList">
+                                    <a (click)="showShare(shareDisplay)">
+                                      <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                    </a>
+                                  </div>
+                                  <div *ngIf="displayShareButton">
+                                    <share-buttons showCount="true"></share-buttons>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <hr/>
+                        <p [innerHTML]="contentDescription">
+
+                        </p>
+                      </div>
+                      <hr/>
+                      <h3>{{commentcount}} Comments</h3>
+                      <div class="media mb-4">
+                        <!-- src="{{userData.image. -->
+                        <!-- <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> -->
+                        <div>
+                          <i class=" addLogo fa fa-plus-circle"></i>
+                        </div>
+                        <form [formGroup]="addCommentForm" (ngSubmit)="addComment()">
+                          <div class="media-body newCommentsInfo">
+                            <input type="text" placeholder="Add a new comment" maxlength="200" formControlName="addcomment">
+
+                            <!-- (click)="addComment()" -->
+                            <button type="submit" class="searchBtnInput btn btn-primary btn-sm" [disabled]="!addCommentForm.valid">
+                              Add comment
+                            </button>
+                            <div class="clearFixqqq" *ngIf="addCommentForm.controls['addcomment'].dirty && addCommentForm.controls['addcomment'].invalid">
+                              <p class="form_error" *ngIf="addCommentForm.controls['addcomment'].dirty && addCommentForm.controls['addcomment'].hasError('required')">
+                                <!-- Please enter Comment. -->
+                              </p>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <h6 class="ml-3 commentTitle" *ngIf="comments.length">Comments</h6>
+                      <div class="commentsMain" *ngFor="let comment of comments">
+                        <!-- src="http://placehold.it/50x50" -->
+                        <div class="commentInfo">
+                          <img *ngIf="comment.image" class="d-flex mr-3 rounded-circle" src="{{imageurl + '/uploads/profileImages/' + comment.image}}"
+                            alt="">
+                          <img *ngIf="!comment.image" class="d-flex mr-3 rounded-circle" src="{{baseurl +  'assets/images/doctor.png' }}" alt="">
+                          <div class="commentShow">
+                            <div *ngIf="comment.userName">
+                              <h6 class="mt-0 commentNameClass">{{comment.userName}}</h6>
+                            </div>
+                            <div *ngIf="comment.clinicName">
+                              <h6 class="mt-0 commentNameClass">{{comment.clinicName}}</h6>
+                            </div>
+                            {{comment.comment}}
+                            <div *ngIf="!replycomment && commentId==comment._id" class="addReplyInput">
+                              <form [formGroup]="addCommentReplyForm" (ngSubmit)="addCommentReply(comment._id)">
+                                <input type="text" placeholder="Add Reply" formControlName="addcommentreply">
+                                <!-- (click)="addCommentReply(comment._id)" -->
+                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm">
+                                  Add Reply
+                                </button>
+                                <button type="submit" class="searchBtnInput btn btn-primary btn-sm closeBtn" (click)="addCommentReplyForm.reset();replycomment=true"
+                                  height="5px">
+                                  <i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                          <!-- <div>
+                            <a (click)="replyButton(comment._id)">Reply</a>
+                          </div> -->
+                          <div class="commentIcon">
+                            <ul class="list-inline list-unstyled">
+                              <li>
+                                <i aria-hidden="true" class="fa fa-calendar"></i> {{comment.createdAt | date}} </li>
+
+                              <!-- <li><a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> 2</li> -->
+                              <li>
+                                <a (click)="replyButton(comment._id)">
+                                  <i class="fa fa-mail-reply" aria-hidden="true"></i> Reply </a>
+                              </li>
+                              <!-- <li>
+                                      <a><i class="fa fa-mail-reply-all" aria-hidden="true"></i> Show Reply </a>
+                                  </li> -->
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="clearFix"></div>
+                        <!-- Comments Reply -->
+                        <div class="commentReplyInfo">
+                          <h6 class="commentTitle" *ngIf="comment.replyData.length">Replies</h6>
+                          <div class="commentReplyAll" *ngFor="let reply of comment.replyData">
+                            <!-- src="http://placehold.it/50x50" -->
+                            <img *ngIf="reply.user_id.image" class="d-flex mr-3 rounded-circle" src="{{imageurl + '/uploads/profileImages/' + reply.user_id.image}}"
+                              height="50px" width="50px" alt="">
+                            <img *ngIf="!reply.user_id.image" class="d-flex mr-3 rounded-circle" src="{{baseurl +  'assets/images/doctor.png' }}" height="50px"
+                              width="50px" alt="">
+                            <div class="media-body">
+                              <div *ngIf="reply.user_id.userName">
+                                <h6 class="mt-0 commentNameClass">{{reply.user_id.userName}}</h6>
+                              </div>
+                              <div *ngIf="reply.user_id.clinicName">
+                                <h6 class="mt-0 commentNameClass">{{reply.user_id.clinicName}}</h6>
+                              </div>
+
+                              <span class="text-muted"> {{reply.commentReply}}</span>
+                            </div>
+                            <div class="commentIcon">
+                              <ul class="list-inline list-unstyled">
+                                <li>
+                                  <i aria-hidden="true" class="fa fa-calendar"></i> {{reply.createdAt | date}}
+                                </li>
+                                <!-- <li>
+                                            <a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> 2
+                                          </li>
+                                          <li>
+                                              <a><i class="fa fa-mail-reply" aria-hidden="true"></i> Reply</a>
+                                          </li>
+                                          <li>
+                                              <a><i class="fa fa-mail-reply-all" aria-hidden="true"></i> Show Reply </a>
+                                          </li> -->
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4 videoList">
+                      <!-- showActiveTab -->
+                    <div class="row" >
+                      <div class="col-md-6 ">
+                        <a (click)="changeMode('watchnext')">
+                          <h5 [ngClass]="{ 'showActiveTab' : !isHistory}">Watch Next</h5>
+                        </a>
+                      </div>
+                      <div class="col-md-6 ">
+                        <a (click)="changeMode('history')">
+                          <h5 [ngClass]="{'showActiveTab' : isHistory}">History</h5>
+                        </a>
+                      </div>
+                    </div>
+                    <ul *ngIf="!isHistory">
+                      <li *ngFor="let video of videos">
+                        <div *ngIf="video._id != contentId">
+                          <div class="row">
+                            <div class="col-md-6 ">
+                              <h3>{{video.contentTitle}}</h3>
+                              <p>{{video.viewCounts}} views</p>
+                            </div>
+                            <div class="col-md-6 ">
+                              <div class="watchNext">
+                                  <!-- <img src="../assets/images/wath_next_img.png">   -->
+                                 <img [src]="video.thumbnail"> 
+                                <div class="playBtn">
+                                  <a [routerLink]="['/layout/manageContent/viewVideo',video._id]">
+                                    <i _ngcontent-c4="" class="fa fa-play"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                      <div *ngIf="videos.length==0 ||videos.length==1">
+                        <h6 class="text-muted">No records found</h6>
+                      </div>
+                    </ul>
+                    <ul *ngIf="isHistory">
+                      <li *ngFor="let video of historylist">
+                        <!-- <div *ngIf="video.content_id._id != contentId"> -->
+                        <div class="row">
+                          <div class="col-md-6 ">
+                            <h3>{{video.content_id.contentTitle}}</h3>
+                            <!-- <p>{{video.content_id.viewCounts}} views</p> -->
+                          </div>
+                          <div class="col-md-6 ">
+                            <div class="watchNext">
+                                <img [src]="video.thumbnail"> 
+                              <!-- <img src="../assets/images/wath_next_img.png"> -->
+                              <div class="playBtn">
+                                <a [routerLink]="['/layout/manageContent/viewVideo',video.content_id._id]">
+                                  <i _ngcontent-c4="" class="fa fa-play"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- </div> -->
+                      </li>
+
+                      <div *ngIf="videos.length==0">
+                        <h6 class="text-muted">No records found</h6>
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div [ngClass]="{'spinner' : isLoading}">
+</div>

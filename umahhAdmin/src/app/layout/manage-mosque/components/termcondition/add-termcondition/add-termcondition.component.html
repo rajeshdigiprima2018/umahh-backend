@@ -1,0 +1,93 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'termConditionAdd' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listNotification']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="addNotificationForm" (ngSubmit)="addNotification()" autocomplete="off">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name"></label>
+                                <div class="col-md-8">
+                                    <h2>{{'descriptionTermCondition' | translate}}</h2>
+                                    <!--                 <input type="text" id="Name" name="Name" formControlName="name" placeholder="Name" class="form-control">
+                <div *ngIf="addNotificationForm.controls['name'].dirty && addNotificationForm.controls['name'].invalid">
+                  <p class="form_error" *ngIf="addNotificationForm.controls['name'].dirty && addNotificationForm.controls['name'].hasError('required')">Please enter name.</p>
+                  <p class="form_error" *ngIf="addNotificationForm.controls['name'].dirty && addNotificationForm.controls['name'].hasError('maxlength')">Please enter the correct name with maximum length 200 characters.</p>
+                  <p class="form_error" *ngIf="addNotificationForm.controls['name'].dirty && addNotificationForm.controls['name'].hasError('pattern')">Please enter the correct name.</p>
+                </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--           <div class="form-group">
+            <div class="row">
+              <label class="col-md-3 control-label labelTextR" for="name">Title :</label>
+              <div class="col-md-5">
+                <input type="text" id="Title" name="Title" formControlName="title" placeholder="Title" class="form-control">
+                <div *ngIf="addNotificationForm.controls['title'].dirty && addNotificationForm.controls['title'].invalid">
+                  <p class="form_error" *ngIf="addNotificationForm.controls['title'].dirty && addNotificationForm.controls['title'].hasError('required')">Please enter title.</p>
+                  <p class="form_error" *ngIf="addNotificationForm.controls['title'].dirty && addNotificationForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 200 characters.</p>
+                  <p class="form_error" *ngIf="addNotificationForm.controls['title'].dirty && addNotificationForm.controls['title'].hasError('pattern')">Please enter the correct title.</p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+                        <!--           <div>
+            <div class="form-group">
+              <div class="row">
+                <label class="col-md-3 control-label labelTextR" for="name">Select file :</label>
+                <div class="col-md-5 ">
+
+                  <div class="selectFile">
+                    <input type="file" name="image" id="videoPath" (change)="onFileChange($event)" accept="video/mp4,video/x-m4v" #fileInput
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name"></label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                                    <div *ngIf="submitted && f.description.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.description.errors.required">{{'boardDescription' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="addNotificationForm.controls['description'].dirty && addNotificationForm.controls['description'].invalid">
+                  <p class="form_error" *ngIf="addNotificationForm.controls['description'].dirty && addNotificationForm.controls['description'].hasError('required')">{{'boardDescription' | translate}}</p>
+                  <p class="form_error" *ngIf="addNotificationForm.controls['description'].dirty && addNotificationForm.controls['description'].hasError('pattern')">{{'boardDescription' | translate}}</p>
+                </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage">
+                            <button class="btn btn-primary" type="submit">{{'send' | translate}}</button>
+                            <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listNotification']">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

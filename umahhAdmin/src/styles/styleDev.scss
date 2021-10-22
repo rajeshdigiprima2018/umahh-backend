@@ -1,0 +1,640 @@
+.sv_main .sv_container .sv_body .sv_p_root .sv_q_title {
+    margin-bottom: 20px;
+}
+.svd_container .svd_content .svd_survey_designer .svd_editors .svd_questions_editor .panel-body .svd_question, .svd_container .svd_content .svd_survey_designer .svd_editors .svd_questions_editor .card-block .svd_question {
+    margin-bottom: 1px;
+    padding: 10px 10px 30px;
+}
+.svda-title-editor-content input{
+    width: 100% !important;
+} 
+table.table thead th {
+    border-top: none;
+    font-weight: 600;
+}
+
+.ui-scrollpanel-wrapper {
+    z-index: 0;
+}
+.ui-dialog-content.ui-widget-content form.topic{ margin: 0;}
+.selectFile { border: 1px dashed #ccc}
+.selectFile input {
+    position: relative;
+    padding-left: 100px;
+    padding: 0 0px 0 100px;
+}
+.selectFile input {
+    position: relative;
+    padding-left: 100px;
+    padding: 20px 0px 20px 100px;
+}
+
+.selectFile input:before {
+    position: absolute;
+    content: "Select file, Drag & Drop";
+    background: #fff;
+    border-radius: 1px;
+    padding: 3px 17px;
+    left: 0;
+}
+
+.col-xs-11.svd_editors.col-lg-7.col-md-7.col-sm-8 {
+  position: relative;
+  padding-bottom: 70px;
+}
+.svd_container .svd_toolbar {
+    position: absolute;
+    bottom: 0;
+}
+#editorElement .panel.card.svd_content.svd-dark-bg-color {
+        padding: 6px;
+}
+
+
+.flag-container .dropdown-toggle::after{ display: none;}
+.intl-tel-input {
+    position: relative;
+    display: block;
+}
+.intl-tel-input.allow-dropdown input, .intl-tel-input.allow-dropdown input[type=tel]
+{
+    background: 0 0;
+    border: none;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    color: #666;
+    border-radius: 4px;
+    font-size: 18px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    /* padding: 8px 16px; */
+    height: auto;
+
+}
+
+.loginDrop .ui-dropdown label.ui-dropdown-label {
+    font-size: 16px;
+    color: #666;
+}
+.pdropdown .ui-dropdown {
+    border-radius: 4px;
+}
+.watchNext{ position: relative;}
+.watchNext a{ display: none;}
+.watchNext:hover .playBtn {
+    display: block;
+    background: rgba(255,255,255,0.8);
+    position: absolute;
+    left: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 1111;
+    height: 100%;
+}
+.thumbnail-image:hover .editDelete {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.8);
+    z-index: 1;
+    display: block;
+    height: 100%;
+    text-align: center;
+    padding-top:14%;
+    color: #fff;
+}
+.helathVdInfo:hover .playButton{
+    display: block;
+    background: rgba(255,255,255,0.8);
+    position: absolute;
+    left: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: 100%;
+}
+.watchNext:hover .playBtn a {
+  
+    color: #fff!important;
+    font-size: 18px;
+    padding: 7px;
+    border-radius: 50%;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background: #0088d4;
+    border: 2px solid #0088d4;
+    position: absolute;
+    left: 35%;
+    top: 26%;
+    text-align: center;
+}
+.sv_main .sv_p_root > .sv_row:nth-child(even) {
+    background-color:#fff;
+}
+
+.form-group.phoneIcon .dropbtn.btn{
+  margin: 0;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-right: 0;
+    border-radius: 4px 0px 0px 4px;
+    padding-top: 8px;
+    padding-bottom: 4px;
+}
+.clinicInput input{
+width: 100%;
+border: 1px solid #ccc;
+padding:8px 16px!important;
+}
+.clinicInput span{
+    width: 100%
+    }
+
+
+    .sb-default .sb-wrapper {
+       
+        border: none!important;
+        width: 32px!important;
+        height: 32px!important;
+        margin-left: 5px;
+    }
+    .sb-default .sb-wrapper i {
+       margin: 0!important;
+       padding: 0!important;
+        
+    }
+
+    .sb-group.sb-default {
+        width: 540px;
+        position: absolute;
+        right: 0;
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 0px 5px #ccc;
+    }
+
+    /* .sb-group.sb-default .share-button:first-child{ display: none;} */
+    body .phoneInput .ui-dropdown {
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        padding: 4px 10px;
+        font-size: 18px;
+    }
+
+    .phoneInput .ui-dropdown label.ui-dropdown-label {
+        text-align: left!important;
+        font-size: 18px;
+        color: #666;
+        padding:2px 6px;
+    }
+
+.changePassword{
+    // margin-left: 200px
+    max-width: 500px;
+    margin: 0 auto;
+}
+.svd_container .modal {
+    z-index: 9999 !important;
+}
+
+.card-body {
+     min-height: 480px;
+     padding-bottom: 90px;
+}
+
+.card-body h2{ margin-top: 0;}
+
+.form_error {
+     font-size: 10px!important;
+}
+.watchNext:hover .playBtn {
+   z-index: 1;
+}
+.adminNavbar {
+    z-index: 2;
+}
+.addReplyInput {
+    margin-left: 50px;
+}
+.addReplyInput input{
+    padding: 6px;
+    width: 260px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: #f4f4f4;
+}
+.addReplyInput button.closeBtn
+{
+    background: none!important;
+    color: red!important;
+    border: 0!important;
+    box-shadow: none!important;
+}
+.addReplyInput button.closeBtn i.fa
+{
+    font-size: 16px;
+    font-weight: normal;
+}
+.adminEditInfo .adminEdit
+{
+    padding-top: 7px;
+    padding-left: 23px;
+}
+
+.adminEditInfo .adminEdit
+{
+    padding-top: 7px;
+    padding-left: 16px;
+}
+.adminEditInfo .input-group-text
+{
+    margin-left: 5px;
+}
+
+.setNorecordClass{
+    margin-bottom: 20px;
+    background: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 1px 8px #ccc;
+    border: 2px solid #fff;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 50%;
+}
+.setMarginRecord{
+    padding: 13px;
+}
+.blankCard h2.profile-name {
+    margin-right: 80px;
+}
+.svd_container .editor-tabs > li > a {
+    padding: 0.5em 1.5em;}
+    
+/* Chnage the test survey to "Preview Survey" by below class start*/
+#editorElement ul.nav-tabs.editor-tabs li.nav-item:nth-child(3) a { position: relative;}
+#editorElement ul.nav-tabs.editor-tabs li.nav-item:nth-child(3) a::before {
+    position: absolute;
+    background: #fff;
+    width: calc(100% - 5px);
+    height: 26px;
+    text-align: center;
+    content: "Preview Survey";
+    top: 9px;
+    left: 3px;
+    color: #3e5569!important;
+    font-size: 16px;
+}
+#editorElement ul.nav-tabs.editor-tabs li.nav-item a:hover
+{
+ background:#fff;
+ color: #3e5569!important;
+}
+/* end */
+:focus {
+    outline: 0 none;
+}
+
+.tableList .ui-table .ui-table-tbody > tr > td {
+    word-wrap: break-word;
+}
+
+.breakDescrption{
+    word-break: break-all
+}
+.selectFile input {
+
+    padding: 20px 0px 20px 104px;
+}
+
+/* .homeNav.newclass .menuList{} */
+
+
+
+.d-block.w-100.menuMs {
+    display: none!important;
+}
+.fixedHeightTable{
+    height: 200px;
+    margin-bottom: 0!important;
+    overflow: hidden;
+}
+@media only screen and (device-width: 768px)  {
+ .fixHeight{ height: 163px;}
+}
+
+.blankCard .surveyInof p {
+        margin-right: 40px;
+}
+.list-group.listManagement .list-group-item {
+     height: 170px;
+}
+
+@media screen and (max-width: 767px) {
+
+  .svd_container .svd_toolbar {
+    position: initial;
+}  
+.isdPhoneInfo .isdCodeInput{ width: 20%!important}
+.isdPhoneInfo .isdPhoneInput{ width: 80%!important}
+}
+
+.clearFix{ clear: both;}
+.commentInfo {
+    font-size: 14px;
+    color: #666;
+    line-height: 18px;
+    text-align: justify;
+}
+.commentInfo  img{     width: 34px;
+    height: 34px;
+    float: left;}
+.commentShow{}
+.commentIcon ul
+{
+    padding-left: 0;
+    margin-left: 0;
+    list-style: none;
+    margin-top: 10px;
+    text-align: right;
+}
+.commentTitle{
+    color: #008ed6;
+}
+.commentIcon ul li  {
+    display: inline-block;
+    padding-right: 14px;
+    padding-left: 0;
+}
+.commentReplyInfo { margin-left: 40px;}
+.commentReplyInfo  img{     width: 34px;
+    height: 34px;
+    float: left;}
+
+    .commentsMain{
+        background: #f6f6f6;
+        padding: 10px;
+        margin-bottom: 4px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .addLogo{margin-right: 5px;
+    margin-top: 11px;
+}
+
+    .commentNameClass{color: #3e5569!important;}
+    .commentReplyAll{
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #fff;
+    }
+    .commentsMain a{ color: #666;}
+    .commentsMain a:hover{ color: #008ed6;}
+
+    .videoshare  a{ color: #666;}
+    .videoshare a:hover{ color: #008ed6;}
+    .videoshare a.shareAct{ color: #008ed6;}
+    .likecolor {color: #008ed6;}
+    .shareCommentIcon  button{ border:0 solid #333!important}
+    .shareCommentIcon i {
+        margin-right: 0;
+    }
+
+    .topMarginClass{
+        margin-top: 70px;
+    }
+
+    
+    h2 {
+    margin: 10px 0 20px!important;
+    color: #3e5569!important;
+    font-size: 26px!important;
+}
+
+h2.profile-name {
+    word-break: break-all;
+    margin-right: 80px!important;
+    font-size: 22px!important;
+    font-weight: 400!important;
+    margin-bottom: 10px!important;
+    margin-top: 0px!important;
+}
+.surveyInof p {
+    margin-right: 40px;
+    font-size: 14px;
+}
+
+    .completeSurveyColor{
+        color: green
+    }
+
+.publishContentCheckbox{
+    margin-top: -35px;
+}
+
+.watchNext img{
+    width: 220px;
+    height: 80px;
+}
+
+.thumbnail-image img{
+    width: 220px;
+    height: 140px;
+    background: #000;
+}
+.watchNext:hover .playBtn a {
+    top: 18%;
+}
+// .thumbnail-image:hover .editDelete {
+//     padding-top: 26%;}
+
+    .topicBtn {
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+    }
+ .thumbnailVd {
+    height: 140px;
+    background: #000;
+    text-align: center;
+    width: 100%;
+        overflow: hidden;
+    
+}
+  .thumbnailVd img{ max-width: 100%; width: auto;background: none; display: inline-block;}
+
+
+  .owl-carousel .owl-item .thumbnailVd {
+    height: 140px;
+    background: #000;
+    text-align: center;
+    width: 100%;
+        overflow: hidden;
+       
+}
+    .owl-carousel .owl-item .thumbnailVd img{ max-width: 100%; width: auto;background: none; display: inline-block;}
+
+.topicsHealthThumbnail .thumbnail-image {
+    padding-bottom: 110px;
+}
+
+.userTextColor {
+    color: #949494;
+}
+.pedingSurveyColor{
+    color: #D80027 !important;
+}
+.surveyCompleteColor {
+    color: #2B9149
+}
+.chnageClinicTextColor{
+    color: #42B3A0
+}
+.desMargin{
+    margin-top: 20px
+}
+.userNameStyle{
+    font-weight: bold;
+}
+
+.pdfViewer.removePageBorders{
+    max-height: 500px!important;
+    padding: 30px 0px!important;
+    overflow: auto!important;
+    background: #f4f4f4!important;
+}
+.applyZindex{
+    z-index: 1103!important;
+    top: 0px;
+    left: 0px;
+    transform: translateY(0px);
+    opacity: 1;
+    overflow: inherit;
+}
+// .canvasWrapper{ background: #f4f4f4!important; margin-bottom:20px!important; }
+.datePopup .ui-calendar .ui-datepicker {
+    min-width: 280px;
+}
+.datePopup .ui-datepicker table td {
+    z-index: 1;
+    padding: 0em;
+}
+.datePopup .ui-datepicker table td > span {
+       padding: 0.1em;}
+
+       .datePopup.table-responsive{   z-index: 1;  height: 630px;}
+
+.datePopup2 .ui-calendar .ui-datepicker {
+        min-width: 280px;
+    }
+    .datePopup2 .ui-datepicker table td {
+        padding: 0em;
+    }
+    .datePopup2 .ui-datepicker table td > span {
+           padding: 0.1em;}
+    
+    .datePopup2 .table-responsive{    height: 430px;}
+
+    .datePopup3 .ui-calendar .ui-datepicker {
+        min-width: 280px;
+    }
+    .datePopup3 .ui-datepicker table td {
+        padding: 0em;
+    }
+    .datePopup3 .ui-datepicker table td > span {
+           padding: 0.1em;}
+    
+    .datePopup3 .table-responsive{    height: 530px;}
+
+input.topSearch:placeholder { /* Chrome, Firefox, Opera, Safari 10.1+  overflow: initial; */
+  color: red;
+  opacity: 1; /* Firefox */
+}
+input.form-control.mr-sm-2.topSearch::placeholder {
+    color: #ccc;
+}
+.selectCategory .ui-dropdown{ width: 100%!important}
+
+.healthVideos h3 {
+    font-size: 14px;
+ 
+    word-break: break-word;
+}
+.helathVdInfo {
+
+    height: 40px;
+}
+
+.videosthumbnail h3 {
+    font-size: 14px;
+  }
+
+  .videosthumbnail .helathVdInfo {
+    height: 70px;
+}
+
+ .videosthumbnail .helathVdInfo  p {
+   
+    font-size: 13px;
+}
+
+
+.videoList h3 {
+
+    word-break: break-all;
+}
+
+.videoView h3 {
+    font-size: 18px !important;
+}
+.ui-datepicker table th {
+    font-size: 12px;
+}
+
+.assignSurveyDropdown .ui-multiselect.ui-widget.ui-state-default.ui-corner-all {
+    width: 100%
+}
+.assignSurveyDropdown  .ui-multiselect .ui-multiselect-label {
+
+    margin-bottom: 0px;
+}
+.assignSurveyDropdown  
+.ui-multiselect .ui-multiselect-panel {
+    z-index: 1!important;}
+
+    .owl-carousel .owl-nav button.owl-next {
+        left: auto;
+}
+
+
+// class for calender and date popup
+.surveyDatePic.timepopup .ui-datepicker-group.ui-widget-content{ display: none}
+.surveyDatePic .ui-timepicker.ui-widget-header.ui-corner-all{ display: none;}
+.surveyDatePic.timepopup .ui-timepicker.ui-widget-header.ui-corner-all{ display: block;}
+.surveyDatePic .ui-datepicker table td > a.ui-state-active {
+    color: #ffffff!important;
+    }
+    .surveyDatePic  .datePopup .ui-calendar .ui-datepicker {
+        min-width: 220px;
+    }
+    // .surveyDatePic.timepopup .ui-datepicker{ top:initial!important; bottom: 0!important}
+
+    @media only screen and (max-width:1024px)  {
+    .applyZindex {
+        overflow: auto;
+    }
+    .applyZindex {
+        // z-index: 1 !important;
+        overflow: initial;
+    }
+}
+
+.applyZindex { 
+    z-index: 1!important;
+}

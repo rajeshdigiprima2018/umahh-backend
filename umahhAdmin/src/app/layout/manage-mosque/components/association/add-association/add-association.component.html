@@ -1,0 +1,206 @@
+<div [@routerTransition]>
+<div class="row">
+        <div class="col col-sm-7">
+            <h2>List of Mosque </h2>
+        </div>
+        <div class=" col-sm-5">
+            <div class="searchDiv mt-2">
+                <form [formGroup]="searchUserForm">
+                    
+                    <input type="text" class="searchInput" maxlength="64" placeholder="Search" formControlName="searchText">
+                    <button type="submit" class="searchBtnInput btn btn-primary btn-sm" (click)="searchUser()">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>    
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body tableData">
+                    <div class="row searchDiv">
+
+                    <!--     <div class=" col-sm-12 text-right" >
+                            <button *ngIf="sharedService.checkPermission('user','create')" class="btn btn-sm btn-success addUserBtn" (click)="setMode('Create');showDialog();"
+                                type="button">
+                                <i class="fa fa-plus"></i>
+                                Add support admin
+                            </button>
+                        </div> -->
+
+                    </div>
+
+                    <div class="table-responsive">
+                        <p-table [value]="mosque" class="table table-sm table-striped tableList" id="tableList">
+                            <ng-template pTemplate="header" class="thead-dark">
+                                <tr>
+                                    <th scope="col">Mosque Name </th>
+                                     <th scope="col">Phone</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Created</th>
+                                    <!-- <th scope="col" width="100" >Active</th> -->
+                                    <th scope="col" width="150" >Add Association</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-mosque *ngIf="loggedInUserDetails._id !== mosque._id">
+                                <tr>
+                                    <td>
+                                        {{mosque.username}}
+                                    </td>
+                                     <td>
+                                        {{mosque.mobile}}
+                                    </td>
+                                    <td>
+                                        {{mosque.email}}
+                                    </td>
+                                    <td>
+                                        {{mosque.createdAt | date }}
+                                    </td>
+
+                                    <td>
+                                        <div class="checkbox checbox-switch switch-primary {{Associeted_user.indexOf(mosque._id)}}">
+                                            <label>
+                                                <input type="checkbox" name="" [checked]="Associeted_user.indexOf(mosque._id) !== -1 ? true : false" (change)="onStatusChange($event,mosque._id)"  />
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!-- <span >
+                                            <a pTooltip="Edit" tooltipPosition="top" class="" (click)="setMode('Edit');showDialog(mosque._id)">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
+                                        </span> -->
+                                        <!-- <a pTooltip="Delete" tooltipPosition="top"  class="ml-3" (click)="showDeleteDialog(mosque._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a> -->
+                                        <!-- <a class="ml-3" (click)="assignSurveyDialog(mosque)">
+                                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                        </a> -->
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td [attr.colspan]="5">
+                                        No records found
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        
+                        <!-- <div *ngIf="sharedService.checkPermission('user','view')">
+                            <div *ngIf="totalCount > count">
+                                <p-paginator alwaysShow='false' pageLinkSize="{{pageCountLink}}" rows="{{count}}" totalRecords="{{totalCount}}" (onPageChange)="paginate($event)"></p-paginator>
+                            </div>
+                        </div> -->
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+<!-- User add edit dialogue -->
+<!-- <p-dialog header="{{setHeadMode}}" [(visible)]="display" closeOnEscape="true" (onHide)="closeDialog()" [modal]="true" [responsive]="true"
+    [width]="500" [minWidth]="300" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <form class="addUser-form" [formGroup]="addUserForm">
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Email
+                </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" formControlName="email" type="email" class="form-control input-md">
+                    <div *ngIf="addUserForm.controls['email'].dirty && addUserForm.controls['email'].invalid">
+                        <p class="form_error" *ngIf="addUserForm.controls['email'].hasError('required')">Please enter Email.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['email'].dirty && addUserForm.controls['email'].hasError('pattern')">Please enter the correct email.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">First Name </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" type="text" formControlName="firstName" class="form-control input-md">
+                    <div *ngIf="addUserForm.controls['firstName'].dirty && addUserForm.controls['firstName'].invalid">
+                        <p class="form_error" *ngIf="addUserForm.controls['firstName'].dirty && addUserForm.controls['firstName'].hasError('required')">Please enter first name.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['firstName'].hasError('maxlength')">You can add only 30 charater.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['firstName'].hasError('minlength')">Minimum 2 charater required.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['firstName'].dirty&& !addUserForm.controls['firstName'].hasError('required')&&!addUserForm.controls['firstName'].hasError('maxlength') && !addUserForm.controls['firstName'].hasError('minlength') && addUserForm.controls['firstName'].hasError('pattern')">Please enter the correct name.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Last Name
+                </label>
+                <div class="col-md-8">
+                    <input id="Name (Full name)" name="Name (Full name)" type="text" formControlName="lastName" class="form-control input-md">
+                    <div *ngIf="addUserForm.controls['lastName'].dirty && addUserForm.controls['lastName'].invalid">
+                        <p class="form_error" *ngIf="addUserForm.controls['lastName'].dirty && addUserForm.controls['lastName'].hasError('required')">Please enter Last name.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['lastName'].hasError('maxlength')">You can add only 30 charater.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['lastName'].hasError('minlength')">Minimum 2 charater required.</p>
+                        <p class="form_error" *ngIf="addUserForm.controls['lastName'].dirty&&!addUserForm.controls['lastName'].hasError('required')&&!addUserForm.controls['lastName'].hasError('maxlength') && !addUserForm.controls['lastName'].hasError('minlength') && addUserForm.controls['lastName'].hasError('pattern')">Please enter the correct name.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group labelFild">
+            <div class="row">
+                <label class="col-md-4 control-label" for="Name (Full name)">Role </label>
+                <div class="col-md-8">
+                    <p-dropdown [options]="roleType" class="input-md" [(ngModel)]="selectedRole" formControlName="role" [style]="{'width':'300px'}"></p-dropdown>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button"  [disabled]="!addUserForm.valid" (click)="btnMode=='Create' ? addUser() : editUser()"
+             class="btn btn-primary">{{btnMode}}</button>
+        <button type="button"  (click)="closeDialog()"  class="btn btn-default">Close</button>
+    </p-footer>
+</p-dialog> -->
+
+<!-- User delete conformation dialogue -->
+<!-- <p-dialog header="Delete Confirmation " [(visible)]="displayDelete" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200"
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <span>
+        <span class="fa fa-info-circle fa-lg mr-2"></span>Are you really want to remove this record?
+        <br>
+    </span>
+    <br>
+    <p-footer>
+        <button type="button" class="btn btn-primary" (click)="deleteUser()">
+            Yes</button>
+        <button type="button" class="btn btn-default " (click)="displayDelete = false;">
+            No</button>
+    </p-footer>
+</p-dialog> -->
+
+<!-- User active/deactive conformation dialogue -->
+<p-dialog header="Active/Deactive" [(visible)]="displayUpdateStatus" (onHide)="closeUpdateStatusDialog()" [modal]="true" [responsive]="true" [width]="350"
+    [minWidth]="200" [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+    <span>
+            <span class="fa fa-info-circle fa-lg mr-2"></span>
+            Are you really want to Active/Deactive this mosque?
+            <br>
+        </span>
+        <br>
+    <p-footer>
+            <button type="button" class="btn btn-primary" (click)="updateStatus()">
+                    Yes</button>
+                <button type="button" class="btn btn-default " (click)="closeUpdateStatusDialog()">
+                    No</button>
+    </p-footer>
+</p-dialog>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>
+</div>

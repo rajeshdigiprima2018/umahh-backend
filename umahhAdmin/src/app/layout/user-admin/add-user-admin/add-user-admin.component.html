@@ -1,0 +1,154 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'Add User' | translate}}
+            </h2>
+        </div>
+        <div class=" col-sm-4 text-right">
+            <button [routerLink]="['/layout/user-admin']" class="btn btn-sm btn-success addUserBtn" type="button" *ngIf="loggedInUserDetails.isUpdated =='1'"><i _ngcontent-c4="" class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <form class="topic" [formGroup]="editProfileForm" (ngSubmit)="onEdit()">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'userName' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="username" aria-describedby="basic-addon1">
+                                    <div *ngIf="submitted && f.username.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.username.errors.required">Please enter user name.</div>
+                                    </div>
+                                    <div *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].invalid">
+                                        <!-- <p class="form_error" *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].hasError('required')">Please enter user name.</p> -->
+                                        <div class="invalid-test-feedback" *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].hasError('pattern')">Please enter the correct user name.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'email' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="email" aria-describedby="basic-addon1">
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.email.errors.required">Please enter email.</div>
+                                    </div>
+                                    <div *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].invalid">
+                                        <!-- <p class="form_error" *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].hasError('required')">Please enter email.</p> -->
+                                        <div class="invalid-test-feedback" *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].hasError('pattern')">Please enter the correct email.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'mobile' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="mobile" aria-describedby="basic-addon1">
+                                    <div *ngIf="submitted && f.mobile.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.mobile.errors.required">Please enter phone number.</div>
+                                    </div>
+                                    <div *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].invalid">
+                                        <!-- <p class="form_error" *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].hasError('required')">Please enter phone number.</p> -->
+                                        <div class="invalid-test-feedback" *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].hasError('pattern')">Please enter the correct phone number with country code.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'password' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="password" aria-describedby="basic-addon1">
+                                    <div *ngIf="submitted && f.password.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.password.errors.required">Please enter password.</div>
+                                    </div>
+                                    <div *ngIf="editProfileForm.controls['password'].dirty && editProfileForm.controls['password'].invalid">
+                                        <!-- <p class="form_error" *ngIf="editProfileForm.controls['password'].dirty && editProfileForm.controls['password'].hasError('required')">Please enter password.</p> -->
+                                        <div class="invalid-test-feedback" *ngIf="editProfileForm.controls['password'].dirty &&editProfileForm.controls['password'].hasError('maxlength')">
+                                            Please provide valid password with maximum 20 characters</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage topicBtn">
+                            <!-- <button [disabled]="!editProfileForm.valid" class="btn btn-primary" type="submit">Submit</button> -->
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                            <button _ngcontent-c6="" class="btn btn-default" type="button" [routerLink]="['/layout/user-admin']">Cancel</button>
+                        </div>
+                    </form>
+                    <!-- <form [formGroup]="editProfileForm" (ngSubmit)="onEdit()">
+                        <div class="row  profileInfo">
+                            <div class="col-sm-8 col-md-8 offset-md-2 offset-lg-2">
+                                <div class="row  ">
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user " aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].hasError('required')">Please enter user name.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].hasError('pattern')">Please enter the correct user name.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="email" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].hasError('required')">Please enter email.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].hasError('pattern')">Please enter the correct email.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-phone" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="mobile" placeholder="Phone Number" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].hasError('required')">Please enter phone number.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].hasError('pattern')">Please enter the correct phone number with country code.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-password " aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['password'].dirty && editProfileForm.controls['password'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['password'].dirty && editProfileForm.controls['password'].hasError('required')">Please enter password.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['password'].dirty &&editProfileForm.controls['password'].hasError('maxlength')">
+                                                Please provide valid password with maximum 20 characters</p>
+                                        </div>
+                                    </div>
+                                    <div class="bottomBtnInfo col-sm-12 text-center">
+                                        <button [disabled]="!editProfileForm.valid" class="btn btn-primary" type="submit">Submit</button>
+                                        <button _ngcontent-c6="" class="btn btn-default" type="button" [routerLink]="['/layout/user-admin']">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <br/><br/><br/><br/>
+                    </form> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

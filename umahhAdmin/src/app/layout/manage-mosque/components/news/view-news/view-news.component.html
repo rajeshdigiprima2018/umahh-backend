@@ -1,0 +1,86 @@
+<div class="row">
+    <div class=" col-sm-8 ">
+        <h2>View News</h2>
+    </div>
+    <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+    <div class=" col-sm-4  text-right">
+        <button [routerLink]="['/layout/manageMosque/listNews']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> Back</button>
+    </div>
+    <div class="col col-sm-12">
+        <div class="card mb-3">
+            <div class="card-body ">
+                <div class="row  profileInfo">
+                    <div class="col-sm-12 col-md-12 text-center">
+                        <div class="profileImgEdit">
+                            <!-- src="assets/images/doctor.png" -->
+                            <div *ngIf="imgurl">
+                                <img [src]="imgurl ? baseimageurl+imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                            </div>
+                            <div *ngIf="imgurl==true">
+                                <img [src]="imgurl ? imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Title-->
+                <!-- Title -->
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-3 control-label labelTextR" for="name">Title :</label>
+                        <div class="col-md-8">
+                            {{newsDetail.title ? newsDetail.title:'NA'}}
+                        </div>
+                    </div>
+                </div>
+                <!-- By Name -->
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-3 control-label labelTextR" for="name">By Name :</label>
+                        <div class="col-md-8">
+                            {{newsDetail.byName ? newsDetail.byName:'NA'}}
+                        </div>
+                    </div>
+                </div>
+                <!-- Time -->
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-3 control-label labelTextR" for="name">Start Time :</label>
+                        <div class="col-md-8">
+                            {{newsDetail.startTime ? newsDetail.startTime:'NA' | date:'HH:mm:ss'}}
+                        </div>
+                    </div>
+                </div>
+                <!-- Date -->
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-3 control-label labelTextR" for="name">Start Date :</label>
+                        <div class="col-md-8">
+                            {{newsDetail.startDate ? newsDetail.startDate:'NA' | date:'YYYY-mm-dd'}}
+                        </div>
+                    </div>
+                </div>
+                <!-- Description -->
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-3 control-label labelTextR" for="name">Description :</label>
+                        <div class="col-md-8 ">
+                            <div class="text-wrap" [innerHTML]="newsDetail.textarea">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div [ngClass]="{'spinner' : isLoading}">
+</div> -->

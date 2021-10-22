@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col col-sm-8">
+        <h2> List of email templates</h2>
+    </div>
+    <div class="col col-sm-12">
+        <div class="card mb-3">
+            <div class="card-body ">
+                <!-- <div class="row searchDiv">
+                  <div class=" col-sm-6">
+                      <form [formGroup]="searchTextForm" (ngSubmit)="searchWithListing()">
+                          <input type="text" class="searchInput" placeholder="Search.." formControlName="searchText">
+                          <button type="submit" class="searchBtnInput btn btn-primary btn-sm">
+                              <i class="fa fa-search"></i>
+                          </button>
+                      </form>
+                  </div> -->
+                <!-- <div class=" col-sm-6 text-right">
+                      <button class="btn btn-sm btn-success addUserBtn" [routerLink]="['/layout/manageContent/addTopic']" type="button">
+                          Back
+                      </button>
+                  </div> -->
+
+                <!-- </div> -->
+                <div *ngIf="sharedService.checkPermission('template','view')" class="list-group listManagement">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table" *ngFor="let emailTemplate of emailTemplates">
+                                    <td id="title">{{emailTemplate.title}}</td>
+                                    <td id="title">{{emailTemplate.subject}}</td>
+                                   <td>
+                                        <!-- [innerHTML]="emailTemplate.description" -->
+                                        <p-scrollPanel [style]="{width: '100%', height: '100px'}" styleClass="custom">
+                                            {{emailTemplate.description}}
+                                        </p-scrollPanel>
+                                    </td>
+                                    <td>
+                                        <!-- <span>
+                                        <button class="btn btn-danger btn-sm" (click)='delete(emailTemplate._id)'><i class="fa fa-trash-o"></i></button>								
+                                      </span> -->
+                                        <span class="surveyEdit">
+                                            <a>
+                                                <i (click)="showDialog(emailTemplate);" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
+                                            <!-- <a>
+                                                <i class="fa fa-trash" aria-hidden="true" (click)="showDeleteDialog(i._id)"></i>
+                                            </a> -->
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="totalCount > count">
+                    <p-paginator alwaysShow='false' pageLinkSize="{{pageCountLink}}" rows="{{count}}" totalRecords="{{totalCount}}" (onPageChange)="paginate($event)"></p-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog header="Edit email template" [(visible)]="display" closeOnEscape="true" (onHide)="closeDialog()" [modal]="true"
+    [responsive]="true" [width]="750" [minWidth]="300" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+
+    <form class="topic" [formGroup]="editEmailTemplateForm" (ngSubmit)="editEmailTemplate()">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="profile-name">Name</label>
+                <input type="text" formControlName="title" class="form-control">
+                <div *ngIf="editEmailTemplateForm.controls['title'].dirty && editEmailTemplateForm.controls['title'].invalid">
+                    <p class="form_error" *ngIf="editEmailTemplateForm.controls['title'].dirty && editEmailTemplateForm.controls['title'].hasError('required')">Please enter title.</p>
+                    <p class="form_error" *ngIf="editEmailTemplateForm.controls['title'].dirty && editEmailTemplateForm.controls['title'].hasError('pattern')">Please enter the correct title.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="profile-name">Subject</label>
+                <input type="text" formControlName="subject" class="form-control">
+                <div *ngIf="editEmailTemplateForm.controls['subject'].dirty && editEmailTemplateForm.controls['subject'].invalid">
+                    <p class="form_error" *ngIf="editEmailTemplateForm.controls['subject'].dirty && editEmailTemplateForm.controls['subject'].hasError('required')">Please enter subject.</p>
+                    <p class="form_error" *ngIf="editEmailTemplateForm.controls['subject'].dirty && editEmailTemplateForm.controls['subject'].hasError('pattern')">Please enter the correct subject.</p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label class="profile-name">Message</label>
+                <p-editor formControlName="description" [style]="{'height':'320px'}" (onTextChange)="onTextChange($event)"></p-editor>
+                <div *ngIf="editEmailTemplateForm.controls['description'].dirty && editEmailTemplateForm.controls['description'].invalid">
+                    <p class="form_error" *ngIf="editEmailTemplateForm.controls['description'].dirty && editEmailTemplateForm.controls['description'].hasError('required')">Please enter description.</p>
+                    <p class="form_error" *ngIf="editEmailTemplateForm.controls['description'].dirty && editEmailTemplateForm.controls['description'].hasError('pattern')">Please enter the correct description.</p>
+                </div>
+            </div>
+            <div class="col-md-12 text-right">
+                <button type="submit" pButton icon="pi pi-check" [disabled]='!editEmailTemplateForm.valid' label="Yes" class="btn btn-primary ">Save</button>
+                <button type="button" pButton icon="pi pi-close" [routerLink]="['/layout/manageContent/listTopics']" label="No" class="btn btn-default ">Close</button>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" [disabled]="!editEmailTemplateForm.valid" (click)="editEmailTemplate()"
+            label="Yes" class="btn btn-primary">Update</button>
+        <button type="button" pButton icon="pi pi-close" (click)="closeDialog()" label="No" class="btn btn-default">Close</button>
+    </p-footer>
+</p-dialog>
+<!-- <p-dialog header="Delete Confirmation " [(visible)]="displayDelete" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200"
+  [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+  <span>
+      <span class="fa fa-info-circle fa-lg mr-2"></span>Do you really want to remove this record?
+      <br>
+  </span>
+  <br>
+  <p-footer>
+      <button type="button" class="btn btn-primary" (click)="deleteTopic()">
+          <i class="fa fa-check mr-2"></i>Yes</button>
+      <button type="button" class="btn btn-primary" (click)="displayDelete = false;">
+          <i class="fa fa-close mr-2"></i>No</button>
+  </p-footer>
+</p-dialog> -->
+
+

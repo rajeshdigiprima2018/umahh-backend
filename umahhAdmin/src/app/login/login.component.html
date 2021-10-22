@@ -1,0 +1,50 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center1">
+                <div class="col-md-8 col-sm-6 col-lg-4 offset-sm-3 offset-md-2 offset-lg-4 ">
+
+            <div class="logInBox">
+                <div class="closeBtnLogin" [routerLink]="['/']"> X </div>
+                <img src="assets/images/Umahh@2x.png" width="200px" class="user-avatar" />
+                <h1>Login</h1>
+                <form ng role="form" [formGroup]="loginForm" method="post">
+                    <div class="form-content">
+                        <div class="form-group">
+                            <input type="email" formControlName="email" class="form-control input-underline input-lg" placeholder="Email">
+                            <div *ngIf="loginForm.controls['email'].dirty && loginForm.controls['email'].invalid">
+                                <p class="form_error" *ngIf="loginForm.controls['email'].dirty && loginForm.controls['email'].hasError('required')">Please
+                                    enter email address.</p>
+                                <p class="form_error" *ngIf="loginForm.controls['email'].dirty && loginForm.controls['email'].hasError('pattern')">Please
+                                    enter the correct email address.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control input-underline input-lg" formControlName="password" placeholder="Password">
+                            <div *ngIf="loginForm.controls['password'].dirty && loginForm.controls['password'].invalid">
+                                <p class="form_error" *ngIf="loginForm.controls['password'].hasError('required')">Please
+                                    enter password.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="footerBtn">
+                        <button class="btn btn-primary" [disabled]="!loginForm.valid" (click)="login()"> Log in </button>
+                        &nbsp;
+
+                        <a *ngIf="!hideReg" class="btn btn-default " [routerLink]="['/signup']">Register</a>
+                        <a *ngIf="!hideReg" class="btn btn-default " (click)="redirect()">Register</a>
+                        <div class="forgotPass">
+                            <a *ngIf="hideReg" [routerLink]="['/ForgotPassword']"> Forgot Password? </a>
+                            <!-- <a *ngIf="!hideReg" (click)="redirectForgot()"> Forgot Password? </a> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div [ngClass]="{'spinner' : isLoading}">
+
+</div>
+<p-toast></p-toast>

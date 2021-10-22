@@ -1,0 +1,41 @@
+<!--Navbar-->
+
+<mdb-navbar SideClass="navbar navbar-expand-lg  navbar-dark ">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><a [routerLink]="['/']" class="navbar-brand homeNavLogo ">  <img src="../assets/images/mdout_logo.png"></a></mdb-navbar-brand>
+
+    <!-- Collapsible content -->
+    <links>
+            
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            </li>            
+           
+        </ul>
+        <!-- Links -->
+
+    <!-- Search form -->
+        <!-- -----Design------ -->
+        <!-- <form class="form-inline waves-light" mdbWavesEffect>
+            <div class="logInMenu"><a  routerLink="/login"> Log in</a> | <a  routerLink="/signup">Sign up</a></div>
+            <div class="md-form my-0">
+                  <button>  <i class="fa fa-search"></i></button>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            </div>
+        </form> -->
+        <!-- -----Design------ -->
+        
+
+        <form [formGroup]="globalSearchForm" (ngSubmit)="displayInputSearch();globalSearchContent()" class="form-inline waves-light" mdbWavesEffect>
+            <div class="logInMenu"><a  routerLink="/login"> Log in</a> | <a  routerLink="/signup">Sign up</a></div>
+            
+        </form> 
+
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+
+<!--/.Navbar-->

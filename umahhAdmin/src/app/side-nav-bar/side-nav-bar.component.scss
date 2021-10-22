@@ -1,0 +1,35 @@
+.newclass .searchtopInfo{ display: none;}
+
+.navbar.homeNav.newclass .menuList  { display: none;}
+
+
+.hide{
+    z-index: 1111111111;
+}
+ .sidenav .closebtn {
+  display: none;}
+.newclass .sidenav .closebtn {
+    position: fixed; display: block;}
+
+
+.searchtopInfo input{ display: none;} 
+.searchtopInfo.topSearch input{ display: inline;} 
+
+button.searchBtnInput {
+    padding: 9px 10px !important;
+    margin-left: 0;
+    border-radius: 0px 4px 4px 0px;
+    margin-top: 2px;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #fff;
+    font-size: 23px;
+    line-height: normal;
+    margin-right: 20px;
+
+}
+
+button:focus {
+        outline: 0px auto -webkit-focus-ring-color;
+}

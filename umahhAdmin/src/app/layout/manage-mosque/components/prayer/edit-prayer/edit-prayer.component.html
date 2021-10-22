@@ -1,0 +1,101 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'editprayertime' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listPrayer']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="time"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="editPrayerForm" (ngSubmit)="editPrayer()">
+                        <!--Select Category  -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'selectprayername' | translate}} * :</label>
+                                <div class="col-md-4 ">
+                                    <div>
+                                        <div>
+                                            <select class="form-control input-underline input-lg" formControlName="day" [(ngModel)]="day" (change)="onChange($event)">
+                        <option value="">{{'selectprayername' | translate}}</option>
+                        <option *ngFor="let day of dayType" value="{{day._id}}">{{day.name}} / {{day.arabic_name}}</option>
+                      </select>
+                                        </div>
+                                        <!-- <div *ngIf="editPrayerForm.controls['day'].dirty && editPrayerForm.controls['day'].invalid">
+                                            <p class="form_error" *ngIf="editPrayerForm.controls['day'].dirty && editPrayerForm.controls['day'].hasError('required')">{{'selectprayername' | translate}}</p>
+                                        </div> -->
+                                        <div *ngIf="submitted && f.day.errors" class="invalid-test-feedback">
+                                            <div *ngIf="f.day.errors.required">{{'selectprayername' | translate}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Select Category  -->
+                        <!--  <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label labelTextR" for="name">Select Day Arabic:</label>
+                  <div class="col-md-4 ">
+                    <div>
+                      <div>
+                          <select class="form-control input-underline input-lg" formControlName="day_aerobic" [(ngModel)]="day_aerobic">
+                            <option *ngFor="let dayAerobic of dayTypeAerobic" value="{{dayAerobic.name}}">{{dayAerobic.name}}</option>
+                          </select>
+                      </div>
+                      <div *ngIf="editPrayerForm.controls['day_aerobic'].dirty && editPrayerForm.controls['day_aerobic'].invalid">
+                        <p class="form_error" *ngIf="editPrayerForm.controls['day_aerobic'].dirty && editPrayerForm.controls['day_aerobic'].hasError('required')">Please select day_aerobic.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+                        <!-- Time -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'selecttime' | translate}} * :</label>
+                                <div class="col-md-4 ">
+                                    <input formControlName="time" [(ngModel)]="time" [popover]="popTemplate" [outsideClick]="true" placement="bottom" value="{{ time | date: 'HH:mm:ss a' }}" class="form-control" />
+                                    <div *ngIf="submitted && f.time.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.time.errors.required">{{'selecttime' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sort -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="sort">{{'sort' | translate}} * :</label>
+                                <div class="col-md-4 ">
+                                    <input type="number" [(ngModel)]="sort" formControlName="sort" class="form-control" />
+                                    <div *ngIf="submitted && f.sort.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.sort.errors.required">{{'sort' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage topicBtn">
+                            <button type="submit" class="btn btn-primary ">{{'save' | translate}}</button>
+                            <button type="button" [routerLink]="['/layout/manageMosque/listPrayer']" class="btn btn-default">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

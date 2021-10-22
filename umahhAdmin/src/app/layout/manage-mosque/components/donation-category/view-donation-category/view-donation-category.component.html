@@ -1,0 +1,58 @@
+<div class="row">
+  <div class=" col-sm-8">
+    <h2> View Donation Category 
+      </h2>
+  </div>
+  <div class=" col-sm-4 text-right">
+    <!-- [routerLink]="['/layout/manageContent/listTopics']" -->
+    <button class="btn btn-sm btn-success addUserBtn" type="button" (click)="navigate()">
+      <i class="fa fa-arrow-left"></i> Back</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <div class="row  profileInfo myProfileInfo">
+          <div class="col-sm-2 col-md-2 text-center">
+            <div class="profileImgEdit" *ngIf="categorydetailView">
+              <!-- <img src="assets/images/doctor.png" class="userImgPro" /> -->
+              <!-- <img src="{{userData.image ? userData.image : 'assets/images/doctor.png'}}" class="userImgPro" /> -->
+             <!--  <img *ngIf="userData.avtar" src="{{ imageurl + userData.avtar }}" class="userImgPro" /> 
+              <img *ngIf="!userData.avtar" src="{{ baseurl + 'assets/images/doctor.png' }}" class="userImgPro" />  -->              
+            
+            </div>
+          </div>
+          <div class="col-sm-8 col-md-8 " *ngIf="categorydetailView">
+            <div class="row   ">
+              <div class="clientInfo col-sm-6">
+                <!-- <i class="fa fa-user"></i> --> Title : {{categorydetailView.category[0].title ? categorydetailView.category[0].title:'NA'}}
+              </div>
+              <div class="clientInfo col-sm-6">
+                <!-- <i class="fa fa-hospital-o"></i>-->start Date: {{ categorydetailView.category[0].startDate | date}}
+              </div>
+              <div class="clientInfo col-sm-6">
+                <!-- <i class="fa fa-map-marker" aria-hidden="true"></i> --> End Date : {{categorydetailView.category[0].endDate | date}}
+              </div>
+              <div class="clientInfo col-sm-6">
+                <!-- <i class="fa fa-map-marker" aria-hidden="true"></i> --> Created Date : {{categorydetailView.category[0].createdAt | date}}
+              </div>
+             
+              <!-- <div class="clientInfo col-sm-6" *ngIf="loggedInUserDetails.userType == 'clinic'">
+                  <i class="fa fa-question" aria-hidden="true"></i> Allow admin to edit:
+                <p-checkbox [(ngModel)]="userData.isEditedByAdmin" binary="true" disabled="true" ></p-checkbox>
+              </div> -->
+            </div>
+          </div>
+
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>

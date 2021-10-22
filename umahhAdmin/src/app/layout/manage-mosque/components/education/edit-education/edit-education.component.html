@@ -1,0 +1,228 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8">
+            <h2>{{'editEducation' | translate}}</h2>
+        </div>
+        <!--
+    <div class="col col-sm-4 text-right">
+      <button class="btn btn-sm btn-success addUserBtn" type="button">
+        <i class="fa fa-pencil"></i>
+        Create Group
+      </button>
+    </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listEducation']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="startTime"></timepicker>
+                    </ng-template>
+                    <ng-template #popTemplateEnd>
+                        <timepicker [showMeridian]="true" [(ngModel)]="endTime"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="editEducationForm" (ngSubmit)="editEducation()">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="title" class="form-control" />
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'title' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="editEducationForm.controls['title'].dirty && editEducationForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['title'].dirty && editEducationForm.controls['title'].hasError('required')">{{'boardTitle' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['title'].dirty && editEducationForm.controls['title'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'startTime' | translate}} * :</label>
+                                <div class="col-md-2">
+                                    <input formControlName="startTime" [(ngModel)]="startTime" [popover]="popTemplate" [outsideClick]="true" placement="bottom" value="{{ startTime | date: 'HH:mm aa' }}" class="form-control" readonly/>
+                                    <div *ngIf="submitted && f.startTime.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startTime.errors.required">{{'startTime' | translate}}</div>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 control-label labelTextR" for="name">{{'endTime' | translate}} * :</label>
+                                <div class="col-md-2">
+                                    <input formControlName="endTime" [(ngModel)]="endTime" [popover]="popTemplateEnd" [outsideClick]="true" placement="bottom" value="{{ endTime | date: 'HH:mm aa' }}" class="form-control" readonly/>
+                                    <div *ngIf="submitted && f.endTime.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.endTime.errors.required">{{'endTime' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Date -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'startDate' | translate}} * :</label>
+                                <div class="col-md-2">
+                                    <!-- <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="startDate" class="form-control" /> -->
+                                    <input type="date" [ngModel]="startDate | date:'yyyy-MM-dd'" class="form-control" formControlName="startDate" class="form-control" />
+                                    <div *ngIf="submitted && f.startDate.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startDate.errors.required">{{'startDate' | translate}}</div>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 control-label labelTextR" for="name">{{'endDate' | translate}} * :</label>
+                                <div class="col-md-2">
+                                    <!-- <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="endDate" class="form-control" /> -->
+                                    <input type="date" [ngModel]="endDate | date:'yyyy-MM-dd'" class="form-control" formControlName="endDate" class="form-control" />
+                                    <div *ngIf="submitted && f.endDate.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.endDate.errors.required">{{'endDate' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Address -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'address' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="address" class="form-control" />
+                                    <!-- <div *ngIf="editEducationForm.controls['address'].dirty && editEducationForm.controls['address'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['address'].dirty && editEducationForm.controls['address'].hasError('required')">{{'errorAddress' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['address'].dirty && editEducationForm.controls['address'].hasError('pattern')">{{'errorAddress' | translate}}</p>
+                                    </div> -->
+                                    <div *ngIf="submitted && f.address.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.address.errors.required">{{'errorAddress' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'mobile' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="mobile" class="form-control" />
+                                    <div *ngIf="submitted && f.mobile.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.mobile.errors.required">{{'errorMobile' | translate}}</div>
+                                    </div>
+                                    <div class="invalid-test-feedback" *ngIf="submitted && f.mobile.hasError('pattern')">{{'errorMobile' | translate}} number with country code.</div>
+                                    <!-- <div *ngIf="editEducationForm.controls['mobile'].dirty && editEducationForm.controls['mobile'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['mobile'].dirty && editEducationForm.controls['mobile'].hasError('required')">{{'errorMobile' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['mobile'].dirty && editEducationForm.controls['mobile'].hasError('pattern')">{{'errorMobile' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pre Requisites -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'preRequisites' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="pre_requisites" class="form-control" />
+                                    <div *ngIf="submitted && f.pre_requisites.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.pre_requisites.errors.required">{{'errorPreRequisites' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="editEducationForm.controls['pre_requisites'].dirty && editEducationForm.controls['pre_requisites'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['pre_requisites'].dirty && editEducationForm.controls['pre_requisites'].hasError('required')">{{'errorPreRequisites' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['pre_requisites'].dirty && editEducationForm.controls['pre_requisites'].hasError('pattern')">{{'errorPreRequisites' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Objective -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'courseObjective' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="course_objective" [style]="{'height':'200px'}"></p-editor>
+                                    <div *ngIf="submitted && f.course_objective.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.course_objective.errors.required">{{'errorCourseObjective' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="editEducationForm.controls['course_objective'].dirty && editEducationForm.controls['course_objective'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['course_objective'].dirty && editEducationForm.controls['course_objective'].hasError('required')">{{'errorCourseObjective' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['course_objective'].dirty && editEducationForm.controls['course_objective'].hasError('pattern')">{{'errorCourseObjective' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Methodology -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'methodology' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="methodology" [style]="{'height':'200px'}"></p-editor>
+                                    <!-- <div *ngIf="editEducationForm.controls['methodology'].dirty && editEducationForm.controls['methodology'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['methodology'].dirty && editEducationForm.controls['methodology'].hasError('required')">{{'errorCorrectMethodology' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['methodology'].dirty && editEducationForm.controls['methodology'].hasError('pattern')">{{'errorCorrectMethodology' | translate}}</p>
+                                    </div> -->
+                                    <div *ngIf="submitted && f.methodology.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.methodology.errors.required">{{'errorCorrectMethodology' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duration -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'duration' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="duration" [style]="{'height':'200px'}"></p-editor>
+                                    <div *ngIf="submitted && f.duration.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.duration.errors.required">{{'errorDuration' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="editEducationForm.controls['duration'].dirty && editEducationForm.controls['duration'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['duration'].dirty && editEducationForm.controls['duration'].hasError('required')">{{'errorDuration' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['duration'].dirty && editEducationForm.controls['duration'].hasError('pattern')">{{'errorDuration' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Registration Fee -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'registrationFee' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="registration_fee" [style]="{'height':'200px'}"></p-editor>
+                                    <div *ngIf="submitted && f.registration_fee.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.registration_fee.errors.required">{{'errorRegistrationFee' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="editEducationForm.controls['registration_fee'].dirty && editEducationForm.controls['registration_fee'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['registration_fee'].dirty && editEducationForm.controls['registration_fee'].hasError('required')">{{'errorRegistrationFee' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['registration_fee'].dirty && editEducationForm.controls['registration_fee'].hasError('pattern')">{{'errorRegistrationFee' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- About Instructor -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'aboutInstructor' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="about_instructor" [style]="{'height':'200px'}"></p-editor>
+                                    <div *ngIf="submitted && f.about_instructor.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.about_instructor.errors.required">{{'errorAboutInstructor' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="editEducationForm.controls['about_instructor'].dirty && editEducationForm.controls['about_instructor'].invalid">
+                                        <p class="form_error" *ngIf="editEducationForm.controls['about_instructor'].dirty && editEducationForm.controls['about_instructor'].hasError('required')">{{'errorAboutInstructor' | translate}}</p>
+                                        <p class="form_error" *ngIf="editEducationForm.controls['about_instructor'].dirty && editEducationForm.controls['about_instructor'].hasError('pattern')">{{'errorAboutInstructor' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage">
+                            <button class="btn btn-primary" type="submit">{{'create' | translate}}</button>
+                            <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listEducation']">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

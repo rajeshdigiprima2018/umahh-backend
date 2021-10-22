@@ -1,0 +1,123 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>Create Activity</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listActivity']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> Back</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="startTime"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="addActivityForm1" (ngSubmit)="onSubmit()">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">Title * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="title" />
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'boardTitle' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mobile -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">Mobile * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="phone" />
+                                    <div *ngIf="submitted && f.phone.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.phone.errors.required">{{'errorMobile' | translate}}</div>
+                                    </div>
+                                    <div *ngIf="f.phone.errors" class="invalid-test-feedback">
+                                        <span class="text-danger" *ngIf="f.phone.errors.pattern">{{'errorMobile' | translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">Start Time * :</label>
+                                <div class="col-md-4">
+                                    <input formControlName="startTime" [(ngModel)]="startTime" [popover]="popTemplate" [outsideClick]="true" placement="bottom" value="{{ startTime | date: 'HH:mm aa' }}" class="form-control" readonly />
+                                    <div *ngIf="submitted && f.startTime.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startTime.errors.required">{{'errorCorrectTime' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Date -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">Start Date * :</label>
+                                <div class="col-md-4">
+                                    <!-- <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="startDate" class="form-control" /> -->
+                                    <input type="date" class="form-control" formControlName="startDate" class="form-control" />
+                                    <div *ngIf="submitted && f.startDate.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startDate.errors.required">{{'errorCorrectDate' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-md-3 control-label labelTextR" for="name">Select file * :</label>
+                                    <div class="col-md-5 ">
+                                        <!-- <p-fileUpload name="myfile[]" url="./upload.php"></p-fileUpload> -->
+                                        <!-- <img  [src]= "videourl ? videourl : 'assets/images/doctor.png'" class="userImgPro" /> -->
+                                        <div class="selectFile">
+                                            <!-- <input type="file" name="image" id="videoPath" (change)="onFileChange($event)" accept="video/mp4,video/x-m4v" #fileInput /> -->
+                                            <input type="file" name="image" id="imagePath" accept=".jpg,.png" (change)="onFileChange11($event)">
+                                        </div>
+                                        <div *ngIf="submitted && f.image.errors" class="invalid-test-feedback">
+                                            <div *ngIf="f.image.errors.required">File is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group ">
+                            <div class="row ">
+                                <label class="col-md-3 control-label labelTextR" for="name ">Description * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="textarea" [style]="{ 'height': '200px'} "></p-editor>
+                                    <div *ngIf="submitted && f.textarea.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.textarea.errors.required">{{'boardDescription' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="addActivityForm.controls[ 'textarea'].dirty && addActivityForm.controls[ 'textarea'].invalid ">
+                                        <p class="form_error " *ngIf="addActivityForm.controls[ 'textarea'].dirty && addActivityForm.controls[ 'textarea'].hasError( 'required') ">Please enter description.</p>
+                                        <p class="form_error " *ngIf="addActivityForm.controls[ 'textarea'].dirty && addActivityForm.controls[ 'textarea'].hasError( 'pattern') ">Please enter the correct description.</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage ">
+                            <button class="btn btn-primary " type="submit ">Create</button>
+                            <button class="btn btn-default " type="button " [routerLink]="[ '/layout/manageMosque/listActivity'] ">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{ 'spinner' : isLoading} ">
+    </div>
+</div>

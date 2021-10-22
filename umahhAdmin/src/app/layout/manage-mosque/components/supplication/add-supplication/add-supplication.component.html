@@ -1,0 +1,110 @@
+<div [@routerTransition]>
+<div class="row">
+  <div class=" col-sm-8 ">
+    <h2>{{'createSupplication' | translate}}</h2>
+  </div>
+<!-- 
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+  <div class=" col-sm-4  text-right">
+    <button [routerLink]="['/layout/manageMosque/listSupplication']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+  </div>
+  <div class="col col-sm-12">
+    <div class="card mb-3">
+      <div class="card-body ">
+        <ng-template #popTemplate>
+          <timepicker [showMeridian]="true" [(ngModel)]="time"></timepicker>
+        </ng-template>
+        <!-- Title input-->
+        <form class="topic" [formGroup]="addSupplicationForm" (ngSubmit)="addSupplication()" autocomplete="off">
+            <!--Select Category  -->
+            <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label labelTextR" for="name">{{'selectCategory' | translate}} :</label>
+                  <div class="col-md-4 ">
+                    <div>
+                      <div>
+                        <p-dropdown [options]="AllCategorySupplication" class="input-md selectCategory"  formControlName="supCategory_id" [style]="{'width':'390px'}"></p-dropdown>
+                      </div>
+                      <div *ngIf="addSupplicationForm.controls['supCategory_id'].dirty && addSupplicationForm.controls['supCategory_id'].invalid">
+                        <p class="form_error" *ngIf="addSupplicationForm.controls['supCategory_id'].dirty && addSupplicationForm.controls['supCategory_id'].hasError('required')">{{'selectCategory' | translate}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} :</label>
+                  <div class="col-md-5">
+                    <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                    <input type="text" id="Title" name="Title" formControlName="title" placeholder="Title" class="form-control">
+                    <div *ngIf="addSupplicationForm.controls['title'].dirty && addSupplicationForm.controls['title'].invalid">
+                      <p class="form_error" *ngIf="addSupplicationForm.controls['title'].dirty && addSupplicationForm.controls['title'].hasError('required')">{{'boardTitle' | translate}}</p>
+                      <p class="form_error" *ngIf="addSupplicationForm.controls['title'].dirty && addSupplicationForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 200 characters.</p>
+                      <p class="form_error" *ngIf="addSupplicationForm.controls['title'].dirty && addSupplicationForm.controls['title'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-md-3 control-label labelTextR" for="name">{{'titleArabic' | translate}} :</label>
+                  <div class="col-md-5">
+                    <!-- <input id="name" name="name" type="text" placeholder="Your name" class="form-control"> -->
+                    <input type="text" id="title_aro" name="title_aro" formControlName="title_aro" placeholder="Title Arabic" class="form-control">
+                    <div *ngIf="addSupplicationForm.controls['title_aro'].dirty && addSupplicationForm.controls['title_aro'].invalid">
+                      <p class="form_error" *ngIf="addSupplicationForm.controls['title_aro'].dirty && addSupplicationForm.controls['title_aro'].hasError('required')">{{'boardTitle' | translate}}</p>
+                      <p class="form_error" *ngIf="addSupplicationForm.controls['title_aro'].dirty && addSupplicationForm.controls['title_aro'].hasError('maxlength')">Please enter the correct title_aro with maximum length 200 characters.</p>
+                      <p class="form_error" *ngIf="addSupplicationForm.controls['title_aro'].dirty && addSupplicationForm.controls['title_aro'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <!-- Description -->
+                <div class="form-group">
+                  <div class="row">
+                    <label class="col-md-3 control-label labelTextR" for="name">{{'description' | translate}} :</label>
+                    <div class="col-md-8 ">
+                      <!-- Add text editor -->
+                      <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                      <div *ngIf="addSupplicationForm.controls['description'].dirty && addSupplicationForm.controls['description'].invalid">
+                        <p class="form_error" *ngIf="addSupplicationForm.controls['description'].dirty && addSupplicationForm.controls['description'].hasError('required')">{{'boardDescription' | translate}}</p>
+                        <p class="form_error" *ngIf="addSupplicationForm.controls['description'].dirty && addSupplicationForm.controls['description'].hasError('pattern')">{{'boardDescription' | translate}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Description -->
+                <div class="form-group">
+                  <div class="row">
+                    <label class="col-md-3 control-label labelTextR" for="name">{{'descriptionArabic' | translate}} :</label>
+                    <div class="col-md-8 ">
+                      <!-- Add text editor -->
+                      <p-editor formControlName="description_aro" [style]="{'height':'320px'}"></p-editor>
+                      <div *ngIf="addSupplicationForm.controls['description_aro'].dirty && addSupplicationForm.controls['description_aro'].invalid">
+                        <p class="form_error" *ngIf="addSupplicationForm.controls['description_aro'].dirty && addSupplicationForm.controls['description_aro'].hasError('required')">{{'boardDescription' | translate}}</p>
+                        <p class="form_error" *ngIf="addSupplicationForm.controls['description_aro'].dirty && addSupplicationForm.controls['description_aro'].hasError('pattern')">{{'boardDescription' | translate}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+          <div class="bottomBtnPage topicBtn">
+            <button type="submit" [disabled]='!addSupplicationForm.valid' class="btn btn-primary ">{{'save' | translate}}</button>
+            <button type="button" [routerLink]="['/layout/manageMosque/listSupplication']" class="btn btn-default ">{{'close' | translate}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="{'spinner' : isLoading}">
+</div>
+</div>
+

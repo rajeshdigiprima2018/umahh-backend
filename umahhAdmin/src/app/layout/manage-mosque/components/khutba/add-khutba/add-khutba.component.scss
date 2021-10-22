@@ -1,0 +1,12 @@
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #fff !important;
+}
+
+.invalid-test-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}

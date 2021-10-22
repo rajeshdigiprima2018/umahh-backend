@@ -1,0 +1,79 @@
+<app-side-nav-bar></app-side-nav-bar>
+
+<!-- contact -->
+<section class="contactBanner">
+  <img   src="../assets/images/contact_banner.png">
+        <div class="titleInfo">Contact Us</div>
+      </section>
+
+<section class="contactInfo">
+   <div class="container">
+    <div class="row">
+      <div class="col-sm-6 getTouch">
+        <h3>CONTACT US</h3>
+        <h4>Get In Touch</h4>
+        <p>MDout, Inc.<br>
+          4049 First Street, Suite 235<br>
+          Livermore, CA 94551</p>
+        <p><span>EMAIL</span> <br>
+          info@mdout.com </p>
+        <p> <span> CALL US TOLL-FREE</span><br>
+          1-800-901-2516</p>
+      </div>
+      <div class="col-sm-6 contactForm">
+        <form role="form" [formGroup]="contactUsForm" (ngSubmit)="sendInfo()">
+          <h2> Request a free consultation</h2>
+          <p> For general inquiries or to schedule a free consultation, please contact us. </p>
+          <div class="form-group">
+            <input id="name" name="name" placeholder="Your Name" type="text" formControlName="name" class="form-control" required>
+            <div *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].invalid">
+                <p class="form_error" *ngIf="contactUsForm.controls['name'].dirty && contactUsForm.controls['name'].hasError('required')">Please
+                    enter first name.</p>
+                <p class="form_error" *ngIf="contactUsForm.controls['name'].hasError('maxlength')">You can
+                    add only 30 charater.</p>
+                <p class="form_error" *ngIf="contactUsForm.controls['name'].hasError('minlength')">Minimum
+                    2 charater required.</p>
+                <p class="form_error" *ngIf="contactUsForm.controls['name'].dirty&& !contactUsForm.controls['name'].hasError('required')&&!contactUsForm.controls['name'].hasError('maxlength') && !contactUsForm.controls['name'].hasError('minlength') && contactUsForm.controls['name'].hasError('pattern')">Please
+                    enter the correct name.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input id="phone" name="email" type="tel" class="form-control" formControlName="email" placeholder="Your email"  required>
+            <div *ngIf="contactUsForm.controls['email'].dirty && contactUsForm.controls['email'].invalid">
+                <p class="form_error" *ngIf="contactUsForm.controls['email'].hasError('required')">Please enter
+                    Email.
+                </p>
+                <p class="form_error" *ngIf="contactUsForm.controls['email'].dirty && contactUsForm.controls['email'].hasError('pattern')">Please
+                    enter the correct email.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea id="message" name="message" class="form-control" formControlName="message" rows="4" placeholder="Your Message"  required></textarea>
+            <div *ngIf="contactUsForm.controls['message'].dirty && contactUsForm.controls['message'].invalid">
+                <p class="form_error" *ngIf="contactUsForm.controls['message'].dirty && contactUsForm.controls['message'].hasError('required')">Please enter message.</p>
+                <p class="form_error" *ngIf="contactUsForm.controls['message'].dirty && contactUsForm.controls['message'].hasError('pattern')">Please enter the correct description.</p>
+              </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" id="submit" name="submit" class="btn btn-primary" [disabled]="!contactUsForm.valid">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- contact end --> 
+<section class="patientExperience">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9"> Improve the provider performance and patient experience using our patent-pending technology.
+          <p>Establish trusted channel with your patients while increasing patient retention and satisfaction.</p>
+        </div>
+        <div class="col-md-3 text-right"><span class="phoneNoDr">800-901-2516 </span></div>
+      </div>
+    </div>
+  </section>
+<div [ngClass]="{'spinner' : isLoading}">
+  </div>
+
+<app-footer></app-footer>

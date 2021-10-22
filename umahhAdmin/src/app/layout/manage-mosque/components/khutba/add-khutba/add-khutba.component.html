@@ -1,0 +1,105 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'createKhutba' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listKhutba']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="startTime"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="addKhutbaForm" (ngSubmit)="addKhutba()" autocomplete="off">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="title" class="form-control" />
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'boardTitle' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="addKhutbaForm.controls['title'].dirty && addKhutbaForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['title'].dirty && addKhutbaForm.controls['title'].hasError('required')">{{'boardTitle' | translate}}</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['title'].dirty && addKhutbaForm.controls['title'].hasError('maxlength')">Please enter the correct title with maximum length 200 characters.</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['title'].dirty && addKhutbaForm.controls['title'].hasError('pattern')">{{'boardTitle' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Speaker -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'speakerName' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="speaker_name" class="form-control" />
+                                    <div *ngIf="submitted && f.speaker_name.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.speaker_name.errors.required">{{'errorSpeakerName' | translate}}</div>
+                                    </div>
+                                    <!-- <div *ngIf="addKhutbaForm.controls['speaker_name'].dirty && addKhutbaForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['speaker_name'].dirty && addKhutbaForm.controls['speaker_name'].hasError('required')">{{'errorSpeakerName' | translate}}</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['speaker_name'].dirty && addKhutbaForm.controls['speaker_name'].hasError('maxlength')">Please enter the correct speaker_name with maximum length 200 characters.</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['speaker_name'].dirty && addKhutbaForm.controls['speaker_name'].hasError('pattern')">{{'errorSpeakerName' | translate}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'time' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input formControlName="startTime" [(ngModel)]="startTime" [popover]="popTemplate" [outsideClick]="true" placement="bottom" value="{{ startTime | date: 'HH:mm aa' }}" class="form-control" readonly />
+                                    <!-- <div *ngIf="addKhutbaForm.controls['startTime'].dirty && addKhutbaForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['startTime'].dirty && addKhutbaForm.controls['startTime'].hasError('required')">{{'errorCorrectTime' | translate}}</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['startTime'].dirty && addKhutbaForm.controls['startTime'].hasError('maxlength')">Please enter the correct time with maximum length 200 characters.</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['startTime'].dirty && addKhutbaForm.controls['startTime'].hasError('pattern')">{{'errorCorrectTime' | translate}}</p>
+                                    </div> -->
+                                    <div *ngIf="submitted && f.startTime.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startTime.errors.required">{{'errorCorrectTime' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Date -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'date' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <!-- <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="startDate" class="form-control" /> -->
+                                    <input type="date" class="form-control" formControlName="startDate" class="form-control" />
+                                    <!-- <div *ngIf="addKhutbaForm.controls['startDate'].dirty && addKhutbaForm.controls['title'].invalid">
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['startDate'].dirty && addKhutbaForm.controls['startDate'].hasError('required')">{{'errorCorrectDate' | translate}}</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['startDate'].dirty && addKhutbaForm.controls['startDate'].hasError('maxlength')">Please enter the correct date with maximum length 200 characters.</p>
+                                        <p class="form_error" *ngIf="addKhutbaForm.controls['startDate'].dirty && addKhutbaForm.controls['startDate'].hasError('pattern')">{{'errorCorrectDate' | translate}}</p>
+                                    </div> -->
+                                    <div *ngIf="submitted && f.startDate.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startDate.errors.required">{{'errorCorrectDate' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage">
+                            <button class="btn btn-primary" type="submit">{{'create' | translate}}</button>
+                            <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listKhutba']">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

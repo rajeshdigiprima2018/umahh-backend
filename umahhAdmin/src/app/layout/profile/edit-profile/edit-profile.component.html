@@ -1,0 +1,234 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'editProfileDetails' | translate}}
+            </h2>
+        </div>
+        <div class=" col-sm-4 text-right">
+            <button [routerLink]="['/layout/profile']" class="btn btn-sm btn-success addUserBtn" type="button" *ngIf="loggedInUserDetails.isUpdated =='1'"><i _ngcontent-c4="" class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <form [formGroup]="form">
+                        <div class="row  profileInfo">
+                            <div class="col-sm-12 col-md-12 text-center">
+                                <div class="profileImgEdit">
+                                    <!-- src="assets/images/doctor.png" -->
+                                    <div *ngIf="imageChange==false">
+                                        <img [src]="imgurl ? baseimageurl+imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                                    </div>
+                                    <div *ngIf="imageChange==true">
+                                        <img [src]="imgurl ? imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                                    </div>
+                                    <span class="editIcon"><i class="fa fa-camera" aria-hidden="true">
+                                    <input type="file" name="image" id="imagePath" (change)="onFileChange($event)">
+                                </i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  <div class="bottomBtnInfo col-sm-12 text-center"><button class="btn btn-primary" type="submit">Submit</button>
+                                        <button _ngcontent-c6="" class="btn btn-default" type="button" [routerLink]="['/layout/profile']">Cancel</button>
+                                    </div>    -->
+                    </form>
+                    <form [formGroup]="editProfileForm" (ngSubmit)="onEdit()">
+
+                        <div class="row  profileInfo">
+                            <div class="col-sm-8 col-md-8 offset-md-2 offset-lg-2">
+                                <div class="row  ">
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user " aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].hasError('required')">Please enter user name.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['username'].dirty && editProfileForm.controls['username'].hasError('pattern')">Please enter the correct user name.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="clientInfo col-sm-6">
+                                        <div *ngIf="loggedInUserDetails.userType!='admin'" class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user " aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="nameContactPerson" placeholder="Contact Person Name" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="loggedInUserDetails.userType!='admin'">
+                                            <div *ngIf="editProfileForm.controls['nameContactPerson'].dirty && editProfileForm.controls['nameContactPerson'].invalid">
+                                                <p class="form_error" *ngIf="editProfileForm.controls['nameContactPerson'].dirty && editProfileForm.controls['nameContactPerson'].hasError('required')">Please enter contact person name.</p>
+                                                <p class="form_error" *ngIf="editProfileForm.controls['nameContactPerson'].dirty && editProfileForm.controls['nameContactPerson'].hasError('pattern')">Please enter the correct contact person name.</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="email" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].hasError('required')">Please enter email.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['email'].dirty && editProfileForm.controls['email'].hasError('pattern')">Please enter the correct email.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <!-- <select class="form-control input-underline input-lg" formControlName="country" [(ngModel)]="country" (change)="onChange($event)">
+                                            <option value="">Select Country</option>
+                                            <option *ngFor="let country of contryListData" value="{{country.id}}|{{country.country_id}}">{{country.name}}</option>
+                                            </select> -->
+                                            <input type="text" class="form-control" formControlName="country" placeholder="Country" aria-label="Country" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['country'].dirty && editProfileForm.controls['country'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['country'].dirty && editProfileForm.controls['country'].hasError('required')">Please enter country.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['country'].dirty && editProfileForm.controls['country'].hasError('pattern')">Please enter the correct country.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <!-- <select class="form-control input-underline input-lg" formControlName="state" [(ngModel)]="state" (change)="onSelectCity($event)">
+                                            <option value="">Select State</option>
+                                            <option *ngFor="let state of stateListData" value="{{state.id}}|{{state.state_id}}">{{state.name}}</option>
+                                            </select> -->
+                                            <input type="text" class="form-control" formControlName="state" placeholder="State" aria-label="State" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['state'].dirty && editProfileForm.controls['state'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['state'].dirty && editProfileForm.controls['state'].hasError('required')">Please enter state.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['state'].dirty && editProfileForm.controls['state'].hasError('pattern')">Please enter the correct state.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <!-- <select class="form-control input-underline input-lg" formControlName="city" [(ngModel)]="city">
+                                            <option value="">Select City</option>
+                                            <option *ngFor="let city of cityListData" value="{{city.id}}|{{city.cities_id}}">{{city.name}}</option>
+                                            </select> -->
+                                            <input type="text" class="form-control" formControlName="city" placeholder="City" aria-label="City" aria-describedby="basic-addon1">
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['city'].dirty && editProfileForm.controls['city'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['city'].dirty && editProfileForm.controls['city'].hasError('required')">Please enter city.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['city'].dirty && editProfileForm.controls['city'].hasError('pattern')">Please enter the correct city.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="zipCode" placeholder="Zipcode" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['zipCode'].dirty && editProfileForm.controls['zipCode'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['zipCode'].dirty && editProfileForm.controls['zipCode'].hasError('required')">Please enter zipcode.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['zipCode'].dirty && editProfileForm.controls['zipCode'].hasError('pattern')">Please enter the correct zipcode.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-phone" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="mobile" placeholder="Phone Number" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].hasError('required')">Please enter phone number.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['mobile'].dirty && editProfileForm.controls['mobile'].hasError('pattern')">Please enter the correct phone number with country code.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-home" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="street_address" placeholder="Address" aria-label="Address" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['street_address'].dirty && editProfileForm.controls['street_address'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['street_address'].dirty && editProfileForm.controls['street_address'].hasError('required')">Please enter address.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['street_address'].dirty && editProfileForm.controls['street_address'].hasError('pattern')">Please enter the correct address.</p>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-home" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="lat" placeholder="lat" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['lat'].dirty && editProfileForm.controls['lat'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['lat'].dirty && editProfileForm.controls['lat'].hasError('required')">Please enter lat.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['lat'].dirty && editProfileForm.controls['lat'].hasError('pattern')">Please enter the correct lat.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clientInfo col-sm-6">
+                                        <div class="input-group mb-3 inputTI">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1"> <i class="fa fa-home" aria-hidden="true"></i>
+                                            </span>
+                                            </div>
+                                            <input type="text" class="form-control" formControlName="lng" placeholder="lng" aria-label="Username" aria-describedby="basic-addon1">
+
+                                        </div>
+                                        <div *ngIf="editProfileForm.controls['lng'].dirty && editProfileForm.controls['lng'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['lng'].dirty && editProfileForm.controls['lng'].hasError('required')">Please enter long.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['lng'].dirty && editProfileForm.controls['lng'].hasError('pattern')">Please enter the correct long.</p>
+                                        </div>
+                                    </div> -->
+                                    <!-- Description and Service -->
+                                    <div class="clientInfo col-sm-6">
+                                        <p-editor formControlName="description_service" placeholder="Description and Service" [style]="{'height':'320px'}"></p-editor>
+                                        <div *ngIf="editProfileForm.controls['description_service'].dirty && editProfileForm.controls['description_service'].invalid">
+                                            <p class="form_error" *ngIf="editProfileForm.controls['description_service'].dirty && editProfileForm.controls['description_service'].hasError('required')">Please enter description and service.</p>
+                                            <p class="form_error" *ngIf="editProfileForm.controls['description_service'].dirty && editProfileForm.controls['description_service'].hasError('pattern')">Please enter the description and service.</p>
+                                        </div>
+                                    </div>
+                                    <div class="bottomBtnInfo col-sm-12 text-center"><button class="btn btn-primary" type="submit" [disabled]="!editProfileForm.valid">Submit</button>
+                                        <button _ngcontent-c6="" class="btn btn-default" type="button" [routerLink]="['/layout/profile']">Cancel</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div> <br/><br/><br/><br/>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

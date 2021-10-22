@@ -1,0 +1,98 @@
+
+
+1.  APIs
+
+    Entities:
+
+        MERCHANTS:
+
+            1.  DELETE GALLERY IMAGE (EXISTING MERCHANT)        DONE
+            2.  DELETE MERCHANT (WITH ALL RELEVANT DATA)        DONE
+            3.  MODIFY MERCHANT DETAILS                         DONE
+            4.  SEARCH NEAR BY (LOCATION BASED FILTER)
+            5.  SEARCH BY NAME
+            6.  INSERT, MODIFY AND DELETE MERCHANT OPENING & CLOSING TIME (GENERAL AND SPECIFIC DATES AS WELL)
+
+        MENU DATA:
+
+            4.  MODIFY & DELETE MENUITEMS, CATEGORIES OR A COMPLETE MENU ITEM DATA      DONE
+            5.  INSERT, MODIFY AND DELETE MENU CARD IMAGES                              DONE
+
+        USERS:
+
+            6.  USER SIGN UP                                                            DONE
+            7.  USER LOGIN (MAY BE oAuth 2.0 using JWT)                                 DONE
+            8.  USER SIGN UP (FB)
+            9.  USER LOGIN (FB)
+            10. INSERT & MODIFY USER PROFILE DATA                                       WORKING
+                (including profile Pic and FB profile pic)
+
+        RATING & REVIEWS
+
+            11. INSERT NEW RATING AND REVIEWS
+            12
+
+        ORDERS
+            13.
+            14.
+
+        PAYMENT
+            15.
+            16.
+
+        PROMOTIONS
+            17.
+            18.
+
+        MISCLLANEOUS:
+            19. PUSH NOTIFICATIONS
+            20. EMAIL SERVER SET-UP AND FUNCTIONAL CODE
+            21. SMS GATEWAY INTEGRATIONS AND FUNCTIONAL CODE
+            22. ANALYTICS AND STATISTICS COLLECTION
+
+
+
+2.  Business Logic
+
+         MERCHANTS:
+
+            1.  LOCATION BASED FILTERATION FOR SEARCH QUERY
+            2.  "OPEN_NOW" FLAG DETERMINATION WHILE FETCHING MERCHANT FROM DB
+                -- first convert the timings for currentDay into a numeric range like 700(07:00 AM), 1830(06:30 PM) and so on
+                -- calculate current date's time and convert that too in numeric form like above
+                -- Find if current time's numeric value falls within given range/s.If yes pass TRUE eles FALSE for 'open_now'
+            3.  MODIFY MERCHANT DETAILS
+
+         MENU ITEMS DATA:
+
+            4.
+            5.
+
+         MENU ITEMS DATA:
+
+            6.
+            7.
+            8.
+            9.
+            10.
+
+         RATING & REVIEWS
+
+                     11. CONCEPTUALIZE, DEVELOP & APPLY OVERALL RATING CALCULATION ALGORITHM AND GENERATE CUMULATIVE RATING.
+                     12.
+
+
+
+3.  Other
+
+
+//ToDo  :    imagine situation where an access token should be revoked(deleted) and regenrated on the fly : 1) When user changes the password
+//ToDo  :   2) When user changes the Saved Credit Cards info ect..
+
+
+4.  Dev Notes
+
+    1.  Start PM2 process using npm script
+
+        example :  pm2 start npm --no-automation --name "<name of process>" -- run "<npm-script-name>"
+                e.g. --> pm2 start npm --no-automation --name "YZ-MARKET-LIVE" -- run "pm-live"

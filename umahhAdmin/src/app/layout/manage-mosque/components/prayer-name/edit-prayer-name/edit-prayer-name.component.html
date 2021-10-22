@@ -1,0 +1,65 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'editprayer' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listPrayer']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="editPrayerNameForm" (ngSubmit)="editPrayerNameById()">
+                        <!-- Arabic Name -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'name' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="name" class="form-control" />
+                                    <div *ngIf="editPrayerNameForm.controls['name'].dirty && editPrayerNameForm.controls['name'].invalid">
+                                        <!-- <p class="form_error" *ngIf="editPrayerNameForm.controls['name'].dirty && editPrayerNameForm.controls['name'].hasError('required')">{{'pleaseentername' | translate}}</p> -->
+                                        <div *ngIf="submitted && f.name.errors" class="invalid-test-feedback">
+                                            <div *ngIf="f.name.errors.required">{{'pleaseentername' | translate}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Arabic Name -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'arabicName' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="arabic_name" class="form-control" />
+                                    <!-- <div *ngIf="editPrayerNameForm.controls['arabic_name'].dirty && editPrayerNameForm.controls['arabic_name'].invalid">
+              <p class="form_error" *ngIf="editPrayerNameForm.controls['arabic_name'].dirty && editPrayerNameForm.controls['arabic_name'].hasError('required')">{{'pleaseentername' | translate}}</p>
+            </div> -->
+                                    <div *ngIf="submitted && f.arabic_name.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.arabic_name.errors.required">{{'pleaseentername' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="bottomBtnPage topicBtn">
+                            <button type="submit" class="btn btn-primary ">{{'save' | translate}}</button>
+                            <button type="button" [routerLink]="['/layout/manageMosque/listPrayerName']" class="btn btn-default">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+
+</div>

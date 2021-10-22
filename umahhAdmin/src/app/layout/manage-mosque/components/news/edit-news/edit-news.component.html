@@ -1,0 +1,113 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class=" col-sm-8 ">
+            <h2>{{'editNews' | translate}}</h2>
+        </div>
+        <!--
+  <div class="col col-sm-4 text-right">
+    <button class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-pencil"></i>
+      Create Group
+    </button>
+  </div> -->
+        <div class=" col-sm-4  text-right">
+            <button [routerLink]="['/layout/manageMosque/listNews']" class="btn btn-sm btn-success addUserBtn" type="button">
+      <i class="fa fa-arrow-left"></i> {{'back' | translate}}</button>
+        </div>
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-body ">
+                    <form [formGroup]="form">
+                        <div class="row  profileInfo">
+                            <div class="col-sm-12 col-md-12 text-center">
+                                <div class="profileImgEdit">
+                                    <!-- src="assets/images/doctor.png" -->
+                                    <div *ngIf="imageChange==false">
+                                        <img [src]="imgurl ? baseimageurl+imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                                    </div>
+                                    <div *ngIf="imageChange==true">
+                                        <img [src]="imgurl ? imgurl  : 'assets/images/doctor.png'" class="userImgPro" />
+                                    </div>
+                                    <span class="editIcon"><i class="fa fa-camera" aria-hidden="true">
+                        <input type="file" name="image" id="imagePath" aaccept=".jpg,.png" (change)="onFileChange($event)">
+                    </i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <ng-template #popTemplate>
+                        <timepicker [showMeridian]="true" [(ngModel)]="startTime"></timepicker>
+                    </ng-template>
+                    <!-- Title input-->
+                    <form class="topic" [formGroup]="editNewsForm" (ngSubmit)="editNews()">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'title' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="title" class="form-control" />
+                                    <div *ngIf="submitted && f.title.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.title.errors.required">{{'boardTitle' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- By Name -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'name' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" formControlName="byName" class="form-control" />
+                                    <div *ngIf="submitted && f.byName.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.byName.errors.required">{{'boardName' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time -->
+                        <!-- <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'startTime' | translate}} :</label>
+                                <div class="col-md-4">
+                                    <input formControlName="startTime" [(ngModel)]="startTime" [popover]="popTemplate" [outsideClick]="true" placement="bottom" value="{{ startTime | date: 'HH:mm aa' }}" class="form-control" />
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- Date -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'date' | translate}} * :</label>
+                                <div class="col-md-4">
+                                    <!-- <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker formControlName="startDate" class="form-control" /> -->
+                                    <input type="date" [ngModel]="startDate | date:'yyyy-MM-dd'" class="form-control" formControlName="startDate" class="form-control" />
+                                    <div *ngIf="submitted && f.startDate.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.startDate.errors.required">{{'errorCorrectDate' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-3 control-label labelTextR" for="name">{{'description' | translate}} * :</label>
+                                <div class="col-md-8 ">
+                                    <!-- Add text editor -->
+                                    <p-editor formControlName="textarea" [style]="{'height':'320px'}"></p-editor>
+                                    <div *ngIf="submitted && f.textarea.errors" class="invalid-test-feedback">
+                                        <div *ngIf="f.textarea.errors.required">{{'boardDescription' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottomBtnPage">
+                            <button class="btn btn-primary" type="submit">{{'update' | translate}}</button>
+                            <button class="btn btn-default" type="button" [routerLink]="['/layout/manageMosque/listNews']">{{'close' | translate}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'spinner' : isLoading}">
+    </div>
+</div>

@@ -1,0 +1,68 @@
+$topnav-background-color: #222;
+:host {
+    .navbar {
+        background-color: #fff;
+    border-bottom: 1px solid #f4f4f4;
+        .navbar-brand {
+            color: #fff;
+        }
+        .nav-item > a {
+            color: #999;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+    .messages {
+        width: 300px;
+        .media {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        .media-body {
+            h5 {
+                font-size: 13px;
+                font-weight: 600;
+            }
+            .small {
+                margin: 0;
+            }
+            .last {
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+    }
+}
+.toggle-button {
+    position: fixed;
+    width: 236px;
+    cursor: pointer;
+    padding: 12px;
+    bottom: 0;
+    color: #999;
+    background: #212529;
+    i {
+        font-size: 23px;
+    }
+    &:hover {
+        background: darken($topnav-background-color, 5%);
+        color: #fff;
+    }
+    border-top: 1px solid #999;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.collapsed {
+    width: 50px;
+    span {
+        display: none;
+    }
+}
