@@ -183,17 +183,17 @@ if(argsData.hasOwnProperty('env') && argsData.env){
 
     var  serverConfigSSLServer  =    null;
 
-    if(argsData.env !== 'dev'){
+    // if(argsData.env !== 'dev'){
 
-        serverConfigSSLServer   =    {
+    //     serverConfigSSLServer   =    {
 
-            key     : fileSystem.readFileSync(app_config._SSL_TLS_SERVER.key),
-            cert    : fileSystem.readFileSync(app_config._SSL_TLS_SERVER.fullChain),
-            ca      : fileSystem.readFileSync(app_config._SSL_TLS_SERVER.chain)
-        }
+    //         key     : fileSystem.readFileSync(app_config._SSL_TLS_SERVER.key),
+    //         cert    : fileSystem.readFileSync(app_config._SSL_TLS_SERVER.fullChain),
+    //         ca      : fileSystem.readFileSync(app_config._SSL_TLS_SERVER.chain)
+    //     }
 
-        serverConfig.tls    =    serverConfigSSLServer;
-    }
+    //     serverConfig.tls    =    serverConfigSSLServer;
+    // }
 
     if(argsData.env === 'staging'){
 

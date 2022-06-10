@@ -11,7 +11,7 @@ var production =  false,
     dev = false,
     live = false;
 
-const SSLCertPath   =    '../../../../../etc/letsencrypt/live/yummzapp.com/';
+//const SSLCertPath   =    '../../../../../etc/letsencrypt/live/yummzapp.com/';
 
 var setEnvironment = function(env){
 
@@ -128,14 +128,14 @@ module.exports.prefs = {
         self_signed_key : './Certs/SSL/server.dev.key', //'./Certs/SSL/key_ssl.pem',
         self_signed_cert : './Certs/SSL/server.dev.crt'//'./Certs/SSL/cert_ssl.pem'
     },
-    _SSL_TLS_SERVER : {
+    // _SSL_TLS_SERVER : {
 
-        key     :   SSLCertPath + 'privkey.pem',
-        cert     :   SSLCertPath + 'cert.pem',
-        chain       :   SSLCertPath + 'chain.pem',
-        fullChain   :   SSLCertPath + 'fullchain.pem',
+    //     key     :   SSLCertPath + 'privkey.pem',
+    //     cert     :   SSLCertPath + 'cert.pem',
+    //     chain       :   SSLCertPath + 'chain.pem',
+    //     fullChain   :   SSLCertPath + 'fullchain.pem',
 
-    },
+    // },
     _LOCALE :   {
 
         ENGLISH     :   "en",
